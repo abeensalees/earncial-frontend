@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Categories | Earncial Admin</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #00aaff;
+            --primary-dark: #008ecc;
+            --primary-light: #e0f2fe;
+            --bg-body: #f8faff;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --sidebar-width: 260px;
+            --header-height: 60px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --radius: 12px;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        body.dark-mode {
+            --primary: #53d6ff;
+            --primary-dark: #00aaff;
+            --primary-light: #1e3a8a;
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body { 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            min-height: 100vh; 
+            display: flex;
+        }
+
+        /* ============ ICON PICKER STYLES ============ */
+        .icon-picker-wrapper {
+            position: relative;
+        }
+
+        .icon-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-top: 4px;
+            max-height: 350px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .icon-search {
+            position: sticky;
+            top: 0;
+            padding: 12px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 10;
+        }
+
+        .icon-search input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-size: 14px;
+        }
+
+        .icon-search input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+            gap: 4px;
+            padding: 8px;
+        }
+
+        .icon-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 8px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .icon-option:hover {
+            background: var(--primary-light);
+        }
+
+        .icon-option i {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .icon-option span {
+            font-size: 10px;
+            color: var(--text-muted);
+            word-break: break-word;
+        }
+
+        .icon-option.selected {
+            background: var(--primary);
+        }
+
+        .icon-option.selected i,
+        .icon-option.selected span {
+            color: white !important;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--bg-card);
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            z-index: 1000;
+            border-right: 1px solid var(--border-color);
+            display: flex; 
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            backdrop-filter: blur(3px);
+        }
+        .sidebar-overlay.active { display: block; }
+
+        .brand {
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-logo {
+            width: 36px; 
+            height: 36px; 
+            background: var(--primary); 
+            color: white; 
+            border-radius: 8px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-weight: bold; 
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .brand-text { 
+            font-size: 18px; 
+            font-weight: 600; 
+            color: var(--primary); 
+        }
+
+        .sidebar-menu { 
+            padding: 16px 0; 
+            flex: 1; 
+            overflow-y: auto; 
+        }
+        
+        .sidebar-menu ul { list-style: none; }
+        .sidebar-menu a { text-decoration: none; }
+        
+        .menu-item {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            color: var(--text-muted);
+            font-weight: 500;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .menu-item i { 
+            width: 22px; 
+            font-size: 16px; 
+            margin-right: 10px; 
+        }
+        
+        .menu-item:hover, .menu-item.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .sidebar-footer { 
+            padding: 16px; 
+            border-top: 1px solid var(--border-color); 
+        }
+        
+        .logout-btn {
+            width: 100%; 
+            padding: 10px; 
+            background: rgba(239,68,68,0.1); 
+            color: #ef4444;
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: 600;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        .logout-btn:hover { 
+            background: #ef4444; 
+            color: white; 
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .top-header {
+            height: var(--header-height);
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            position: sticky;
+            top: 0; 
+            z-index: 900;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .menu-toggle { 
+            display: none; 
+            font-size: 22px; 
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        .header-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .header-right { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+        }
+
+        .notif-btn {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .notif-btn i { 
+            font-size: 20px; 
+            color: var(--text-main); 
+        }
+        
+        .notif-badge {
+            position: absolute; 
+            top: -6px; 
+            right: -6px;
+            background: #ef4444; 
+            color: white; 
+            border-radius: 50%;
+            width: 18px; 
+            height: 18px; 
+            font-size: 10px; 
+            font-weight: 600;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            border: 2px solid var(--bg-card);
+        }
+
+        .theme-toggle {
+            background: var(--primary-light);
+            border: none; 
+            color: var(--text-main);
+            width: 36px; 
+            height: 36px; 
+            border-radius: 50%;
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        /* CONTAINER */
+        .container {
+            padding: 16px;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex: 1;
+            width: 100%;
+        }
+
+        .page-header {
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        
+        .page-title i {
+            font-size: 24px; 
+            color: var(--primary); 
+            background: var(--primary-light);
+            width: 44px; 
+            height: 44px; 
+            border-radius: 10px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+        }
+        
+        .page-title h1 { 
+            font-size: 22px; 
+            font-weight: 600; 
+            color: var(--primary); 
+        }
+
+        .page-subtitle {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-left: 56px;
+        }
+
+        /* CARDS */
+        .admin-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .section-title i {
+            font-size: 20px;
+        }
+
+        /* FORMS */
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 13px;
+        }
+
+        .form-group label .optional {
+            color: var(--text-muted);
+            font-weight: 400;
+            font-size: 11px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-size: 14px;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0,170,255,0.1);
+        }
+
+        /* BUTTONS */
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            position: relative;
+            overflow: hidden;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .btn-primary:hover { 
+            background: var(--primary-dark); 
+        }
+
+        .btn-danger { 
+            background: var(--danger); 
+            color: white; 
+        }
+        
+        .btn-danger:hover { 
+            background: #dc2626; 
+        }
+
+        .btn-warning { 
+            background: var(--warning); 
+            color: white; 
+        }
+        
+        .btn-warning:hover { 
+            background: #e68a00; 
+        }
+
+        .btn-secondary {
+            background: var(--border-color);
+            color: var(--text-main);
+        }
+        
+        .btn-secondary:hover { 
+            background: var(--text-muted); 
+            color: white; 
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .btn.loading .btn-text { opacity: 0; }
+        .btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 18px; 
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin { 
+            to { transform: rotate(360deg); } 
+        }
+
+        /* TABLES */
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 100%;
+        }
+        
+        th, td {
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 13px;
+        }
+        
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        tbody tr:hover { 
+            background: var(--primary-light); 
+        }
+
+        .actions { 
+            display: flex; 
+            gap: 6px; 
+            flex-wrap: wrap; 
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        
+        .status-active {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        
+        .status-inactive {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 9998;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-overlay.active { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            padding: 16px;
+        }
+        
+        .modal {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 24px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: var(--shadow);
+            animation: scaleIn 0.3s ease;
+        }
+        
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .modal-header i {
+            font-size: 28px;
+            color: var(--warning);
+        }
+        
+        .modal-header h3 {
+            font-size: 18px;
+            color: var(--text-main);
+        }
+        
+        .modal-body {
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+        
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .modal-footer .btn {
+            width: auto;
+        }
+        
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* TOAST */
+        .toast-container {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .toast {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 12px 16px;
+            min-width: 280px;
+            max-width: 90vw;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 4px solid var(--primary);
+            animation: slideInRight 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .toast.success { border-left-color: var(--success); }
+        .toast.error { border-left-color: var(--danger); }
+        .toast-icon { font-size: 18px; }
+        .toast.success .toast-icon { color: var(--success); }
+        .toast.error .toast-icon { color: var(--danger); }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            .sidebar { 
+                transform: translateX(-100%); 
+                width: 280px; 
+            }
+            
+            .sidebar.active { 
+                transform: translateX(0); 
+                box-shadow: 0 0 50px rgba(0,0,0,0.5); 
+            }
+            
+            .main-content { 
+                margin-left: 0 !important; 
+                width: 100% !important; 
+            }
+
+            .menu-toggle { 
+                display: block; 
+            }
+
+            .header-title {
+                font-size: 14px;
+            }
+
+            .page-title h1 { 
+                font-size: 18px; 
+            }
+
+            .page-title i {
+                width: 38px;
+                height: 38px;
+                font-size: 20px;
+            }
+
+            .page-subtitle {
+                margin-left: 50px;
+                font-size: 12px;
+            }
+
+            .admin-card {
+                padding: 16px;
+            }
+
+            .section-title {
+                font-size: 16px;
+            }
+
+            th, td { 
+                padding: 10px 8px; 
+                font-size: 12px; 
+            }
+
+            .btn {
+                font-size: 13px;
+                padding: 9px 14px;
+            }
+
+            .btn-sm {
+                padding: 5px 10px;
+                font-size: 11px;
+            }
+
+            .modal {
+                padding: 20px;
+            }
+
+            .modal-header h3 {
+                font-size: 16px;
+            }
+
+            .toast {
+                min-width: 250px;
+            }
+
+            .form-group label {
+                font-size: 12px;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 13px;
+                padding: 10px;
+            }
+
+            .icon-grid {
+                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            }
+
+            .icon-dropdown {
+                max-height: 300px;
+            }
+        }
+
+        /* EXTRA SMALL SCREENS */
+        @media (max-width: 480px) {
+            .container {
+                padding: 12px;
+            }
+
+            .page-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .page-subtitle {
+                margin-left: 0;
+            }
+
+            .admin-card {
+                padding: 12px;
+            }
+
+            .section-title {
+                font-size: 15px;
+                flex-wrap: wrap;
+            }
+
+            .header-right {
+                gap: 8px;
+            }
+
+            .theme-toggle,
+            .notif-btn i {
+                font-size: 18px;
+            }
+
+            .theme-toggle {
+                width: 32px;
+                height: 32px;
+            }
+
+            table {
+                font-size: 11px;
+            }
+
+            th, td {
+                padding: 8px 6px;
+            }
+
+            .actions {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .modal {
+                max-width: 95%;
+            }
+
+            .toast-container {
+                left: 12px;
+                right: 12px;
+            }
+
+            .toast {
+                min-width: auto;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-logo">E</div>
+            <span class="brand-text">Earncial Admin</span>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="#" class="menu-item"><i class="fas fa-th-large"></i> Dashboard</a></li>
+            <li><a href="#" class="menu-item active"><i class="fas fa-list-alt"></i> Categories & Types</a></li>
+            <li><a href="#" class="menu-item"><i class="fas fa-tasks"></i> Review Tasks</a></li>
+            <li><a href="#" class="menu-item"><i class="fas fa-users"></i> Users</a></li>
+            <li><a href="#" class="menu-item"><i class="fas fa-wallet"></i> Wallets</a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-header">
+            <div class="menu-toggle" onclick="openSidebar()">
+                <i class="fas fa-bars"></i>
+            </div>
+            <h3 class="header-title">Earncial Admin</h3>
+            <div class="header-right">
+                <div class="notif-btn">
+                    <i class="far fa-bell"></i>
+                    <span class="notif-badge">2</span>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="page-header">
+                <div class="page-title">
+                    <i class="fas fa-cogs"></i>
+                    <h1>Categories & Types</h1>
+                </div>
+                <p class="page-subtitle">Manage platforms and task types</p>
+            </div>
+
+            <!-- CATEGORIES -->
+            <div class="admin-card">
+                <h2 class="section-title"><i class="fas fa-globe"></i> Categories</h2>
+                
+                <div class="form-group">
+                    <label>Category Name</label>
+                    <input type="text" id="catName" placeholder="e.g., facebook">
+                </div>
+                <div class="form-group">
+                    <label>Display Name</label>
+                    <input type="text" id="catDisplayName" placeholder="e.g., Facebook">
+                </div>
+                <div class="form-group">
+                    <label>Icon <span class="optional">(Click to select)</span></label>
+                    <input type="text" id="catIcon" placeholder="Click to select icon" value="fas fa-globe" readonly style="cursor: pointer;">
+                </div>
+                <div class="form-group">
+                    <label>Order</label>
+                    <input type="number" id="catOrder" value="0">
+                </div>
+                <button class="btn btn-primary" id="saveCatBtn" onclick="saveCategory()">
+                    <span class="btn-text"><i class="fas fa-save"></i> Save Category</span>
+                </button>
+
+                <div style="height: 20px;"></div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Icon</th>
+                                <th>Status</th>
+                                <th>Order</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="categoriesTable">
+                            <tr>
+                                <td colspan="5" style="text-align:center;padding:40px;color:var(--text-muted);">
+                                    Loading categories...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TASK TYPES -->
+            <div class="admin-card">
+                <h2 class="section-title"><i class="fas fa-tasks"></i> Task Types</h2>
+                
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="typeCategory">
+                        <option value="">-- Select Category --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Task Name</label>
+                    <input type="text" id="typeName" placeholder="e.g., like">
+                </div>
+                <div class="form-group">
+                    <label>Display Name</label>
+                    <input type="text" id="typeDisplayName" placeholder="e.g., Like Post">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="typeDescription" rows="2" placeholder="Task description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Reward (₦)</label>
+                    <input type="number" id="typeReward" value="10">
+                </div>
+                <div class="form-group">
+                    <label>Duration (sec)</label>
+                    <input type="number" id="typeDuration" value="30">
+                </div>
+                <div class="form-group">
+                    <label>Icon <span class="optional">(Click to select)</span></label>
+                    <input type="text" id="typeIcon" placeholder="Click to select icon" value="fas fa-thumbs-up" readonly style="cursor: pointer;">
+                </div>
+                <div class="form-group">
+                    <label>Order</label>
+                    <input type="number" id="typeOrder" value="0">
+                </div>
+                <button class="btn btn-primary" id="saveTypeBtn" onclick="saveTaskType()">
+                    <span class="btn-text"><i class="fas fa-save"></i> Save Task Type</span>
+                </button>
+
+                <div style="height: 20px;"></div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Name</th>
+                                <th>Reward</th>
+                                <th>Duration</th>
+                                <th>Icon</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="taskTypesTable">
+                            <tr>
+                                <td colspan="7" style="text-align:center;padding:40px;color:var(--text-muted);">
+                                    Loading task types...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="category.js"></script>
+</body>
+</html>

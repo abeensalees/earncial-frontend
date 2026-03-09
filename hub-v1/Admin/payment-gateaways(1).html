@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateways | Earncial Admin</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="payment-gateways.css">
+</head>
+<body>
+
+    <!-- SIDEBAR OVERLAY -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-logo">₦</div>
+            <span class="brand-text">Earncial Admin</span>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="admin-dashboard.html" class="menu-item"><i class="fas fa-th-large"></i> Dashboard</a></li>
+            <li><a href="admin-users.html" class="menu-item"><i class="fas fa-users"></i> Users</a></li>
+            <li><a href="admin-tasks.html" class="menu-item"><i class="fas fa-tasks"></i> Tasks</a></li>
+            <li><a href="admin-categories.html" class="menu-item"><i class="fas fa-layer-group"></i> Categories</a></li>
+            <li><a href="admin-task-types.html" class="menu-item"><i class="fas fa-clipboard-list"></i> Task Types</a></li>
+            <li><a href="admin-payment-gateways.html" class="menu-item active"><i class="fas fa-credit-card"></i> Payment Gateways</a></li>
+            <li><a href="admin-transactions.html" class="menu-item"><i class="fas fa-exchange-alt"></i> Transactions</a></li>
+            <li><a href="admin-withdrawals.html" class="menu-item"><i class="fas fa-money-bill-wave"></i> Withdrawals</a></li>
+            <li><a href="admin-announcements.html" class="menu-item"><i class="fas fa-bullhorn"></i> Announcements</a></li>
+            <li><a href="admin-ads.html" class="menu-item"><i class="fas fa-ad"></i> Ads Manager</a></li>
+            <li><a href="admin-settings.html" class="menu-item"><i class="fas fa-cog"></i> Settings</a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- TOP HEADER -->
+        <header class="top-header">
+            <div class="menu-toggle" onclick="openSidebar()">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <h3 class="header-title">Earncial Admin</h3>
+
+            <div class="header-right">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- CONTAINER -->
+        <div class="container">
+            <!-- PAGE HEADER -->
+            <div class="page-header">
+                <div class="page-title">
+                    <i class="fas fa-credit-card"></i>
+                    <div>
+                        <h1>Payment Gateways</h1>
+                        <p>Manage payment methods and API configurations</p>
+                    </div>
+                </div>
+                <div class="page-actions">
+                    <button class="btn btn-secondary" onclick="seedGateways()">
+                        <i class="fas fa-seedling"></i> Seed Defaults
+                    </button>
+                    <button class="btn btn-primary" onclick="openAddModal()">
+                        <i class="fas fa-plus"></i> Add Gateway
+                    </button>
+                </div>
+            </div>
+
+            <!-- STATS CARDS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="activeCount">0</h3>
+                        <p>Active Gateways</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">
+                        <i class="fas fa-pause-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="disabledCount">0</h3>
+                        <p>Disabled Gateways</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalCount">0</h3>
+                        <p>Total Gateways</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="testModeCount">0</h3>
+                        <p>Test Mode</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GATEWAYS GRID -->
+            <div class="gateways-container">
+                <div class="gateways-header">
+                    <h2><i class="fas fa-credit-card"></i> All Payment Gateways</h2>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search gateways..." onkeyup="searchGateways()">
+                    </div>
+                </div>
+
+                <div class="gateways-grid" id="gatewaysGrid">
+                    <!-- Gateway cards will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ADD/EDIT GATEWAY MODAL -->
+    <div class="modal" id="gatewayModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle"><i class="fas fa-credit-card"></i> Add Payment Gateway</h2>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form id="gatewayForm" class="modal-body">
+                <!-- BASIC INFO -->
+                <div class="form-section">
+                    <h3><i class="fas fa-info-circle"></i> Basic Information</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-tag"></i> Gateway Name *</label>
+                            <input type="text" id="gatewayName" placeholder="e.g., Paystack" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-text-height"></i> Display Name *</label>
+                            <input type="text" id="displayName" placeholder="e.g., Paystack Payment" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-link"></i> Slug *</label>
+                            <input type="text" id="slug" placeholder="e.g., paystack" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-icons"></i> Icon Class</label>
+                            <input type="text" id="icon" placeholder="e.g., fas fa-credit-card" value="fas fa-credit-card">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-align-left"></i> Description</label>
+                        <textarea id="description" rows="2" placeholder="Brief description of payment method"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-sort-numeric-up"></i> Priority</label>
+                            <input type="number" id="priority" value="0" min="0">
+                            <small>Higher priority appears first</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="testMode">
+                                <span><i class="fas fa-flask"></i> Test Mode</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API CREDENTIALS -->
+                <div class="form-section">
+                    <h3><i class="fas fa-key"></i> API Credentials</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> Public Key</label>
+                            <input type="text" id="publicKey" placeholder="pk_test_xxxxx">
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-user-secret"></i> Secret Key</label>
+                            <input type="password" id="secretKey" placeholder="sk_test_xxxxx">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-id-badge"></i> Merchant ID</label>
+                            <input type="text" id="merchantId" placeholder="Optional">
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-file-contract"></i> Contract Code</label>
+                            <input type="text" id="contractCode" placeholder="Optional">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-key"></i> API Key</label>
+                        <input type="text" id="apiKey" placeholder="Optional">
+                    </div>
+                </div>
+
+                <!-- CONFIGURATION -->
+                <div class="form-section">
+                    <h3><i class="fas fa-cog"></i> Configuration</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-arrow-down"></i> Minimum Amount (₦)</label>
+                            <input type="number" id="minAmount" value="100" min="0">
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-arrow-up"></i> Maximum Amount (₦)</label>
+                            <input type="number" id="maxAmount" value="1000000" min="0">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-percentage"></i> Transaction Fee</label>
+                            <input type="number" id="transactionFee" value="0" min="0" step="0.01">
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-money-bill"></i> Fee Type</label>
+                            <select id="feeType">
+                                <option value="none">None</option>
+                                <option value="percentage">Percentage (%)</option>
+                                <option value="fixed">Fixed Amount (₦)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-clock"></i> Processing Time</label>
+                        <input type="text" id="processingTime" value="Instant" placeholder="e.g., Instant, 5-15 minutes">
+                    </div>
+                </div>
+
+                <!-- SUPPORTED METHODS -->
+                <div class="form-section">
+                    <h3><i class="fas fa-list-check"></i> Supported Payment Methods</h3>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="methods" value="card">
+                            <span><i class="fas fa-credit-card"></i> Card Payment</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="methods" value="bank_transfer">
+                            <span><i class="fas fa-university"></i> Bank Transfer</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="methods" value="ussd">
+                            <span><i class="fas fa-mobile-alt"></i> USSD</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="methods" value="mobile_money">
+                            <span><i class="fas fa-mobile"></i> Mobile Money</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="methods" value="qr_code">
+                            <span><i class="fas fa-qrcode"></i> QR Code</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- WEBHOOK -->
+                <div class="form-section">
+                    <h3><i class="fas fa-webhook"></i> Webhook Configuration</h3>
+                    <div class="form-group">
+                        <label><i class="fas fa-link"></i> Webhook URL</label>
+                        <input type="url" id="webhookUrl" placeholder="https://yoursite.com/webhook">
+                        <small>Leave empty to use default</small>
+                    </div>
+                </div>
+
+                <!-- MODAL FOOTER -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Gateway
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Custom JavaScript -->
+    <script src="payment-gateaways.js"></script>
+</body>
+</html>

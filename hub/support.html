@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support | Earncial</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        /* ================= VARIABLES & THEME SETUP ================= */
+        :root {
+            --primary: #00aaff;
+            --primary-dark: #008ecc;
+            --primary-light: #e0f2fe;
+            --bg-body: #f8faff;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --sidebar-width: 260px;
+            --header-height: 70px;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+            --nav-height: 70px;
+        }
+
+        body.dark-mode {
+            --primary: #53d6ff;
+            --primary-dark: #00aaff;
+            --primary-light: #1e3a8a;
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            transition: background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            padding-bottom: var(--nav-height);
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ================= SIDEBAR ================= */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--bg-card);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1300;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar { 
+                transform: translateX(-100%); 
+                width: 280px; 
+                padding-bottom: 50px;
+            }
+            .sidebar.active { 
+                transform: translateX(0); 
+                box-shadow: 0 0 50px rgba(0,0,0,0.5); 
+            }
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            backdrop-filter: blur(3px);
+        }
+        
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .brand {
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid var(--border-color);
+            gap: 12px;
+        }
+
+        .brand-logo {
+            width: 45px; 
+            height: 45px; 
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .brand-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            font-size: 23px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .sidebar-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar-menu::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 3px;
+        }
+
+        .menu-item {
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            color: var(--text-muted);
+            font-weight: 500;
+            border-left: 4px solid transparent;
+            margin-bottom: 2px;
+        }
+
+        .menu-item i { 
+            width: 25px; 
+            font-size: 18px; 
+            margin-right: 12px; 
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .sidebar-footer { 
+            padding: 10px; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: 20px;
+        }
+
+        .logout-btn {
+            width: 100%; 
+            padding: 12px; 
+            background: rgba(239, 68, 68, 0.1); 
+            color: #ef4444; 
+            border: none;
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            gap: 10px;
+        }
+        .logout-btn:hover { background: #ef4444; color: white; }
+        
+        /* ================= MAIN CONTENT ================= */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            width: calc(100% - var(--sidebar-width));
+        }
+        
+        @media (max-width: 768px) {
+            .main-content { margin-left: 0; width: 100%; }
+        }
+
+        .top-header {
+            height: var(--header-height);
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .menu-toggle { 
+            display: none; 
+            font-size: 24px; 
+            cursor: pointer; 
+        }
+        
+        @media (max-width: 768px) { 
+            .menu-toggle { display: block; } 
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .header-logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-brand-text {
+            font-size: 23px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .header-right { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+
+        .eye-toggle {
+            background: var(--primary-light); 
+            border: none; 
+            color: var(--text-main);
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            cursor: pointer;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .container {
+            padding: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* ================= SUPPORT HEADER ================= */
+        .support-header {
+            margin-bottom: 30px;
+        }
+
+        .support-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .support-header p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* ================= CONTACT METHODS ================= */
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .contact-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .contact-card:nth-child(1) .contact-icon {
+            background: linear-gradient(135deg, #00aaff, #0066cc);
+        }
+
+        .contact-card:nth-child(2) .contact-icon {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .contact-card:nth-child(3) .contact-icon {
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+        }
+
+        .contact-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .contact-card p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .contact-btn {
+            padding: 12px 30px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .contact-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* ================= TICKETS TABLE ================= */
+        .tickets-section {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        .tickets-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tickets-header h3 {
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .new-ticket-btn {
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tickets-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .tickets-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tickets-table thead {
+            background: var(--bg-body);
+        }
+
+        .tickets-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-muted);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .tickets-table td {
+            padding: 18px 15px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+
+        .tickets-table tbody tr {
+            transition: background 0.3s;
+        }
+
+        .tickets-table tbody tr:hover {
+            background: var(--bg-body);
+        }
+
+        .ticket-id {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .ticket-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-open {
+            background: rgba(0, 170, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .status-answered {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-closed {
+            background: rgba(100, 116, 139, 0.1);
+            color: var(--text-muted);
+        }
+
+        .ticket-priority {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .priority-high {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .priority-medium {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .priority-low {
+            background: rgba(100, 116, 139, 0.1);
+            color: var(--text-muted);
+        }
+
+        .ticket-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .view-btn {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .view-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ================= LIVE CHAT ================= */
+        .chat-widget {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .chat-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+            transition: transform 0.3s;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .chat-overlay.active {
+            display: flex;
+        }
+
+        .chat-window {
+            background: var(--bg-card);
+            width: 95%;
+            max-width: 900px;
+            height: 85vh;
+            border-radius: 20px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-top-header {
+            background: var(--bg-card);
+            padding: 20px 30px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .chat-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .chat-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .chat-brand-info h3 {
+            font-size: 22px;
+            color: var(--primary);
+            margin-bottom: 3px;
+        }
+
+        .chat-brand-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .chat-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .chat-header-text h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .chat-header-text p {
+            font-size: 13px;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4ade80;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .chat-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            transition: 0.3s;
+        }
+
+        .chat-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+            background: var(--bg-body);
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .message.bot {
+            flex-direction: row;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .message.bot .message-avatar {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .message.user .message-avatar {
+            background: var(--primary);
+            color: white;
+        }
+
+        .message-content {
+            max-width: 65%;
+            padding: 15px 18px;
+            border-radius: 16px;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .message.bot .message-content {
+            background: var(--bg-card);
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .message.user .message-content {
+            background: var(--primary);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+        }
+
+        .typing-indicator.active {
+            display: flex;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 5px;
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .typing-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .chat-input-area {
+            padding: 20px 20px;
+            background: var(--bg-card);
+            border-top: 2px solid var(--border-color);
+            display: flex;
+            gap: 15px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .chat-input:focus {
+            border-color: var(--primary);
+        }
+
+        .chat-send-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: 0.3s;
+        }
+
+        .chat-send-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        /* ================= BOTTOM NAV BAR ================= */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+            padding: 0 20px;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 10px;
+            transition: 0.3s;
+            flex: 1;
+            max-width: 80px;
+        }
+
+        .nav-item i {
+            font-size: 22px;
+        }
+
+        .nav-item span {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .nav-item.active, .nav-item:hover {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        /* ================= MODAL ================= */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: var(--bg-card);
+            width: 95%;
+            max-width: 600px;
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-muted);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--bg-body);
+        }
+
+        .close-modal:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        .modal-header {
+            margin-bottom: 25px;
+        }
+
+        .modal-header h3 {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .modal-header p {
+            color: var(--text-muted);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* ================= SUCCESS/INFO MODALS ================= */
+        .success-modal, .info-modal {
+            text-align: center;
+        }
+
+        .modal-icon {
+            font-size: 70px;
+            margin-bottom: 20px;
+        }
+
+        .success-modal .modal-icon {
+            color: var(--success);
+        }
+
+        .info-modal .modal-icon {
+            color: var(--primary);
+        }
+
+        .modal-title-main {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .success-modal .modal-title-main {
+            color: var(--success);
+        }
+
+        .info-modal .modal-title-main {
+            color: var(--primary);
+        }
+
+        .modal-message {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        .modal-btn {
+            padding: 14px 40px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .modal-btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .modal-btn-success:hover {
+            background: #059669;
+        }
+
+        .modal-btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .modal-btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        @media (max-width: 768px) {
+            .chat-overlay {
+                padding: 0;
+            }
+
+            .chat-window {
+                width: 100%;
+                height: 100vh;
+                max-width: 100%;
+                border-radius: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                padding-bottom: calc(var(--nav-height) + 20px);
+            }
+
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-widget {
+                bottom: 90px;
+                right: 15px;
+            }
+
+            .chat-window {
+                width: calc(100vw - 30px);
+                right: 15px;
+                bottom: 90px;
+            }
+
+            .tickets-table-wrapper {
+                overflow-x: scroll;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-logo">
+                <img src="logo.png" alt="Earncial Logo">
+            </div>
+            <span class="brand-text">Earncial</span>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html" class="menu-item"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="tasks.html" class="menu-item"><i class="fas fa-tasks"></i> Tasks</a></li>
+            <li><a href="marketplace.html" class="menu-item"><i class="fas fa-store"></i> Marketplace</a></li>
+            <li><a href="social-media.html" class="menu-item"><i class="fas fa-share-alt"></i> Social Handles</a></li>
+            <li><a href="withdraw.html" class="menu-item"><i class="fas fa-money-bill-wave"></i> Withdraw</a></li>
+            <li><a href="referrals.html" class="menu-item"><i class="fas fa-users"></i> Referrals</a></li>
+            <li><a href="transactions.html" class="menu-item"><i class="fas fa-history"></i> Transactions</a></li>
+            <li><a href="notifications.html" class="menu-item"><i class="fas fa-bell"></i> Notifications</a></li>
+            <li><a href="support.html" class="menu-item active"><i class="fas fa-headset"></i> Support</a></li>
+            <li><a href="profile.html" class="menu-item"><i class="fas fa-user-cog"></i> Profile</a></li>
+        </ul>
+   
+        <div class="sidebar-footer">
+            <button class="logout-btn" onclick="window.location.href='login.html'">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>       
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- HEADER -->
+        <header class="top-header">
+            <div class="menu-toggle" id="menuToggle" onclick="openSidebar()">
+                <i class="fas fa-bars-staggered"></i>
+            </div>
+            
+            <div class="header-logo">
+                <div class="header-logo-img">
+                    <img src="logo.png" alt="Earncial">
+                </div>
+                <span class="header-brand-text">Earncial</span>
+            </div>
+
+            <div class="header-right">
+                <button class="eye-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="container">
+            <!-- SUPPORT HEADER -->
+            <div class="support-header">
+                <h2>
+                    <i class="fas fa-headset"></i>
+                    Support Center
+                </h2>
+                <p>We're here to help! Choose your preferred contact method below.</p>
+            </div>
+
+            <!-- CONTACT METHODS -->
+            <div class="contact-methods">
+                <!-- EMAIL SUPPORT -->
+                <div class="contact-card" onclick="openEmailClient()">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email Support</h3>
+                    <p>Send us an email and we'll respond within 24 hours</p>
+                    <button class="contact-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="95e6e0e5e5fae7e1d5f0f4e7fbf6fcf4f9bbf6faf8">[email&#160;protected]</a>
+                    </button>
+                </div>
+
+                <!-- LIVE CHAT -->
+                <div class="contact-card" onclick="openLiveChat()">
+                    <div class="contact-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Live Chat</h3>
+                    <p>Chat with our AI assistant for instant help</p>
+                    <button class="contact-btn">
+                        <i class="fas fa-comment-dots"></i>
+                        Start Chat
+                    </button>
+                </div>
+
+                <!-- SUPPORT TICKETS -->
+                <div class="contact-card" onclick="showNewTicketModal()">
+                    <div class="contact-icon">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <h3>Support Tickets</h3>
+                    <p>Create a ticket and track your support requests</p>
+                    <button class="contact-btn">
+                        <i class="fas fa-plus-circle"></i>
+                        Create Ticket
+                    </button>
+                </div>
+            </div>
+
+            <!-- TICKETS SECTION -->
+            <div class="tickets-section">
+                <div class="tickets-header">
+                    <h3>
+                        <i class="fas fa-ticket-alt"></i>
+                        My Support Tickets
+                    </h3>
+                    <button class="new-ticket-btn" onclick="showNewTicketModal()">
+                        <i class="fas fa-plus"></i>
+                        New Ticket
+                    </button>
+                </div>
+
+                <div class="tickets-table-wrapper">
+                    <table class="tickets-table">
+                        <thead>
+                            <tr>
+                                <th>Ticket ID</th>
+                                <th>Subject</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ticketsTableBody">
+                            <!-- Tickets will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 📱 BOTTOM NAV BAR -->
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="tasks.html" class="nav-item">
+            <i class="fas fa-tasks"></i>
+            <span>Tasks</span>
+        </a>
+        <a href="marketplace.html" class="nav-item">
+            <i class="fas fa-store"></i>
+            <span>Shop</span>
+        </a>
+        <a href="referrals.html" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span>Referrals</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <!-- 💬 LIVE CHAT WIDGET -->
+    <div class="chat-widget">
+        <button class="chat-button" id="chatButton" onclick="toggleChat()">
+            <i class="fas fa-comments"></i>
+        </button>
+    </div>
+
+    <!-- CHAT OVERLAY -->
+    <div class="chat-overlay" id="chatOverlay" onclick="closeChat(event)">
+        <div class="chat-window" onclick="event.stopPropagation()">
+            <!-- Top Header with Logo --
+            <div class="chat-top-header">
+                <div class="chat-logo-section">
+                    <div class="chat-logo">
+                        <img src="logo.png" alt="Earncial">
+                    </div>
+                    <div class="chat-brand-info">
+                        <h3>Earncial Support</h3>
+                        <p>AI-Powered Live Chat</p>
+                         <p><span class="online-dot"></span> Online now</p>
+                    </div>
+                </div>
+            </div>-->
+
+            <!-- Chat Header -->
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <div class="chat-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="chat-header-text">
+                        <h4>AI Assistant</h4>
+                        <p><span class="online-dot"></span> Online now</p>
+                    </div>
+                </div>
+                <button class="chat-close" onclick="toggleChat()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        Hello! 👋 I'm your Earncial AI Assistant. How can I help you today?
+                    </div>
+                </div>
+            </div>
+
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type your message..." onkeypress="handleChatEnter(event)">
+                <button class="chat-send-btn" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🎫 NEW TICKET MODAL -->
+    <div class="modal-overlay" id="newTicketModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('newTicketModal')">&times;</span>
+            
+            <div class="modal-header">
+                <h3>Create Support Ticket</h3>
+                <p>Fill out the form below to submit your support request</p>
+            </div>
+
+            <form onsubmit="submitTicket(event)">
+                <div class="form-group">
+                    <label class="form-label">Subject</label>
+                    <input type="text" class="form-input" id="ticketSubject" placeholder="Brief description of your issue" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Priority</label>
+                    <select class="form-select" id="ticketPriority" required>
+                        <option value="">Select priority</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Message</label>
+                    <textarea class="form-textarea" id="ticketMessage" placeholder="Please describe your issue in detail..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Submit Ticket
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ✅ SUCCESS MODAL -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-content success-modal">
+            <span class="close-modal" onclick="closeModal('successModal')">&times;</span>
+            
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            
+            <h3 class="modal-title-main" id="successTitle">Success!</h3>
+            <p class="modal-message" id="successMessage"></p>
+            
+            <button class="modal-btn modal-btn-success" onclick="closeModal('successModal')">
+                <i class="fas fa-check"></i> Got It
+            </button>
+        </div>
+    </div>
+
+    <!-- ℹ️ INFO MODAL -->
+    <div class="modal-overlay" id="infoModal">
+        <div class="modal-content info-modal">
+            <span class="close-modal" onclick="closeModal('infoModal')">&times;</span>
+            
+            <div class="modal-icon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            
+            <h3 class="modal-title-main" id="infoTitle">Information</h3>
+            <p class="modal-message" id="infoMessage"></p>
+            
+            <button class="modal-btn modal-btn-primary" onclick="closeModal('infoModal')">
+                <i class="fas fa-check"></i> Okay
+            </button>
+        </div>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // ================= DEMO TICKETS DATA =================
+        const demoTickets = [
+            {
+                id: 'TKT-1001',
+                subject: 'Withdrawal not received',
+                priority: 'high',
+                status: 'open',
+                created: '2 hours ago'
+            },
+            {
+                id: 'TKT-1002',
+                subject: 'Task submission issue',
+                priority: 'medium',
+                status: 'answered',
+                created: '1 day ago'
+            },
+            {
+                id: 'TKT-1003',
+                subject: 'Account verification help',
+                priority: 'low',
+                status: 'closed',
+                created: '3 days ago'
+            },
+            {
+                id: 'TKT-1004',
+                subject: 'Referral bonus not credited',
+                priority: 'medium',
+                status: 'open',
+                created: '5 hours ago'
+            }
+        ];
+
+        // ================= AI CHAT RESPONSES =================
+        const aiResponses = {
+            greeting: [
+                "Hello! How can I assist you today?",
+                "Hi there! What can I help you with?",
+                "Welcome! I'm here to help. What do you need?"
+            ],
+            withdrawal: [
+                "For withdrawal issues, please ensure: 1) Your account is activated 2) You've met the minimum withdrawal amount 3) Your payment details are correct. Would you like me to create a support ticket for you?"
+            ],
+            task: [
+                "For task-related questions: Make sure you've followed all task instructions carefully and submitted proof as required. Tasks are usually reviewed within 24-48 hours. Need more specific help?"
+            ],
+            account: [
+                "Account activation requires a one-time payment of ₦1000. Once activated, you can start earning immediately. Would you like help with the activation process?"
+            ],
+            referral: [
+                "You earn ₦500 for each earner referral and 5% of advertiser's first deposit. Your referral link is available on the Referrals page. Share it to start earning!"
+            ],
+            default: [
+                "I understand you need help with that. Let me connect you with our support team. Would you like me to create a support ticket for you?",
+                "I'm here to help! Could you please provide more details about your issue?",
+                "That's a great question! For detailed assistance, I recommend creating a support ticket or emailing support@earncial.com"
+            ]
+        };
+
+        // ================= FUNCTIONS =================
+        function openSidebar() {
+            document.getElementById('sidebar').classList.add('active');
+            document.getElementById('sidebarOverlay').classList.add('active');
+        }
+
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('sidebarOverlay').classList.remove('active');
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.getElementById('themeIcon');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        }
+
+        function openEmailClient() {
+            window.location.href = 'mailto:support@earncial.com';
+        }
+
+        function openLiveChat() {
+            toggleChat();
+        }
+
+        function showNewTicketModal() {
+            document.getElementById('newTicketModal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // ================= CHAT FUNCTIONS =================
+        function toggleChat() {
+            const chatOverlay = document.getElementById('chatOverlay');
+            chatOverlay.classList.toggle('active');
+        }
+
+        function closeChat(event) {
+            if (event.target === document.getElementById('chatOverlay')) {
+                toggleChat();
+            }
+        }
+
+        function handleChatEnter(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+
+            // Show typing indicator
+            document.getElementById('typingIndicator').classList.add('active');
+
+            // Simulate AI response
+            setTimeout(() => {
+                const response = getAIResponse(message);
+                document.getElementById('typingIndicator').classList.remove('active');
+                addMessage(response, 'bot');
+            }, 1500);
+        }
+
+        function addMessage(text, type) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">
+                    <i class="fas fa-${type === 'bot' ? 'robot' : 'user'}"></i>
+                </div>
+                <div class="message-content">${text}</div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function getAIResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+                return aiResponses.greeting[Math.floor(Math.random() * aiResponses.greeting.length)];
+            } else if (lowerMessage.includes('withdraw') || lowerMessage.includes('payment')) {
+                return aiResponses.withdrawal[0];
+            } else if (lowerMessage.includes('task')) {
+                return aiResponses.task[0];
+            } else if (lowerMessage.includes('account') || lowerMessage.includes('activate')) {
+                return aiResponses.account[0];
+            } else if (lowerMessage.includes('referral') || lowerMessage.includes('refer')) {
+                return aiResponses.referral[0];
+            } else {
+                return aiResponses.default[Math.floor(Math.random() * aiResponses.default.length)];
+            }
+        }
+
+        // ================= TICKETS FUNCTIONS =================
+        function loadTickets() {
+            const tbody = document.getElementById('ticketsTableBody');
+            tbody.innerHTML = '';
+            
+            demoTickets.forEach(ticket => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><span class="ticket-id">${ticket.id}</span></td>
+                    <td>${ticket.subject}</td>
+                    <td><span class="ticket-priority priority-${ticket.priority}">${ticket.priority.toUpperCase()}</span></td>
+                    <td><span class="ticket-status status-${ticket.status}">${ticket.status.toUpperCase()}</span></td>
+                    <td>${ticket.created}</td>
+                    <td>
+                        <div class="ticket-actions">
+                            <button class="action-btn view-btn" onclick="viewTicket('${ticket.id}')">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function submitTicket(event) {
+            event.preventDefault();
+            
+            const subject = document.getElementById('ticketSubject').value;
+            const priority = document.getElementById('ticketPriority').value;
+            const message = document.getElementById('ticketMessage').value;
+            
+            // TODO: Send to backend
+            console.log('New Ticket:', { subject, priority, message });
+            
+            alert('✅ Ticket submitted successfully! We\'ll respond within 24 hours.');
+            
+            // Reset form
+            event.target.reset();
+            closeModal('newTicketModal');
+            
+            // Reload tickets (in real app, fetch from server)
+            loadTickets();
+        }
+
+      /*  function viewTicket(ticketId) {
+            alert(`Viewing ticket: ${ticketId}\n\nThis would open the full ticket details with con
+        function showSuccessModal(title, message) {
+            document.getElementById('successTitle').textContent = title;
+            document.getElementById('successMessage').textContent = message;
+            document.getElementById('successModal').style.display = 'flex';
+        }*/
+
+        function showInfoModal(title, message) {
+            document.getElementById('infoTitle').textContent = title;
+            document.getElementById('infoMessage').textContent = message;
+            document.getElementById('infoModal').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>

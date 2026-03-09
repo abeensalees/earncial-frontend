@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ═══ SEO META TAGS ═══ -->
+    <title>Tutorials | Earncial — Learn How to Earn & Advertise</title>
+    <meta name="description" content="Watch step-by-step tutorials on how to earn money on Earncial — complete tasks, withdraw earnings, link social media accounts, and more. Also guides for advertisers.">
+    <meta name="keywords" content="Earncial tutorials, how to earn online, social media tasks, withdraw earnings, post tasks, advertiser guide, earner guide, Instagram tasks, TikTok tasks, YouTube tasks">
+    <meta name="author" content="Earncial">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://earncial.com/tutorials.html">
+
+    <!-- ═══ OPEN GRAPH (Facebook / WhatsApp) ═══ -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Tutorials | Earncial — Learn How to Earn & Advertise">
+    <meta property="og:description" content="Step-by-step video tutorials for earners and advertisers on the Earncial platform.">
+    <meta property="og:image" content="https://earncial.com/og-image.png">
+    <meta property="og:url" content="https://earncial.com/tutorials.html">
+    <meta property="og:site_name" content="Earncial">
+
+    <!-- ═══ TWITTER CARD ═══ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tutorials | Earncial">
+    <meta name="twitter:description" content="Learn how to earn, complete tasks, and advertise on Earncial with our step-by-step video guides.">
+    <meta name="twitter:image" content="https://earncial.com/og-image.png">
+
+    <!-- ═══ FONTS & ICONS ═══ -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary:#00aaff; --primary-dark:#008ecc; --primary-light:#e0f2fe;
+            --bg-body:#f8faff; --bg-card:#ffffff; --text-main:#1e293b;
+            --text-muted:#64748b; --border-color:#e2e8f0;
+            --sidebar-width:260px; --header-height:70px; --nav-height:70px;
+            --shadow:0 8px 20px rgba(0,0,0,.08); --radius:16px;
+            --success:#10b981; --warning:#f59e0b; --danger:#ef4444;
+            --purple:#8b5cf6; --info:#3b82f6;
+        }
+        body.dark-mode {
+            --primary:#53d6ff; --primary-dark:#00aaff; --primary-light:#1e3a8a;
+            --bg-body:#0f172a; --bg-card:#1e293b; --text-main:#f1f5f9;
+            --text-muted:#94a3b8; --border-color:#334155;
+            --shadow:0 8px 20px rgba(0,0,0,.4);
+        }
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;transition:background .3s,color .3s,border-color .3s;}
+        body{background:var(--bg-body);color:var(--text-main);min-height:100vh;display:flex;padding-bottom:var(--nav-height);overflow-x:hidden;}
+        a{text-decoration:none;color:inherit;} ul{list-style:none;}
+
+        /* SIDEBAR */
+        .sidebar{width:var(--sidebar-width);height:100vh;background:var(--bg-card);position:fixed;top:0;left:0;z-index:1200;border-right:1px solid var(--border-color);display:flex;flex-direction:column;transition:transform .3s;}
+        @media(max-width:768px){.sidebar{transform:translateX(-100%);width:280px;}.sidebar.active{transform:translateX(0);box-shadow:0 0 50px rgba(0,0,0,.5);}}
+        .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;backdrop-filter:blur(3px);}
+        .sidebar-overlay.active{display:block;}
+        .brand{height:var(--header-height);display:flex;align-items:center;padding:0 24px;border-bottom:1px solid var(--border-color);gap:12px;flex-shrink:0;}
+        .brand-logo{width:45px;height:45px;overflow:hidden;flex-shrink:0;}
+        .brand-logo img{width:100%;height:100%;object-fit:contain;}
+        .brand-text{font-size:20px;font-weight:600;color:var(--primary);}
+        .sidebar-menu{padding:20px 0;flex:1;overflow-y:auto;}
+        .sidebar-menu::-webkit-scrollbar{width:6px;}
+        .sidebar-menu::-webkit-scrollbar-thumb{background:var(--border-color);border-radius:3px;}
+        .menu-item{padding:12px 24px;display:flex;align-items:center;color:var(--text-muted);font-weight:500;border-left:4px solid transparent;margin-bottom:2px;}
+        .menu-item i{width:25px;font-size:18px;margin-right:12px;text-align:center;}
+        .menu-item:hover,.menu-item.active{background:var(--primary-light);color:var(--primary);border-left-color:var(--primary);}
+        .sidebar-footer{padding:20px;border-top:1px solid var(--border-color);margin-top:auto;flex-shrink:0;}
+        .logout-btn{width:100%;padding:12px;background:rgba(239,68,68,.1);color:#ef4444;border:none;border-radius:8px;cursor:pointer;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px;transition:.2s;}
+        .logout-btn:hover{background:#ef4444;color:white;}
+
+        /* MAIN */
+        .main-content{margin-left:var(--sidebar-width);min-height:100vh;display:flex;flex-direction:column;width:calc(100% - var(--sidebar-width));flex-grow:1;}
+        @media(max-width:768px){.main-content{margin-left:0;width:100%;}}
+
+        /* HEADER */
+        .top-header{height:var(--header-height);background:var(--bg-card);display:flex;align-items:center;justify-content:space-between;padding:0 30px;position:sticky;top:0;z-index:900;border-bottom:1px solid var(--border-color);flex-shrink:0;}
+        .header-logo{display:flex;align-items:center;gap:12px;}
+        .header-logo-img{width:40px;height:40px;border-radius:10px;overflow:hidden;}
+        .header-logo-img img{width:100%;height:100%;object-fit:contain;}
+        .header-brand-text{font-size:23px;font-weight:700;color:var(--primary);}
+        .menu-toggle{display:none;font-size:24px;cursor:pointer;color:var(--text-main);}
+        @media(max-width:768px){.menu-toggle{display:block;}}
+        .header-right{display:flex;align-items:center;gap:20px;}
+        .notif-btn{position:relative;cursor:pointer;display:flex;align-items:center;}
+        .notif-btn i{font-size:22px;color:var(--text-main);}
+        .notif-badge{position:absolute;top:-8px;right:-8px;background:#ef4444;color:white;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;border:2px solid var(--bg-card);}
+        .eye-toggle{background:var(--primary-light);border:none;color:var(--text-main);width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:.3s;}
+
+        /* CONTAINER */
+        .container{padding:28px 30px;max-width:1400px;margin:0 auto;width:100%;flex:1;display:flex;flex-direction:column;}
+        @media(max-width:768px){.container{padding:20px 15px;padding-bottom:calc(var(--nav-height)+20px);}}
+
+        /* PAGE HEADER */
+        .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;flex-wrap:wrap;gap:14px;}
+        .page-title-wrap{display:flex;align-items:center;gap:14px;}
+        .page-title-icon{width:46px;height:46px;border-radius:13px;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+        .page-title-wrap h1{font-size:22px;font-weight:700;color:var(--text-main);}
+        .page-title-wrap p{font-size:12px;color:var(--text-muted);margin-top:2px;}
+
+        /* TABS */
+        .tabs-wrap{display:flex;gap:6px;margin-bottom:20px;background:var(--bg-card);border-radius:12px;padding:5px;box-shadow:var(--shadow);border:1px solid var(--border-color);width:fit-content;}
+        .tab-btn{padding:9px 22px;border-radius:8px;border:none;font-size:13px;font-weight:600;cursor:pointer;color:var(--text-muted);background:transparent;transition:.2s;display:flex;align-items:center;gap:7px;font-family:'Poppins',sans-serif;}
+        .tab-btn.active{background:var(--primary);color:white;box-shadow:0 4px 12px rgba(0,170,255,.3);}
+        .tab-btn:not(.active):hover{background:var(--primary-light);color:var(--primary);}
+
+        /* SEARCH & FILTERS */
+        .search-filter-bar{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+        .search-wrap{flex:1;min-width:200px;position:relative;}
+        .search-wrap .s-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:14px;pointer-events:none;}
+        .search-input{width:100%;padding:10px 38px 10px 40px;border:1.5px solid var(--border-color);border-radius:10px;background:var(--bg-card);color:var(--text-main);font-size:13px;font-family:'Poppins',sans-serif;transition:.2s;}
+        .search-input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,170,255,.1);}
+        .search-input::placeholder{color:var(--text-muted);}
+        .search-clear{position:absolute;right:11px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:13px;display:none;padding:2px;}
+        .search-clear.show{display:block;}
+        .filter-sel{padding:10px 12px;border:1.5px solid var(--border-color);border-radius:10px;background:var(--bg-card);color:var(--text-main);font-size:13px;font-family:'Poppins',sans-serif;cursor:pointer;min-width:140px;}
+        .filter-sel:focus{outline:none;border-color:var(--primary);}
+
+        /* RESULTS */
+        .results-info{font-size:12px;color:var(--text-muted);margin-bottom:16px;font-weight:500;min-height:18px;}
+        .results-info strong{color:var(--primary);}
+
+        /* PLAYER BANNER */
+        .player-section{display:none;background:#000;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border-color);overflow:hidden;margin-bottom:26px;animation:slideDown .3s ease;}
+        .player-section.visible{display:block;}
+        @keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+        .player-inner{display:flex;flex-wrap:wrap;}
+        .player-video-side{flex:1;min-width:300px;background:#000;position:relative;}
+        /* FULLSCREEN FIX — iframe must fill its container and allow fullscreen */
+        .player-video-side iframe{
+            width:100%;
+            aspect-ratio:16/9;
+            display:block;
+            border:none;
+        }
+        .player-info-side{width:300px;min-width:260px;padding:20px;display:flex;flex-direction:column;gap:10px;border-left:1px solid var(--border-color);overflow-y:auto;max-height:350px;background:var(--bg-card);}
+        @media(max-width:860px){.player-info-side{width:100%;max-height:none;border-left:none;border-top:1px solid var(--border-color);}}
+        .player-cat-tag{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px;width:fit-content;}
+        .player-title{font-size:14px;font-weight:700;color:var(--text-main);line-height:1.5;}
+        .player-meta-row{display:flex;gap:14px;font-size:11px;color:var(--text-muted);flex-wrap:wrap;}
+        .player-meta-row span{display:flex;align-items:center;gap:4px;}
+        .player-desc{font-size:12px;color:var(--text-muted);line-height:1.65;flex:1;}
+        .player-close-btn{margin-top:6px;padding:8px 16px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#ef4444;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Poppins',sans-serif;display:flex;align-items:center;gap:6px;transition:.2s;width:fit-content;}
+        .player-close-btn:hover{background:#ef4444;color:white;}
+
+        /* VIDEO GRID */
+        .videos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;}
+        @media(max-width:500px){.videos-grid{grid-template-columns:repeat(2,1fr);gap:11px;}}
+
+        /* VIDEO CARD */
+        .video-card{background:var(--bg-card);border-radius:13px;border:1.5px solid var(--border-color);overflow:hidden;cursor:pointer;transition:all .22s ease;position:relative;}
+        .video-card:hover{border-color:var(--primary);box-shadow:0 8px 28px rgba(0,170,255,.15);transform:translateY(-3px);}
+        .video-card.playing{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,170,255,.25);}
+        .playing-badge{display:none;position:absolute;top:8px;left:8px;background:var(--primary);color:white;font-size:9px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.3px;z-index:2;}
+        .video-card.playing .playing-badge{display:block;}
+        .vc-thumb{position:relative;width:100%;padding-top:56.25%;background:#0f172a;overflow:hidden;}
+        .vc-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .3s;}
+        .video-card:hover .vc-thumb img{transform:scale(1.05);}
+        .vc-thumb-ph{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f172a,#1e293b);}
+        .vc-thumb-ph i{font-size:28px;color:rgba(255,255,255,.18);}
+        .vc-play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.28);opacity:0;transition:opacity .2s;}
+        .video-card:hover .vc-play-overlay{opacity:1;}
+        .vc-play-overlay i{font-size:38px;color:white;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5));}
+        .vc-dur{position:absolute;bottom:7px;right:8px;background:rgba(0,0,0,.82);color:white;font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;}
+        .vc-body{padding:12px 13px 13px;}
+        .vc-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px;}
+        .vc-tag{font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.4px;}
+        .tag-started {background:rgba(16,185,129,.12);color:#10b981;}
+        .tag-tips    {background:rgba(245,158,11,.12);color:var(--warning);}
+        .tag-advanced{background:rgba(139,92,246,.12);color:var(--purple);}
+        .tag-general {background:rgba(100,116,139,.1);color:var(--text-muted);}
+        .vc-title{font-size:12.5px;font-weight:600;color:var(--text-main);line-height:1.45;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+        .vc-title mark{background:rgba(0,170,255,.18);color:var(--primary);border-radius:3px;padding:0 2px;font-weight:700;}
+        .vc-foot{display:flex;align-items:center;justify-content:space-between;}
+        .vc-plat{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-muted);}
+        .vc-plat i{font-size:12px;}
+        .vc-views{font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:4px;}
+
+        /* NO RESULTS */
+        .no-results{text-align:center;padding:60px 20px;grid-column:1/-1;}
+        .no-results i{font-size:48px;color:var(--border-color);margin-bottom:14px;display:block;}
+        .no-results h3{font-size:16px;color:var(--text-main);margin-bottom:6px;}
+        .no-results p{font-size:13px;color:var(--text-muted);}
+
+        /* BOTTOM NAV */
+        .bottom-nav{position:fixed;bottom:0;left:0;right:0;height:var(--nav-height);background:var(--bg-card);border-top:1px solid var(--border-color);display:flex;justify-content:space-around;align-items:center;z-index:1000;padding:0 20px;box-shadow:0 -5px 20px rgba(0,0,0,.1);}
+        .nav-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--text-muted);padding:8px 12px;border-radius:10px;transition:.3s;flex:1;max-width:80px;text-decoration:none;}
+        .nav-item i{font-size:20px;} .nav-item span{font-size:11px;font-weight:500;}
+        .nav-item.active,.nav-item:hover{color:var(--primary);background:var(--primary-light);}
+
+        /* LOGOUT MODAL */
+        .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:3000;align-items:center;justify-content:center;backdrop-filter:blur(3px);}
+        .modal-overlay.active{display:flex;}
+        .mini-modal{background:var(--bg-card);border-radius:20px;padding:30px;max-width:380px;width:90%;text-align:center;box-shadow:var(--shadow);border:1px solid var(--border-color);animation:slideUp .3s;}
+        @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        .mini-modal .m-icon{font-size:46px;color:var(--danger);margin-bottom:14px;display:block;}
+        .mini-modal h3{font-size:18px;font-weight:700;margin-bottom:8px;color:var(--danger);}
+        .mini-modal p{font-size:13px;color:var(--text-muted);margin-bottom:22px;line-height:1.6;}
+        .mini-modal-btns{display:flex;gap:12px;}
+        .mini-modal-btns button{flex:1;padding:11px;border-radius:9px;border:none;font-weight:600;font-size:13px;cursor:pointer;font-family:'Poppins',sans-serif;transition:.2s;}
+        .btn-m-cancel{background:var(--border-color);color:var(--text-main);}
+        .btn-m-cancel:hover{background:#cbd5e1;}
+        .btn-m-danger{background:var(--danger);color:white;}
+        .btn-m-danger:hover{background:#dc2626;}
+    </style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+    <div class="brand">
+        <div class="brand-logo"><img src="logo.png" alt="Earncial"></div>
+        <span class="brand-text">Earncial</span>
+    </div>
+    <ul class="sidebar-menu">
+        <li><a href="dashboard.html" class="menu-item"><i class="fas fa-th-large"></i> Dashboard</a></li>
+        <li><a href="tasks.html" class="menu-item"><i class="fas fa-tasks"></i> Browse Tasks</a></li>
+        <li><a href="earnings.html" class="menu-item"><i class="fas fa-coins"></i> Earnings</a></li>
+        <li><a href="withdraw.html" class="menu-item"><i class="fas fa-money-bill-wave"></i> Withdraw</a></li>
+        <li><a href="referrals.html" class="menu-item"><i class="fas fa-users"></i> Referrals</a></li>
+        <li><a href="tutorials.html" class="menu-item active"><i class="fas fa-play-circle"></i> Tutorials</a></li>
+        <li><a href="notifications.html" class="menu-item"><i class="fas fa-bell"></i> Notifications</a></li>
+        <li><a href="profile.html" class="menu-item"><i class="fas fa-user-cog"></i> Profile</a></li>
+    </ul>
+    <div class="sidebar-footer">
+        <button class="logout-btn" onclick="showLogoutModal()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </div>
+</aside>
+
+<div class="main-content">
+    <header class="top-header">
+        <div class="menu-toggle" onclick="openSidebar()"><i class="fas fa-bars"></i></div>
+        <div class="header-logo">
+            <div class="header-logo-img"><img src="logo.png" alt="Earncial"></div>
+            <span class="header-brand-text">Earncial</span>
+        </div>
+        <div class="header-right">
+            <div class="notif-btn" onclick="window.location.href='notifications.html'">
+                <i class="far fa-bell"></i><span class="notif-badge">2</span>
+            </div>
+            <button class="eye-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon" id="themeIcon"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <div class="page-title-wrap">
+                <div class="page-title-icon"><i class="fas fa-play-circle"></i></div>
+                <div>
+                    <h1>Tutorials</h1>
+                    <p>Learn how to make the most of Earncial</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabs-wrap">
+            <button class="tab-btn active" onclick="switchTab('earners')" id="tab-earners">
+                <i class="fas fa-coins"></i> For Earners
+            </button>
+            <button class="tab-btn" onclick="switchTab('advertisers')" id="tab-advertisers">
+                <i class="fas fa-bullhorn"></i> For Advertisers
+            </button>
+        </div>
+
+        <div class="search-filter-bar">
+            <div class="search-wrap">
+                <i class="fas fa-search s-icon"></i>
+                <input type="text" class="search-input" id="searchInput"
+                    placeholder="Search tutorials... e.g. How to, Instagram, withdraw"
+                    oninput="onSearch()">
+                <button class="search-clear" id="searchClear" onclick="clearSearch()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <select class="filter-sel" id="platformFilter" onchange="applyFilters()">
+                <option value="">All Platforms</option>
+                <option value="instagram">Instagram</option>
+                <option value="tiktok">TikTok</option>
+                <option value="youtube">YouTube</option>
+                <option value="facebook">Facebook</option>
+                <option value="twitter">Twitter / X</option>
+                <option value="telegram">Telegram</option>
+                <option value="snapchat">Snapchat</option>
+                <option value="pinterest">Pinterest</option>
+                <option value="linkedin">LinkedIn</option>
+                <option value="reddit">Reddit</option>
+                <option value="discord">Discord</option>
+                <option value="general">General</option>
+            </select>
+            <select class="filter-sel" id="categoryFilter" onchange="applyFilters()">
+                <option value="">All Categories</option>
+                <option value="getting-started">Getting Started</option>
+                <option value="tips">Tips &amp; Tricks</option>
+                <option value="advanced">Advanced</option>
+            </select>
+        </div>
+
+        <div class="results-info" id="resultsInfo"></div>
+
+        <!-- PLAYER BANNER -->
+        <div class="player-section" id="playerSection">
+            <div class="player-inner">
+                <div class="player-video-side">
+                    <!-- allowfullscreen + allow="fullscreen" = fullscreen works -->
+                    <iframe id="playerIframe" src="" frameborder="0"
+                        allowfullscreen
+                        allow="autoplay; encrypted-media; picture-in-picture; fullscreen">
+                    </iframe>
+                </div>
+                <div class="player-info-side">
+                    <span class="player-cat-tag vc-tag" id="playerCat"></span>
+                    <div class="player-title" id="playerTitle"></div>
+                    <div class="player-meta-row">
+                        <span><i class="fas fa-clock"></i> <span id="playerDur"></span></span>
+                        <span><i class="fab fa-youtube" style="color:#ff0000;"></i> YouTube</span>
+                    </div>
+                    <div class="player-desc" id="playerDesc"></div>
+                    <button class="player-close-btn" onclick="closePlayer()">
+                        <i class="fas fa-times"></i> Close Player
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="videos-grid" id="videosGrid"></div>
+    </div>
+</div>
+
+<nav class="bottom-nav">
+    <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="tasks.html" class="nav-item"><i class="fas fa-tasks"></i><span>Tasks</span></a>
+    <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i><span>Wallet</span></a>
+    <a href="referrals.html" class="nav-item"><i class="fas fa-users"></i><span>Referrals</span></a>
+    <a href="profile.html" class="nav-item"><i class="fas fa-user"></i><span>Profile</span></a>
+</nav>
+
+<div class="modal-overlay" id="logoutModal">
+    <div class="mini-modal">
+        <i class="fas fa-sign-out-alt m-icon"></i>
+        <h3>Confirm Logout</h3>
+        <p>Are you sure you want to logout?</p>
+        <div class="mini-modal-btns">
+            <button class="btn-m-cancel" onclick="closeLogoutModal()"><i class="fas fa-times"></i> Cancel</button>
+            <button class="btn-m-danger" onclick="confirmLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ================================================================
+//  TUTORIALS DATA
+//  videoId: ''  ← saka YouTube video ID ɗinka nan
+//  Misali: https://youtu.be/ABC123XYZ  → videoId: 'ABC123XYZ'
+// ================================================================
+const TUTORIALS = [
+
+    // ╔══════════════════════════════════════════════╗
+    // ║            EARNERS TUTORIALS                 ║
+    // ╚══════════════════════════════════════════════╝
+
+    // ── GETTING STARTED ─────────────────────────────
+    {
+        id:1, tab:'earners', category:'getting-started', platform:'general',
+        title:'How to Create Your Earncial Account — Complete Signup Guide',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Full step-by-step walkthrough on how to sign up on Earncial, verify your email, complete your profile, and get your account ready to start earning money online.',
+    },
+    {
+        id:2, tab:'earners', category:'getting-started', platform:'general',
+        title:'How to Pay the Activation Fee & Activate Your Earner Account',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Learn how to pay the one-time activation fee on Earncial, what payment methods are accepted, and what happens after your account is activated.',
+    },
+    {
+        id:3, tab:'earners', category:'getting-started', platform:'general',
+        title:'Earncial Dashboard Overview — Understanding Your Earner Account',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'A complete tour of the Earncial earner dashboard — where to find tasks, check your balance, track earnings, and navigate every section of your account.',
+    },
+
+    // ── LINKING SOCIAL MEDIA ────────────────────────
+    {
+        id:4, tab:'earners', category:'getting-started', platform:'facebook',
+        title:'How to Link Your Facebook Account on Earncial',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Step-by-step guide on how to connect your Facebook profile to your Earncial account so you can complete Facebook tasks and get paid.',
+    },
+    {
+        id:5, tab:'earners', category:'getting-started', platform:'instagram',
+        title:'How to Link Your Instagram Account on Earncial',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to connect your Instagram handle to Earncial, what permissions are needed, and how to verify your account to unlock Instagram tasks.',
+    },
+    {
+        id:6, tab:'earners', category:'getting-started', platform:'tiktok',
+        title:'How to Link Your TikTok Account on Earncial',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Complete guide on linking your TikTok profile to Earncial — requirements, steps, and how to start completing TikTok tasks immediately.',
+    },
+    {
+        id:7, tab:'earners', category:'getting-started', platform:'youtube',
+        title:'How to Link Your YouTube Channel on Earncial',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to connect your YouTube channel to your Earncial profile and unlock subscribe, like and watch tasks for YouTube.',
+    },
+    {
+        id:8, tab:'earners', category:'getting-started', platform:'twitter',
+        title:'How to Link Your Twitter / X Account on Earncial',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Connecting your Twitter (X) account to Earncial — how to do it, what to do if it fails, and how to start earning from Twitter tasks.',
+    },
+    {
+        id:9, tab:'earners', category:'getting-started', platform:'telegram',
+        title:'How to Link Your Telegram Account on Earncial',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to verify and link your Telegram account on Earncial so you can join channel tasks and earn money for every channel you join.',
+    },
+    {
+        id:10, tab:'earners', category:'getting-started', platform:'snapchat',
+        title:'How to Link Your Snapchat Account on Earncial',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Step-by-step guide on connecting Snapchat to Earncial and unlocking Snapchat follow and engagement tasks.',
+    },
+    {
+        id:11, tab:'earners', category:'getting-started', platform:'pinterest',
+        title:'How to Link Your Pinterest Account on Earncial',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to link your Pinterest profile to Earncial and access Pinterest follow and save tasks.',
+    },
+    {
+        id:12, tab:'earners', category:'getting-started', platform:'linkedin',
+        title:'How to Link Your LinkedIn Profile on Earncial',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Connecting your LinkedIn account to Earncial — verification steps, requirements, and how to earn from LinkedIn connection and follow tasks.',
+    },
+    {
+        id:13, tab:'earners', category:'getting-started', platform:'reddit',
+        title:'How to Link Your Reddit Account on Earncial',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to verify and connect your Reddit account on Earncial to access upvote, follow and subreddit join tasks.',
+    },
+    {
+        id:14, tab:'earners', category:'getting-started', platform:'discord',
+        title:'How to Link Your Discord Account on Earncial',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Step-by-step guide on linking Discord to Earncial so you can complete server join tasks and earn money.',
+    },
+
+    // ── PERFORMING TASKS ────────────────────────────
+    {
+        id:15, tab:'earners', category:'tips', platform:'general',
+        title:'How to Find & Complete Tasks on Earncial — Full Guide',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'A complete walkthrough on how to browse available tasks, pick the right ones, complete them step by step, submit proof, and get approved.',
+    },
+    {
+        id:16, tab:'earners', category:'tips', platform:'facebook',
+        title:'How to Complete Facebook Follow & Like Tasks',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Detailed guide on completing Facebook page like and account follow tasks correctly — how to take the right screenshot and submit proof that gets approved.',
+    },
+    {
+        id:17, tab:'earners', category:'tips', platform:'instagram',
+        title:'How to Complete Instagram Follow Tasks Correctly',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to find Instagram follow tasks, follow the account, take the correct screenshot, and submit your proof without getting rejected.',
+    },
+    {
+        id:18, tab:'earners', category:'tips', platform:'instagram',
+        title:'How to Complete Instagram Like & Comment Tasks',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Step-by-step on completing Instagram like and comment tasks — what counts as valid proof and common mistakes to avoid.',
+    },
+    {
+        id:19, tab:'earners', category:'tips', platform:'tiktok',
+        title:'How to Complete TikTok Follow Tasks — Step by Step',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Complete guide on TikTok follow tasks — how to follow, screenshot your proof, and submit it in a way that gets approved every time.',
+    },
+    {
+        id:20, tab:'earners', category:'tips', platform:'tiktok',
+        title:'How to Complete TikTok Like & View Tasks Fast',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Tips and tricks for completing TikTok like and view tasks quickly without getting flagged or rejected by the system.',
+    },
+    {
+        id:21, tab:'earners', category:'tips', platform:'youtube',
+        title:'How to Complete YouTube Subscribe Tasks',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to complete YouTube subscribe tasks — finding the channel, subscribing, showing subscribed status in your screenshot, and submitting correctly.',
+    },
+    {
+        id:22, tab:'earners', category:'tips', platform:'youtube',
+        title:'How to Complete YouTube Like & Watch Tasks',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Guide on YouTube like and watch tasks — what timestamp to screenshot, how to prove you watched the video, and submission tips.',
+    },
+    {
+        id:23, tab:'earners', category:'tips', platform:'twitter',
+        title:'How to Complete Twitter Follow & Retweet Tasks',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to complete Twitter/X follow, retweet, and like tasks on Earncial — avoiding common mistakes that cause rejection.',
+    },
+    {
+        id:24, tab:'earners', category:'tips', platform:'telegram',
+        title:'How to Complete Telegram Channel Join Tasks',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to join Telegram channels for tasks, take the correct screenshot showing you have joined, and submit valid proof.',
+    },
+    {
+        id:25, tab:'earners', category:'tips', platform:'snapchat',
+        title:'How to Complete Snapchat Follow Tasks',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Complete Snapchat follow tasks step by step — how to find the profile, follow it, and provide valid screenshot proof.',
+    },
+    {
+        id:26, tab:'earners', category:'tips', platform:'pinterest',
+        title:'How to Complete Pinterest Follow & Save Tasks',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Guide on completing Pinterest follow and pin save tasks — what screenshots to take and how to submit them correctly.',
+    },
+    {
+        id:27, tab:'earners', category:'tips', platform:'linkedin',
+        title:'How to Complete LinkedIn Follow & Connect Tasks',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Step-by-step on LinkedIn connection and follow tasks — how to send a connection request, follow a page, and prove completion.',
+    },
+    {
+        id:28, tab:'earners', category:'tips', platform:'reddit',
+        title:'How to Complete Reddit Upvote & Join Tasks',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to complete Reddit tasks — joining subreddits, upvoting posts, and submitting the right proof screenshot.',
+    },
+    {
+        id:29, tab:'earners', category:'tips', platform:'discord',
+        title:'How to Complete Discord Server Join Tasks',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to join Discord servers for tasks, confirm membership, take a valid screenshot, and get your task approved.',
+    },
+
+    // ── WITHDRAW & EARNINGS ─────────────────────────
+    {
+        id:30, tab:'earners', category:'getting-started', platform:'general',
+        title:'How to Withdraw Your Earnings on Earncial — Full Guide',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Complete guide to withdrawing your earnings — minimum withdrawal amount, how to add your bank account, how to request a withdrawal, and how long it takes to receive payment.',
+    },
+    {
+        id:31, tab:'earners', category:'tips', platform:'general',
+        title:'How to Track Your Tasks & View Your Earnings History',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to use the My Tasks page to check the status of every task you have submitted — approved, pending, and rejected — and how to view your full earnings history.',
+    },
+    {
+        id:32, tab:'earners', category:'tips', platform:'general',
+        title:'How to Use the Referral System & Earn Extra Income',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to find your referral link, share it with friends, and earn a commission from every task your referrals complete on Earncial.',
+    },
+
+    // ── ADVANCED ────────────────────────────────────
+    {
+        id:33, tab:'earners', category:'advanced', platform:'general',
+        title:'Advanced Tips — How to Maximize Your Daily Earnings on Earncial',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Pro strategies for identifying the highest-paying tasks, completing them efficiently, managing your time, and consistently hitting your daily earning targets.',
+    },
+    {
+        id:34, tab:'earners', category:'advanced', platform:'general',
+        title:'Why Tasks Get Rejected & How to Avoid It',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Common reasons your task submissions get rejected and exactly how to fix each issue — screenshot quality, wrong accounts, timing, and more.',
+    },
+
+    // ╔══════════════════════════════════════════════╗
+    // ║          ADVERTISERS TUTORIALS               ║
+    // ╚══════════════════════════════════════════════╝
+
+    // ── GETTING STARTED ─────────────────────────────
+    {
+        id:35, tab:'advertisers', category:'getting-started', platform:'general',
+        title:'How to Create an Advertiser Account on Earncial',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Full signup walkthrough for advertisers — how to register, verify your account, and set up your advertiser profile to start promoting your social media pages.',
+    },
+    {
+        id:36, tab:'advertisers', category:'getting-started', platform:'general',
+        title:'How to Deposit Funds & Fund Your Advertiser Wallet',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Step-by-step guide on how to add money to your Earncial advertiser wallet — payment methods, minimum deposit, and how long it takes to reflect.',
+    },
+    {
+        id:37, tab:'advertisers', category:'getting-started', platform:'general',
+        title:'Advertiser Dashboard Overview — Understanding Your Account',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'A complete tour of the Earncial advertiser dashboard — how to read your stats, navigate to post tasks, manage tasks, view analytics, and access wallet settings.',
+    },
+
+    // ── POST TASKS ──────────────────────────────────
+    {
+        id:38, tab:'advertisers', category:'getting-started', platform:'general',
+        title:'How to Post Your First Task on Earncial — Complete Guide',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'A full walkthrough on posting a task — choosing your platform, selecting task type, writing a good description, setting your reward per participant, choosing participant count, and submitting for approval.',
+    },
+    {
+        id:39, tab:'advertisers', category:'tips', platform:'instagram',
+        title:'How to Post an Instagram Follow Task — Best Practices',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to create an Instagram follow task that gets approved quickly, attracts many earners, and gives you real, quality followers.',
+    },
+    {
+        id:40, tab:'advertisers', category:'tips', platform:'instagram',
+        title:'How to Post an Instagram Like & Comment Task',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Guide on setting up Instagram like and comment tasks on Earncial — how to write descriptions, set the right reward, and get high completion rates.',
+    },
+    {
+        id:41, tab:'advertisers', category:'tips', platform:'tiktok',
+        title:'How to Post a TikTok Follow Task on Earncial',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Step-by-step on creating TikTok follow tasks — what information to include, how to set a competitive reward, and tips for fast approvals.',
+    },
+    {
+        id:42, tab:'advertisers', category:'tips', platform:'tiktok',
+        title:'How to Post a TikTok Like & View Task',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to set up TikTok like and video view tasks on Earncial for maximum reach and engagement on your content.',
+    },
+    {
+        id:43, tab:'advertisers', category:'tips', platform:'youtube',
+        title:'How to Post a YouTube Subscribe Task on Earncial',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Complete guide to creating a YouTube subscribe task — providing the right channel link, writing a clear description, and choosing the right reward and participant count.',
+    },
+    {
+        id:44, tab:'advertisers', category:'tips', platform:'youtube',
+        title:'How to Post a YouTube Like & Watch Task',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to create YouTube like and watch tasks on Earncial — best practices for descriptions and how to get real engagement on your videos.',
+    },
+    {
+        id:45, tab:'advertisers', category:'tips', platform:'facebook',
+        title:'How to Post a Facebook Page Like Task on Earncial',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Step-by-step guide on posting a Facebook page like task — what link to use, how to write your description, and tips for high completion rates.',
+    },
+    {
+        id:46, tab:'advertisers', category:'tips', platform:'twitter',
+        title:'How to Post a Twitter Follow & Retweet Task',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to create Twitter/X follow and retweet tasks on Earncial — requirements, descriptions, and reward setting tips.',
+    },
+    {
+        id:47, tab:'advertisers', category:'tips', platform:'telegram',
+        title:'How to Post a Telegram Channel Join Task',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Complete guide to creating Telegram channel join tasks — what invite link to use, how to write the task description, and how to grow your Telegram channel fast.',
+    },
+    {
+        id:48, tab:'advertisers', category:'tips', platform:'snapchat',
+        title:'How to Post a Snapchat Follow Task on Earncial',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to create and submit a Snapchat follow task on Earncial and get real followers on your Snapchat profile.',
+    },
+    {
+        id:49, tab:'advertisers', category:'tips', platform:'linkedin',
+        title:'How to Post a LinkedIn Follow & Connect Task',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Guide on creating LinkedIn follow and connection tasks on Earncial — great for growing your professional network and company page.',
+    },
+    {
+        id:50, tab:'advertisers', category:'tips', platform:'discord',
+        title:'How to Post a Discord Server Join Task on Earncial',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to create a Discord server join task — what invite link to use, how long it lasts, and how to grow your Discord server quickly.',
+    },
+
+    // ── MANAGE TASKS ────────────────────────────────
+    {
+        id:51, tab:'advertisers', category:'tips', platform:'general',
+        title:'How to Manage Your Active Tasks — Pause, Continue & Cancel',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to use the Manage Tasks page to monitor your active tasks, pause them when needed, resume paused tasks, and cancel tasks with refund calculations.',
+    },
+    {
+        id:52, tab:'advertisers', category:'tips', platform:'general',
+        title:'How to Increase Participants on a Running Task',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Step-by-step on how to increase the participant count on a task that is already running — how it deducts from your wallet and when to use this feature.',
+    },
+    {
+        id:53, tab:'advertisers', category:'tips', platform:'general',
+        title:'Understanding Task Approval — Why Tasks Get Rejected',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'The most common reasons advertiser tasks get rejected by Earncial admin — wrong URLs, unclear descriptions, low rewards — and exactly how to fix each one.',
+    },
+
+    // ── ANALYTICS ───────────────────────────────────
+    {
+        id:54, tab:'advertisers', category:'tips', platform:'general',
+        title:'How to Use Earncial Analytics to Track Your Campaign Performance',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'A guide to reading your Earncial analytics dashboard — understanding task completion rates, spending trends, and how to use data to improve your campaigns.',
+    },
+
+    // ── SUPPORT & PROFILE ───────────────────────────
+    {
+        id:55, tab:'advertisers', category:'getting-started', platform:'general',
+        title:'How to Contact Earncial Support & Get Help Fast',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to use the Earncial support system — submitting a ticket, what information to include, and typical response times.',
+    },
+    {
+        id:56, tab:'advertisers', category:'getting-started', platform:'general',
+        title:'How to Update Your Advertiser Profile & Account Settings',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'How to edit your advertiser profile, change your display name, update contact information, and manage your notification preferences.',
+    },
+
+    // ── ADVANCED ────────────────────────────────────
+    {
+        id:57, tab:'advertisers', category:'advanced', platform:'general',
+        title:'Advanced — How to Run Multiple Campaigns & Scale Your Growth',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Pro strategies for running multiple tasks simultaneously across different platforms, managing your budget efficiently, and getting the most social proof for your money.',
+    },
+    {
+        id:58, tab:'advertisers', category:'advanced', platform:'general',
+        title:'How to Get the Best Results from Earncial — Advertiser Masterclass',
+        duration:'0:00', views:'0',
+        videoId:'',
+        desc:'Advanced tips on writing task descriptions that attract quality earners, choosing the right reward amounts, timing your campaigns, and monitoring results for maximum ROI.',
+    },
+];
+
+// ================================================================
+//  STATE
+// ================================================================
+let currentTab     = 'earners';
+let activeVideoKey = null;
+let searchQuery    = '';
+let platFilter     = '';
+let catFilter      = '';
+
+const PLAT_ICONS = {
+    instagram:'fab fa-instagram', tiktok:'fab fa-tiktok',
+    youtube:'fab fa-youtube', facebook:'fab fa-facebook-f',
+    twitter:'fab fa-twitter', telegram:'fab fa-telegram',
+    snapchat:'fab fa-snapchat-ghost', pinterest:'fab fa-pinterest',
+    linkedin:'fab fa-linkedin-in', reddit:'fab fa-reddit-alien',
+    discord:'fab fa-discord', general:'fas fa-globe',
+};
+const CAT_CLASS = {'getting-started':'tag-started','tips':'tag-tips','advanced':'tag-advanced'};
+const CAT_LABEL = {'getting-started':'Getting Started','tips':'Tips & Tricks','advanced':'Advanced'};
+
+// ================================================================
+//  INIT
+// ================================================================
+window.addEventListener('DOMContentLoaded', () => { loadTheme(); render(); });
+
+function onSearch() {
+    searchQuery = document.getElementById('searchInput').value.trim();
+    document.getElementById('searchClear').classList.toggle('show', searchQuery.length > 0);
+    render();
+}
+function clearSearch() {
+    document.getElementById('searchInput').value = '';
+    searchQuery = '';
+    document.getElementById('searchClear').classList.remove('show');
+    render();
+}
+function applyFilters() {
+    platFilter = document.getElementById('platformFilter').value;
+    catFilter  = document.getElementById('categoryFilter').value;
+    render();
+}
+function switchTab(tab) {
+    currentTab = tab;
+    document.getElementById('tab-earners').classList.toggle('active', tab === 'earners');
+    document.getElementById('tab-advertisers').classList.toggle('active', tab === 'advertisers');
+    closePlayer();
+    render();
+}
+
+function getFiltered() {
+    let list = TUTORIALS.filter(t => t.tab === currentTab);
+    if (platFilter) list = list.filter(t => t.platform === platFilter);
+    if (catFilter)  list = list.filter(t => t.category === catFilter);
+    if (searchQuery) {
+        const words = searchQuery.toLowerCase().split(/\s+/).filter(Boolean);
+        list = list.filter(t => {
+            const hay = [t.title, t.platform, t.category, t.desc].join(' ').toLowerCase();
+            return words.every(w => hay.includes(w));
+        });
+        list.sort((a, b) => {
+            const sc = t => words.filter(w => t.title.toLowerCase().includes(w)).length;
+            return sc(b) - sc(a);
+        });
+    }
+    return list;
+}
+
+function hl(text, query) {
+    if (!query) return text;
+    const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+    let out = text;
+    words.forEach(w => {
+        const re = new RegExp('(' + w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')', 'gi');
+        out = out.replace(re, '<mark>$1</mark>');
+    });
+    return out;
+}
+
+function render() {
+    const list  = getFiltered();
+    const total = TUTORIALS.filter(t => t.tab === currentTab).length;
+    const info  = document.getElementById('resultsInfo');
+    const grid  = document.getElementById('videosGrid');
+
+    if (searchQuery || platFilter || catFilter) {
+        info.innerHTML = 'Showing <strong>' + list.length + '</strong> of ' + total + ' tutorials' + (searchQuery ? ' matching "<strong>' + searchQuery + '</strong>"' : '');
+    } else {
+        info.innerHTML = '<strong>' + total + '</strong> tutorial' + (total !== 1 ? 's' : '') + ' available';
+    }
+
+    if (list.length === 0) {
+        grid.innerHTML = '<div class="no-results"><i class="fas fa-search"></i><h3>No tutorials found</h3><p>Try different keywords or reset your filters</p></div>';
+        return;
+    }
+
+    grid.innerHTML = list.map(function(t) {
+        var key      = t.id + '_' + t.videoId;
+        var playing  = activeVideoKey === key;
+        var thumb    = t.videoId ? 'https://img.youtube.com/vi/' + t.videoId + '/mqdefault.jpg' : '';
+        var catCls   = CAT_CLASS[t.category]  || 'tag-general';
+        var catLbl   = CAT_LABEL[t.category]  || t.category;
+        var platIcon = PLAT_ICONS[t.platform] || 'fas fa-globe';
+        var platLbl  = t.platform.charAt(0).toUpperCase() + t.platform.slice(1);
+        var titleHl  = hl(t.title, searchQuery);
+        var thumbHtml = thumb
+            ? '<img src="' + thumb + '" alt="' + t.title + '" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'
+            : '';
+
+        return '<div class="video-card' + (playing ? ' playing' : '') + '" onclick="playVideo(' + t.id + ')">'
+            + '<span class="playing-badge"><i class="fas fa-play"></i> Playing</span>'
+            + '<div class="vc-thumb">'
+            + (thumb ? thumbHtml : '')
+            + '<div class="vc-thumb-ph" style="' + (thumb ? '' : 'display:flex;') + '"><i class="' + platIcon + '"></i></div>'
+            + '<div class="vc-play-overlay"><i class="fas fa-play-circle"></i></div>'
+            + '<span class="vc-dur">' + t.duration + '</span>'
+            + '</div>'
+            + '<div class="vc-body">'
+            + '<div class="vc-tags"><span class="vc-tag ' + catCls + '">' + catLbl + '</span></div>'
+            + '<div class="vc-title">' + titleHl + '</div>'
+            + '<div class="vc-foot">'
+            + '<div class="vc-plat"><i class="' + platIcon + '"></i><span>' + platLbl + '</span></div>'
+            + '<div class="vc-views"><i class="fas fa-eye"></i> ' + t.views + '</div>'
+            + '</div></div></div>';
+    }).join('');
+}
+
+function playVideo(id) {
+    var t = TUTORIALS.find(function(x){ return x.id === id; });
+    if (!t) return;
+    if (!t.videoId) {
+        alert('Video coming soon! Check back later.');
+        return;
+    }
+    activeVideoKey = t.id + '_' + t.videoId;
+    var embedUrl = 'https://www.youtube.com/embed/' + t.videoId + '?autoplay=1&rel=0&modestbranding=1';
+    document.getElementById('playerIframe').src = embedUrl;
+    document.getElementById('playerTitle').textContent = t.title;
+    document.getElementById('playerDur').textContent   = t.duration;
+    document.getElementById('playerDesc').textContent  = t.desc;
+    var catEl = document.getElementById('playerCat');
+    catEl.textContent = CAT_LABEL[t.category] || t.category;
+    catEl.className   = 'player-cat-tag vc-tag ' + (CAT_CLASS[t.category] || 'tag-general');
+    var section = document.getElementById('playerSection');
+    section.classList.add('visible');
+    setTimeout(function(){ section.scrollIntoView({ behavior:'smooth', block:'start' }); }, 60);
+    render();
+}
+
+function closePlayer() {
+    activeVideoKey = null;
+    document.getElementById('playerIframe').src = '';
+    document.getElementById('playerSection').classList.remove('visible');
+    render();
+}
+
+function openSidebar()  { document.getElementById('sidebar').classList.add('active'); document.getElementById('sidebarOverlay').classList.add('active'); document.body.style.overflow='hidden'; }
+function closeSidebar() { document.getElementById('sidebar').classList.remove('active'); document.getElementById('sidebarOverlay').classList.remove('active'); document.body.style.overflow='auto'; }
+function toggleTheme()  {
+    document.body.classList.toggle('dark-mode');
+    var dark = document.body.classList.contains('dark-mode');
+    document.getElementById('themeIcon').className = dark ? 'fas fa-sun' : 'fas fa-moon';
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+}
+function loadTheme() {
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        var ic = document.getElementById('themeIcon');
+        if (ic) ic.className = 'fas fa-sun';
+    }
+}
+function showLogoutModal()  { document.getElementById('logoutModal').classList.add('active'); }
+function closeLogoutModal() { document.getElementById('logoutModal').classList.remove('active'); }
+function confirmLogout()    { localStorage.clear(); window.location.href = 'sign-in.html'; }
+
+document.addEventListener('click', function(e){ if (e.target === document.getElementById('logoutModal')) closeLogoutModal(); });
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') { closeSidebar(); closeLogoutModal(); } });
+
+console.log('Tutorials loaded — ' + TUTORIALS.length + ' videos ready');
+</script>
+</body>
+</html>

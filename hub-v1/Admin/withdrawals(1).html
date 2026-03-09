@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdrawal Manager | Earncial Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #00aaff;
+            --primary-dark: #008ecc;
+            --primary-light: #e0f2fe;
+            --bg-body: #f8faff;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --sidebar-width: 260px;
+            --header-height: 70px;
+            --shadow: 0 8px 20px rgba(0,0,0,0.08);
+            --radius: 16px;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+            --info: #06b6d4;
+            --dark-grey: #475569;
+        }
+        body.dark-mode {
+            --primary: #53d6ff;
+            --primary-dark: #00aaff;
+            --primary-light: #1e3a8a;
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; transition:background 0.3s,color 0.3s,border-color 0.3s; }
+        body { background:var(--bg-body); color:var(--text-main); display:flex; min-height:100vh; overflow-x:hidden; }
+
+        .sidebar-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); backdrop-filter:blur(3px); z-index:999; }
+        .sidebar-overlay.active { display:block; }
+        #platformOverlay { z-index:1399; }
+
+        .sidebar { width:var(--sidebar-width); height:100vh; background:var(--bg-card); position:fixed; top:0; border-right:1px solid var(--border-color); display:flex; flex-direction:column; z-index:1000; transition:transform 0.3s ease, left 0.3s ease; }
+        #pageSidebar { left:0; }
+        #platformSidebar { left:-280px; z-index:1400; }
+        #platformSidebar.active { left:0; box-shadow:0 0 50px rgba(0,0,0,0.5); }
+
+        @media(max-width:768px) {
+            #pageSidebar { transform:translateX(-100%); }
+            #pageSidebar.active { transform:translateX(0); box-shadow:0 0 50px rgba(0,0,0,0.5); }
+        }
+
+        .brand { height:var(--header-height); display:flex; align-items:center; padding:0 20px; border-bottom:1px solid var(--border-color); gap:12px; }
+        .brand-logo { width:42px; height:42px; border-radius:10px; overflow:hidden; flex-shrink:0; }
+        .brand-logo img { width:100%; height:100%; object-fit:contain; }
+        .brand-text { font-size:20px; font-weight:700; color:var(--primary); }
+        .menu-toggle { font-size:22px; cursor:pointer; color:var(--text-main); padding:4px; flex-shrink:0; }
+
+        .sidebar-menu { padding:15px 0; flex:1; overflow-y:auto; }
+        .sidebar-menu::-webkit-scrollbar { width:4px; }
+        .sidebar-menu::-webkit-scrollbar-thumb { background:var(--border-color); border-radius:2px; }
+
+        .menu-section-label { padding:10px 24px 4px; font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; }
+        .menu-item { padding:12px 24px; display:flex; align-items:center; color:var(--text-muted); font-weight:500; border-left:4px solid transparent; cursor:pointer; text-decoration:none; font-size:14px; gap:12px; margin-bottom:2px; }
+        .menu-item i { width:20px; font-size:16px; text-align:center; flex-shrink:0; }
+        .badge-count { margin-left:auto; background:var(--danger); color:white; border-radius:10px; padding:2px 7px; font-size:11px; font-weight:700; }
+        .menu-item:hover, .menu-item.active { background:var(--primary-light); color:var(--primary); border-left-color:var(--primary); }
+        .sidebar-footer { padding:12px; border-top:1px solid var(--border-color); }
+        .logout-btn { width:100%; padding:11px; background:rgba(239,68,68,0.1); color:#ef4444; border:none; border-radius:8px; cursor:pointer; font-weight:600; display:flex; align-items:center; justify-content:center; gap:8px; }
+        .logout-btn:hover { background:#ef4444; color:white; }
+
+        .main-content { margin-left:var(--sidebar-width); width:calc(100% - var(--sidebar-width)); min-height:100vh; display:flex; flex-direction:column; }
+        @media(max-width:768px) { .main-content { margin-left:0; width:100%; } }
+
+        .top-header { height:var(--header-height); background:var(--bg-card); display:flex; align-items:center; justify-content:space-between; padding:0 30px; border-bottom:1px solid var(--border-color); position:sticky; top:0; z-index:900; }
+        .header-left { display:flex; align-items:center; gap:15px; }
+        .page-menu-toggle { display:none; font-size:24px; cursor:pointer; color:var(--text-main); }
+        @media(max-width:768px) { .page-menu-toggle { display:block; } }
+        .header-logo { display:flex; align-items:center; gap:10px; }
+        .header-logo-img { width:38px; height:38px; border-radius:8px; overflow:hidden; }
+        .header-logo-img img { width:100%; height:100%; object-fit:contain; }
+        .header-brand-text { font-size:20px; font-weight:700; color:var(--primary); }
+        .header-right { display:flex; align-items:center; gap:15px; }
+        .notif-btn { position:relative; cursor:pointer; }
+        .notif-btn i { font-size:22px; color:var(--text-main); }
+        .notif-badge { position:absolute; top:-8px; right:-8px; background:var(--danger); color:white; border-radius:50%; width:20px; height:20px; font-size:11px; font-weight:600; display:flex; align-items:center; justify-content:center; }
+        .theme-toggle { background:var(--primary-light); border:none; width:40px; height:40px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; color:var(--text-main); }
+
+        .container { padding:30px; flex:1; max-width:100%; width:100%; }
+        @media(max-width:768px) { .container { padding:15px; } }
+
+        .content-section { display:none; }
+        .content-section.active { display:block; }
+
+        .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px; margin-bottom:30px; }
+        .stat-card { background:var(--bg-card); border-radius:var(--radius); padding:25px; box-shadow:var(--shadow); border:1px solid var(--border-color); display:flex; align-items:center; gap:20px; cursor:pointer; transition:0.3s; }
+        .stat-card:hover { transform:translateY(-5px); box-shadow:0 12px 30px rgba(0,0,0,0.15); }
+        .stat-icon { width:60px; height:60px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:26px; color:white; flex-shrink:0; }
+        .si-pending    { background:var(--warning); }
+        .si-processing { background:var(--info); }
+        .si-completed  { background:var(--success); }
+        .si-failed     { background:var(--danger); }
+        .si-flagged    { background:var(--purple); }
+        .si-total      { background:var(--primary); }
+        .si-fees       { background:linear-gradient(135deg,#f59e0b,#ef4444); }
+        .si-refunded   { background:linear-gradient(135deg,#8b5cf6,#ec4899); }
+        .stat-info h4 { font-size:12px; color:var(--text-muted); margin-bottom:8px; text-transform:uppercase; font-weight:600; }
+        .stat-value { font-size:24px; font-weight:700; color:var(--text-main); line-height:1.2; }
+        .stat-amount { font-size:13px; color:var(--text-muted); margin-top:5px; }
+
+        .filters-bar { background:var(--bg-card); border-radius:var(--radius); padding:20px; margin-bottom:20px; box-shadow:var(--shadow); border:1px solid var(--border-color); display:flex; gap:15px; flex-wrap:wrap; align-items:flex-end; }
+        .filter-group { flex:1; min-width:160px; }
+        .filter-group label { display:block; font-size:13px; color:var(--text-muted); margin-bottom:8px; font-weight:600; text-transform:uppercase; }
+        .filter-group select, .filter-group input { width:100%; padding:12px 15px; border:1px solid var(--border-color); border-radius:8px; background:var(--bg-body); color:var(--text-main); font-size:14px; }
+        .filter-group select:focus, .filter-group input:focus { outline:none; border-color:var(--primary); }
+        .filter-btn { background:var(--primary); color:white; border:none; padding:12px 25px; border-radius:8px; cursor:pointer; font-weight:600; display:flex; align-items:center; gap:8px; transition:0.3s; height:47px; font-size:14px; }
+        .filter-btn:hover { background:var(--primary-dark); }
+        .export-btn { background:var(--success); color:white; border:none; padding:12px 25px; border-radius:8px; cursor:pointer; font-weight:600; display:flex; align-items:center; gap:8px; transition:0.3s; height:47px; }
+        .export-btn:hover { background:#0ea572; }
+
+        .bulk-actions-bar { background:var(--primary); color:white; padding:15px 25px; border-radius:var(--radius); margin-bottom:20px; display:none; align-items:center; justify-content:space-between; box-shadow:var(--shadow); flex-wrap:wrap; gap:15px; }
+        .bulk-actions-bar.active { display:flex; }
+        .bulk-info { display:flex; align-items:center; gap:15px; font-weight:600; }
+        .bulk-buttons { display:flex; gap:10px; flex-wrap:wrap; }
+        .bulk-btn { padding:10px 20px; border:none; border-radius:8px; cursor:pointer; font-weight:600; display:flex; align-items:center; gap:8px; transition:0.3s; font-size:13px; }
+        .bulk-btn:hover { transform:translateY(-2px); opacity:0.9; }
+        .bulk-btn-approve { background:var(--success); color:white; }
+        .bulk-btn-reject  { background:var(--danger);  color:white; }
+        .bulk-btn-deselect{ background:rgba(255,255,255,0.2); color:white; }
+
+        .withdrawals-section { background:var(--bg-card); border-radius:var(--radius); padding:30px; box-shadow:var(--shadow); border:1px solid var(--border-color); width:100%; }
+        @media(max-width:768px) { .withdrawals-section { padding:15px; } }
+        .section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:25px; padding-bottom:15px; border-bottom:1px solid var(--border-color); flex-wrap:wrap; gap:15px; }
+        .section-header h3 { font-size:20px; color:var(--text-main); display:flex; align-items:center; gap:10px; }
+        .table-container { overflow-x:auto; border-radius:10px; border:1px solid var(--border-color); margin-bottom:20px; width:100%; }
+        table { width:100%; border-collapse:collapse; table-layout:auto; }
+        th, td { padding:18px 16px; text-align:left; border-bottom:1px solid var(--border-color); font-size:14px; white-space:nowrap; }
+        th { background:var(--bg-card); color:var(--primary); font-weight:600; position:sticky; top:0; z-index:10; border-bottom:2px solid var(--primary); }
+        tbody tr { transition:0.2s; }
+        tbody tr:hover { background:var(--primary-light); }
+        tbody tr.selected { background:rgba(0,170,255,0.1); }
+
+        .checkbox-cell { width:40px; }
+        .checkbox-cell input[type="checkbox"], td input[type="checkbox"] { width:18px; height:18px; cursor:pointer; }
+        .sn-cell { width:60px; font-weight:600; }
+
+        .status-badge { padding:6px 12px; border-radius:20px; font-size:11px; font-weight:600; display:inline-block; text-transform:uppercase; }
+        .status-pending    { background:rgba(245,158,11,0.1); color:var(--warning); }
+        .status-processing { background:rgba(6,182,212,0.1); color:var(--info); }
+        .status-completed  { background:rgba(16,185,129,0.1); color:var(--success); }
+        .status-failed     { background:rgba(239,68,68,0.1); color:var(--danger); }
+        .status-rejected   { background:rgba(71,85,105,0.1); color:var(--dark-grey); }
+
+        .copy-icon { cursor:pointer; color:var(--primary); font-size:13px; margin-left:6px; transition:0.3s; }
+        .copy-icon:hover { color:var(--primary-dark); transform:scale(1.2); }
+        .amount-highlight { font-size:15px; font-weight:700; color:var(--primary); }
+
+        .action-btns { display:flex; gap:6px; flex-wrap:nowrap; align-items:center; }
+        .btn { padding:6px 10px; border:none; border-radius:6px; cursor:pointer; font-weight:600; font-size:11px; display:flex; align-items:center; gap:4px; transition:0.3s; white-space:nowrap; }
+        .btn:hover { transform:translateY(-2px); opacity:0.9; }
+        .btn-view    { background:var(--primary-light); color:var(--primary); }
+        .btn-approve { background:rgba(16,185,129,0.1); color:var(--success); }
+        .btn-reject  { background:rgba(239,68,68,0.1); color:var(--danger); }
+        .btn-refund  { background:rgba(139,92,246,0.1); color:var(--purple); }
+
+        .pagination { display:flex; justify-content:space-between; align-items:center; padding:20px 0; flex-wrap:wrap; gap:15px; }
+        .pagination-info { color:var(--text-muted); font-size:14px; }
+        .pagination-controls { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+        .page-btn { padding:8px 16px; border:1px solid var(--border-color); background:var(--bg-card); color:var(--text-main); border-radius:6px; cursor:pointer; font-weight:600; transition:0.3s; font-size:13px; }
+        .page-btn:hover:not(:disabled) { background:var(--primary); color:white; border-color:var(--primary); }
+        .page-btn.active-page { background:var(--primary); color:white; border-color:var(--primary); }
+        .page-btn:disabled { opacity:0.5; cursor:not-allowed; }
+
+        .chart-wrapper { position:relative; width:100%; overflow:hidden; }
+        .chart-wrapper canvas { max-width:100%; }
+        .period-btns { display:flex; gap:8px; flex-wrap:wrap; }
+        .period-btn { padding:6px 16px; border:1px solid var(--border-color); background:var(--bg-body); border-radius:20px; cursor:pointer; font-size:12px; font-weight:600; color:var(--text-muted); transition:0.3s; }
+        .period-btn.active, .period-btn:hover { background:var(--primary); color:white; border-color:var(--primary); }
+
+        .analytics-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:15px; margin-bottom:25px; }
+        .analytics-card { background:var(--bg-card); border-radius:var(--radius); padding:18px; border:1px solid var(--border-color); box-shadow:var(--shadow); }
+        .analytics-card h4 { font-size:11px; color:var(--text-muted); text-transform:uppercase; font-weight:700; margin-bottom:8px; }
+        .analytics-card .val { font-size:20px; font-weight:700; }
+        .analytics-card .sub { font-size:12px; color:var(--text-muted); margin-top:4px; }
+
+        .period-select { padding:10px 15px; border:1px solid var(--border-color); border-radius:8px; background:var(--bg-body); color:var(--text-main); font-size:13px; cursor:pointer; }
+        .rank-1 { background:linear-gradient(135deg,#ffd700,#ff8c00); color:white; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+        .rank-2 { background:linear-gradient(135deg,#c0c0c0,#808080); color:white; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+        .rank-3 { background:linear-gradient(135deg,#cd7f32,#8b4513); color:white; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+        .rank-n { background:var(--primary-light); color:var(--primary); padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+
+        .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:2000; align-items:center; justify-content:center; backdrop-filter:blur(5px); }
+        .modal-overlay.active { display:flex; }
+        .modal { background:var(--bg-card); border-radius:20px; padding:30px; max-width:700px; width:90%; max-height:85vh; overflow-y:auto; box-shadow:var(--shadow); border:1px solid var(--border-color); animation:modalSlide 0.3s ease; }
+        .modal-small { max-width:450px; text-align:center; }
+        @keyframes modalSlide { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
+        .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:25px; padding-bottom:15px; border-bottom:1px solid var(--border-color); }
+        .modal-header h3 { font-size:20px; color:var(--text-main); display:flex; align-items:center; gap:10px; }
+        .modal-close { background:none; border:none; font-size:28px; cursor:pointer; color:var(--text-muted); width:35px; height:35px; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:0.3s; }
+        .modal-close:hover { background:rgba(239,68,68,0.1); color:var(--danger); }
+
+        .detail-card { background:var(--bg-body); padding:15px; border-radius:10px; margin-bottom:15px; border:1px solid var(--border-color); }
+        .detail-card h4 { font-size:12px; color:var(--text-muted); margin-bottom:10px; text-transform:uppercase; font-weight:600; }
+        .detail-card p { font-size:14px; color:var(--text-main); font-weight:500; margin-bottom:6px; }
+        .detail-card p:last-child { margin-bottom:0; }
+
+        .wallet-comparison { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; margin:20px 0; }
+        @media(max-width:600px) { .wallet-comparison { grid-template-columns:1fr; } }
+        .wallet-box { background:var(--bg-body); padding:15px; border-radius:10px; text-align:center; border:2px solid var(--border-color); }
+        .wallet-box.before { border-color:var(--danger); }
+        .wallet-box.after  { border-color:var(--success); }
+        .wallet-box.current{ border-color:var(--primary); }
+        .wallet-box h5 { font-size:11px; color:var(--text-muted); margin-bottom:8px; text-transform:uppercase; }
+        .wallet-box .amount { font-size:20px; font-weight:700; color:var(--text-main); }
+
+        .modal-actions { display:flex; gap:10px; margin-top:25px; padding-top:20px; border-top:1px solid var(--border-color); flex-wrap:wrap; }
+        .modal-btn { flex:1; padding:14px; border:none; border-radius:8px; cursor:pointer; font-weight:600; font-size:14px; display:flex; align-items:center; justify-content:center; gap:8px; transition:0.3s; min-width:120px; }
+        .modal-btn:hover { transform:translateY(-2px); }
+        .modal-btn-approve { background:var(--success); color:white; }
+        .modal-btn-reject  { background:var(--danger);  color:white; }
+        .modal-btn-refund  { background:var(--purple);  color:white; }
+        .modal-btn-cancel  { background:rgba(100,116,139,0.1); color:var(--text-muted); }
+
+        .form-group { margin-bottom:18px; }
+        .form-label { display:block; font-size:13px; font-weight:600; margin-bottom:7px; }
+        .form-input, .form-select, .form-textarea { width:100%; padding:12px 15px; border:1px solid var(--border-color); border-radius:8px; background:var(--bg-body); color:var(--text-main); font-size:14px; font-family:'Poppins',sans-serif; }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { outline:none; border-color:var(--primary); }
+        .form-textarea { min-height:100px; resize:vertical; }
+        .toggle-switch { position:relative; display:inline-block; width:48px; height:25px; }
+        .toggle-switch input { opacity:0; width:0; height:0; }
+        .toggle-slider { position:absolute; cursor:pointer; inset:0; background:var(--border-color); border-radius:34px; transition:0.4s; }
+        .toggle-slider:before { position:absolute; content:""; height:17px; width:17px; left:4px; bottom:4px; background:white; border-radius:50%; transition:0.4s; }
+        input:checked + .toggle-slider { background:var(--success); }
+        input:checked + .toggle-slider:before { transform:translateX(23px); }
+
+        .toast-container { position:fixed; top:20px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:10px; }
+        .toast { background:var(--bg-card); padding:15px 20px; border-radius:var(--radius); box-shadow:var(--shadow); display:flex; align-items:center; gap:15px; min-width:300px; animation:slideIn 0.3s; border:1px solid var(--border-color); }
+        .toast.success { border-left:5px solid var(--success); }
+        .toast.error   { border-left:5px solid var(--danger); }
+        .toast.info    { border-left:5px solid var(--info); }
+        .toast.warning { border-left:5px solid var(--warning); }
+        .toast i { font-size:20px; }
+        .toast.success i { color:var(--success); }
+        .toast.error   i { color:var(--danger); }
+        .toast.info    i { color:var(--primary); }
+        .toast.warning i { color:var(--warning); }
+        @keyframes slideIn { from{transform:translateX(100%);opacity:0} to{transform:translateX(0);opacity:1} }
+
+        @media(max-width:768px) {
+            .stats-grid { grid-template-columns:1fr 1fr; }
+            .filters-bar { flex-direction:column; align-items:flex-start; }
+            .filter-group { width:100%; min-width:unset; }
+            .bulk-actions-bar { flex-direction:column; align-items:stretch; }
+            .bulk-buttons { width:100%; }
+            .bulk-btn { width:100%; justify-content:center; }
+            .modal-actions { flex-direction:column; }
+            .modal-btn { width:100%; }
+        }
+        @media(max-width:480px) { .stats-grid { grid-template-columns:1fr; } }
+
+        .empty-state { text-align:center; padding:50px 20px; color:var(--text-muted); }
+        .empty-state i { font-size:40px; margin-bottom:15px; opacity:0.3; display:block; }
+    </style>
+</head>
+<body>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<div class="sidebar-overlay" id="platformOverlay" onclick="closePlatformSidebar()"></div>
+<div class="sidebar-overlay" id="pageOverlay" onclick="closePageSidebar()"></div>
+
+<!-- PLATFORM SIDEBAR -->
+<aside class="sidebar" id="platformSidebar">
+    <div class="brand">
+        <div class="menu-toggle" onclick="closePlatformSidebar()"><i class="fas fa-times"></i></div>
+        <div class="brand-logo"><img src="logo.png" alt="Earncial" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E💰%3C/text%3E%3C/svg%3E'"></div>
+        <span class="brand-text">Earncial</span>
+    </div>
+    <ul class="sidebar-menu">
+        <li><a href="dashboard.html"          class="menu-item"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="tasks.html"              class="menu-item"><i class="fas fa-tasks"></i> Tasks</a></li>
+        <li><a href="deposits.html"           class="menu-item"><i class="fas fa-wallet"></i> Deposits</a></li>
+        <li><a href="withdrawals.html"        class="menu-item active"><i class="fas fa-money-bill-wave"></i> Withdrawals</a></li>
+        <li><a href="users.html"              class="menu-item"><i class="fas fa-users"></i> Users</a></li>
+        <li><a href="content-management.html" class="menu-item"><i class="fas fa-bullhorn"></i> Content Mgmt</a></li>
+        <li><a href="settings.html"           class="menu-item"><i class="fas fa-cog"></i> Settings</a></li>
+    </ul>
+    <div class="sidebar-footer">
+        <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+</aside>
+
+<!-- PAGE SIDEBAR -->
+<aside class="sidebar" id="pageSidebar">
+    <div class="brand">
+        <div class="menu-toggle" onclick="togglePlatformSidebar()"><i class="fas fa-bars"></i></div>
+        <div class="brand-logo"><img src="logo.png" alt="Earncial" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E💰%3C/text%3E%3C/svg%3E'"></div>
+        <span class="brand-text">Withdrawals</span>
+    </div>
+    <ul class="sidebar-menu">
+        <div class="menu-section-label">Overview</div>
+        <li><div class="menu-item active" onclick="showSection('dashboard')"><i class="fas fa-th-large"></i> Dashboard</div></li>
+
+        <div class="menu-section-label">Manage</div>
+        <li><div class="menu-item" onclick="showSection('all')"><i class="fas fa-list"></i> All Withdrawals</div></li>
+        <li><div class="menu-item" onclick="showSection('pending')"><i class="fas fa-clock"></i> Pending <span class="badge-count" id="pendingBadge">0</span></div></li>
+        <li><div class="menu-item" onclick="showSection('processing')"><i class="fas fa-spinner"></i> Processing <span class="badge-count" id="processingBadge">0</span></div></li>
+        <li><div class="menu-item" onclick="showSection('completed')"><i class="fas fa-check-circle"></i> Completed</div></li>
+        <li><div class="menu-item" onclick="showSection('failed')"><i class="fas fa-times-circle"></i> Failed / Rejected</div></li>
+        <li><div class="menu-item" onclick="showSection('flagged')"><i class="fas fa-flag"></i> Flagged <span class="badge-count" id="flaggedBadge">0</span></div></li>
+
+        <div class="menu-section-label">Insights</div>
+        <li><div class="menu-item" onclick="showSection('analytics')"><i class="fas fa-chart-line"></i> Chart & Analytics</div></li>
+        <li><div class="menu-item" onclick="showSection('top')"><i class="fas fa-trophy"></i> Top Withdrawals</div></li>
+
+        <div class="menu-section-label">Other</div>
+        <li><div class="menu-item" onclick="showSection('messages')"><i class="fas fa-envelope"></i> Admin Messages</div></li>
+    </ul>
+    <div class="sidebar-footer">
+        <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main-content">
+    <header class="top-header">
+        <div class="header-left">
+            <div class="page-menu-toggle" onclick="openPageSidebar()"><i class="fas fa-bars-staggered"></i></div>
+            <div class="header-logo">
+                <div class="header-logo-img"><img src="logo.png" alt="Earncial" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E💰%3C/text%3E%3C/svg%3E'"></div>
+                <span class="header-brand-text">Earncial</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="notif-btn">
+                <i class="far fa-bell"></i>
+                <span class="notif-badge" id="notifCount">0</span>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon" id="themeIcon"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- DASHBOARD -->
+        <div id="section-dashboard" class="content-section active">
+            <div class="stats-grid">
+                <div class="stat-card" onclick="showSection('pending')">
+                    <div class="stat-icon si-pending"><i class="fas fa-clock"></i></div>
+                    <div class="stat-info"><h4>Pending</h4><div class="stat-value" id="s-pending">0</div><div class="stat-amount">₦<span id="sa-pending">0.00</span></div></div>
+                </div>
+                <div class="stat-card" onclick="showSection('processing')">
+                    <div class="stat-icon si-processing"><i class="fas fa-spinner"></i></div>
+                    <div class="stat-info"><h4>Processing</h4><div class="stat-value" id="s-processing">0</div><div class="stat-amount">₦<span id="sa-processing">0.00</span></div></div>
+                </div>
+                <div class="stat-card" onclick="showSection('completed')">
+                    <div class="stat-icon si-completed"><i class="fas fa-check-circle"></i></div>
+                    <div class="stat-info"><h4>Completed</h4><div class="stat-value" id="s-completed">0</div><div class="stat-amount">₦<span id="sa-completed">0.00</span></div></div>
+                </div>
+                <div class="stat-card" onclick="showSection('failed')">
+                    <div class="stat-icon si-failed"><i class="fas fa-times-circle"></i></div>
+                    <div class="stat-info"><h4>Failed / Rejected</h4><div class="stat-value" id="s-failed">0</div><div class="stat-amount">₦<span id="sa-failed">0.00</span></div></div>
+                </div>
+                <div class="stat-card" onclick="showSection('flagged')">
+                    <div class="stat-icon si-flagged"><i class="fas fa-flag"></i></div>
+                    <div class="stat-info"><h4>Flagged</h4><div class="stat-value" id="s-flagged">0</div><div class="stat-amount">Suspicious</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon si-total"><i class="fas fa-coins"></i></div>
+                    <div class="stat-info"><h4>Total Withdrawals</h4><div class="stat-value" id="s-total">0</div><div class="stat-amount">₦<span id="sa-total">0.00</span></div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon si-fees"><i class="fas fa-percentage"></i></div>
+                    <div class="stat-info"><h4>Fees Collected</h4><div class="stat-value">₦<span id="s-fees">0.00</span></div><div class="stat-amount">Total charges</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon si-refunded"><i class="fas fa-undo"></i></div>
+                    <div class="stat-info"><h4>Total Refunded</h4><div class="stat-value">₦<span id="s-refunded">0.00</span></div><div class="stat-amount">From failed txns</div></div>
+                </div>
+            </div>
+            <div class="withdrawals-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-chart-bar"></i> 7-Day Overview</h3>
+                    <button class="filter-btn" onclick="showSection('analytics')"><i class="fas fa-expand"></i> Full Analytics</button>
+                </div>
+                <div class="chart-wrapper" style="height:300px;">
+                    <canvas id="dashMiniChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- ALL -->
+        <div id="section-all" class="content-section">
+            <div class="filters-bar">
+                <div class="filter-group" style="flex:2;min-width:250px;">
+                    <label>Search</label>
+                    <input type="text" id="search-all" placeholder="Username, reference, account name, bank, amount...">
+                </div>
+                <div class="filter-group">
+                    <label>Status</label>
+                    <select id="statusFilter-all">
+                        <option value="all">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="processing">Processing</option>
+                        <option value="completed">Completed</option>
+                        <option value="failed">Failed</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Period</label>
+                    <select id="periodFilter-all">
+                        <option value="all">All Time</option>
+                        <option value="today">Today</option>
+                        <option value="yesterday">Yesterday</option>
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                        <option value="3months">3 Months</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Username</label>
+                    <input type="text" id="userInput-all" placeholder="Enter username...">
+                </div>
+                <button class="filter-btn" onclick="loadWithdrawals(1,'all')"><i class="fas fa-search"></i> Search</button>
+                <button class="export-btn" onclick="exportTable('all')"><i class="fas fa-download"></i> Export</button>
+            </div>
+            <div class="bulk-actions-bar" id="bulk-all">
+                <div class="bulk-info"><i class="fas fa-check-square"></i><span id="bulkCount-all">0</span> selected</div>
+                <div class="bulk-buttons">
+                    <button class="bulk-btn bulk-btn-approve" onclick="bulkAction('all','approve')"><i class="fas fa-check"></i> Approve All</button>
+                    <button class="bulk-btn bulk-btn-reject"  onclick="bulkAction('all','reject')"><i class="fas fa-times"></i> Reject All</button>
+                    <button class="bulk-btn bulk-btn-deselect" onclick="deselectAll('all')"><i class="fas fa-minus-square"></i> Deselect</button>
+                </div>
+            </div>
+            <div class="withdrawals-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-list"></i> All Withdrawals <span id="totalLabel-all" style="font-size:14px;color:var(--text-muted);font-weight:400;"></span></h3>
+                    <button class="filter-btn" onclick="loadWithdrawals(1,'all')"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+                <div class="table-container"><table><thead id="thead-all"></thead><tbody id="tbody-all"><tr><td colspan="14"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i>Loading...</div></td></tr></tbody></table></div>
+                <div class="pagination" id="pag-all"></div>
+            </div>
+        </div>
+
+        <!-- PENDING -->
+        <div id="section-pending" class="content-section">
+            <div class="filters-bar">
+                <div class="filter-group" style="flex:2;min-width:250px;">
+                    <label>Search</label>
+                    <input type="text" id="search-pending" placeholder="Username, reference, account name, bank, amount...">
+                </div>
+                <div class="filter-group">
+                    <label>Period</label>
+                    <select id="periodFilter-pending">
+                        <option value="all">All Time</option>
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Username</label>
+                    <input type="text" id="userInput-pending" placeholder="Enter username...">
+                </div>
+                <button class="filter-btn" onclick="loadWithdrawals(1,'pending')"><i class="fas fa-search"></i> Search</button>
+                <button class="export-btn" onclick="exportTable('pending')"><i class="fas fa-download"></i> Export</button>
+            </div>
+            <div class="bulk-actions-bar" id="bulk-pending">
+                <div class="bulk-info"><i class="fas fa-check-square"></i><span id="bulkCount-pending">0</span> selected</div>
+                <div class="bulk-buttons">
+                    <button class="bulk-btn bulk-btn-approve" onclick="bulkAction('pending','approve')"><i class="fas fa-check"></i> Approve All</button>
+                    <button class="bulk-btn bulk-btn-reject"  onclick="bulkAction('pending','reject')"><i class="fas fa-times"></i> Reject All</button>
+                    <button class="bulk-btn bulk-btn-deselect" onclick="deselectAll('pending')"><i class="fas fa-minus-square"></i> Deselect</button>
+                </div>
+            </div>
+            <div class="withdrawals-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-clock"></i> Pending Withdrawals <span id="totalLabel-pending" style="font-size:14px;color:var(--text-muted);font-weight:400;"></span></h3>
+                    <button class="filter-btn" onclick="loadWithdrawals(1,'pending')"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+                <div class="table-container"><table><thead id="thead-pending"></thead><tbody id="tbody-pending"></tbody></table></div>
+                <div class="pagination" id="pag-pending"></div>
+            </div>
+        </div>
+
+        <!-- PROCESSING -->
+        <div id="section-processing" class="content-section">
+            <div class="filters-bar">
+                <div class="filter-group" style="flex:2;min-width:250px;">
+                    <label>Search</label>
+                    <input type="text" id="search-processing" placeholder="Username, reference, account name, bank, amount...">
+                </div>
+                <div class="filter-group">
+                    <label>Username</label>
+                    <input type="text" id="userInput-processing" placeholder="Enter username...">
+                </div>
+                <button class="filter-btn" onclick="loadWithdrawals(1,'processing')"><i class="fas fa-search"></i> Search</button>
+                <button class="export-btn" onclick="exportTable('processing')"><i class="fas fa-download"></i> Export</button>
+            </div>
+            <div class="withdrawals-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-spinner"></i> Processing <span id="totalLabel-processing" style="font-size:14px;color:var(--text-muted);font-weight:400;"></span></h3>
+                    <button class="filter-btn" onclick="loadWithdrawals(1,'processing')"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+                <div class="table-container"><table><thead id="thead-processing"></thead><tbody id="tbody-processing"></tbody></table></div>
+                <div class="pagination" id="pag-processing"></div>
+            </div>
+        </div>
+
+        <!-- COMPLETED -->
+        <div id="section-completed" class="content-section">
+            <div class="filters-bar">
+                <div class="filter-group" style="flex:2;min-width:250px;">
+                    <label>Search</label>
+                    <input type="text" id="search-completed" placeholder="Username, reference, account name, bank, amount...">
+                </div>
+                <div class="filter-group">
+                    <label>Period</label>
+                    <select id="periodFilter-completed">
+                        <option value="all">All Time</option>
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                        <option value="3months">3 Months</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Username</label>
+                    <input type="text" id="userInput-completed" placeholder="Enter username...">
+                </div>
+                <button class="filter-btn" onclick="loadWithdrawals(1,'completed')"><i class="fas fa-search"></i> Search</button>
+                <button class="export-btn" onclick="exportTable('completed')"><i class="fas fa-download"></i> Export</button>
+            </div>
+            <div class="withdrawals-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-check-circle"></i> Completed <span id="totalLabel-completed" style="font-size:14px;color:var(--text-muted);font-weight:400;"></span></h3>
+                    <button class="filter-btn" onclick="loadWithdrawals(1,'completed')"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+                <div class="table-container"><table><thead id="thead-completed"></thead><tbody id="tbody-completed"></tbody></table></div>
+                <div class="pagination" id="pag-completed"></div>
+            </div>
+        </div>
+
+        <!-- FAILED -->
+        <div id="section-failed" class="content-section">
+            <div class="filters-bar">
+                <div class="filter-group" style="flex:2;min-width:250px;">
+                    <label>Search</label>
+                    <input type="text" id="search-failed" placeholder="Username, reference, account name, bank, amount...">
+                </div>
+                <div class="filter-group">
+                    <label>Period</label>
+                    <select id="periodFilter-failed">
+                        <option value="all">All Time</option>
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Username</label>
+                    <input type="text" id="userInput-failed" placeholder="Enter username...">
+                </div>
+                <button class="filter-btn" onclick="loadWithdrawals(1,'failed')"><i class="fas fa-search"></i> Search</button>
+                <button class="export-btn" onclick="exportTable('failed')"><i class="fas fa-download"></i> Export</button>
+            </div>
+            <div class="withdrawals-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-times-circle"></i> Failed / Rejected <span id="totalLabel-failed" style="font-size:14px;color:var(--text-muted);font-weight:400;"></span></h3>
+                    <button class="filter-btn" onclick="loadWithdrawals(1,'failed')"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+                <div class="table-container"><table><thead id="thead-failed"></thead><tbody id="tbody-failed"></tbody></table></div>
+                <div class="pagination" id="pag-failed"></div>
+            </div>
+        </div>
+
+        <!-- FLAGGED -->
+        <div id="section-flagged" class="content-section">
+            <div class="filters-bar">
+                <div class="filter-group" style="flex:2;min-width:250px;">
+                    <label>Search</label>
+                    <input type="text" id="search-flagged" placeholder="Username, reference, account name, bank, amount...">
+                </div>
+                <div class="filter-group">
+                    <label>Username</label>
+                    <input type="text" id="userInput-flagged" placeholder="Enter username...">
+                </div>
+                <button class="filter-btn" onclick="loadWithdrawals(1,'flagged')"><i class="fas fa-search"></i> Search</button>
+                <button class="export-btn" onclick="exportTable('flagged')"><i class="fas fa-download"></i> Export</button>
+            </div>
+            <div class="withdrawals-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-flag"></i> Flagged / Suspicious <span id="totalLabel-flagged" style="font-size:14px;color:var(--text-muted);font-weight:400;"></span></h3>
+                    <button class="filter-btn" onclick="loadWithdrawals(1,'flagged')"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+                <div class="table-container"><table><thead id="thead-flagged"></thead><tbody id="tbody-flagged"></tbody></table></div>
+                <div class="pagination" id="pag-flagged"></div>
+            </div>
+        </div>
+
+        <!-- ANALYTICS -->
+        <div id="section-analytics" class="content-section">
+            <div class="analytics-grid">
+                <div class="analytics-card"><h4>Success Rate</h4><div class="val" id="a-successRate">0%</div><div class="sub">Completed / Total</div></div>
+                <div class="analytics-card"><h4>Avg Amount</h4><div class="val">₦<span id="a-avgAmount">0.00</span></div><div class="sub">Per withdrawal</div></div>
+                <div class="analytics-card"><h4>Refund Rate</h4><div class="val" id="a-refundRate">0%</div><div class="sub">Failed / Total</div></div>
+                <div class="analytics-card"><h4>Peak Hour</h4><div class="val" id="a-peakHour">—</div><div class="sub">Most active</div></div>
+                <div class="analytics-card"><h4>Total Volume</h4><div class="val">₦<span id="a-volume">0.00</span></div><div class="sub">All time</div></div>
+                <div class="analytics-card"><h4>Fees Earned</h4><div class="val">₦<span id="a-fees">0.00</span></div><div class="sub">Total charges</div></div>
+            </div>
+            <div class="withdrawals-section" style="margin-bottom:25px;">
+                <div class="section-header">
+                    <h3><i class="fas fa-chart-bar"></i> Withdrawal Trends</h3>
+                    <div class="period-btns">
+                        <button class="period-btn active" onclick="loadChart('daily',this)">Daily</button>
+                        <button class="period-btn" onclick="loadChart('weekly',this)">Weekly</button>
+                        <button class="period-btn" onclick="loadChart('monthly',this)">Monthly</button>
+                        <button class="period-btn" onclick="loadChart('yearly',this)">Yearly</button>
+                    </div>
+                </div>
+                <div class="chart-wrapper" style="height:320px;"><canvas id="mainChart"></canvas></div>
+            </div>
+            <div class="withdrawals-section" style="margin-bottom:25px;">
+                <div class="section-header"><h3><i class="fas fa-chart-pie"></i> Status Breakdown</h3></div>
+                <div class="chart-wrapper" style="height:280px;"><canvas id="pieChart"></canvas></div>
+            </div>
+            <div class="withdrawals-section" style="margin-bottom:25px;">
+                <div class="section-header"><h3><i class="fas fa-fire"></i> Hourly Activity (24h)</h3></div>
+                <div class="chart-wrapper" style="height:220px;"><canvas id="hourlyChart"></canvas></div>
+            </div>
+            <div class="withdrawals-section">
+                <div class="section-header"><h3><i class="fas fa-university"></i> Top Banks by Volume</h3></div>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>#</th><th>Bank Name</th><th>Total Amount</th><th>Count</th><th>Avg Amount</th><th>% Share</th></tr></thead>
+                        <tbody id="topBanksBody"><tr><td colspan="6"><div class="empty-state"><i class="fas fa-university"></i>Loading...</div></td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOP WITHDRAWALS -->
+        <div id="section-top" class="content-section">
+            <div class="withdrawals-section">
+                <div class="section-header" style="flex-wrap:wrap;gap:12px;">
+                    <h3><i class="fas fa-trophy"></i> Top Withdrawals</h3>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                        <select class="period-select" id="topPeriod">
+                            <option value="today">Today</option>
+                            <option value="yesterday">Yesterday</option>
+                            <option value="3days">Last 3 Days</option>
+                            <option value="1week" selected>Last 1 Week</option>
+                            <option value="2weeks">Last 2 Weeks</option>
+                            <option value="3weeks">Last 3 Weeks</option>
+                            <option value="1month">Last 1 Month</option>
+                            <option value="3months">Last 3 Months</option>
+                            <option value="6months">Last 6 Months</option>
+                            <option value="1year">Last 1 Year</option>
+                            <option value="lastyear">Last Year (prev)</option>
+                            <option value="alltime">All Time</option>
+                        </select>
+                        <select class="period-select" id="topLimit">
+                            <option value="10" selected>Top 10</option>
+                            <option value="20">Top 20</option>
+                            <option value="50">Top 50</option>
+                            <option value="100">Top 100</option>
+                        </select>
+                        <button class="filter-btn" onclick="loadTopWithdrawals()"><i class="fas fa-sync"></i> Load</button>
+                        <button class="export-btn" onclick="exportTopWithdrawals()"><i class="fas fa-download"></i> Export</button>
+                    </div>
+                </div>
+                <div class="filters-bar" style="margin-bottom:20px;padding:15px 20px;">
+                    <div class="filter-group" style="flex:1;">
+                        <label>Search Results</label>
+                        <input type="text" id="topSearch" placeholder="Username, bank, account number..." oninput="filterTopTable()">
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Rank</th><th>Username</th><th>Account Name</th><th>Account No.</th><th>Bank Name</th><th>Total Amount</th><th>Count</th><th>Avg Amount</th><th>Last Withdrawal</th><th>Actions</th></tr></thead>
+                        <tbody id="topTableBody"><tr><td colspan="10"><div class="empty-state"><i class="fas fa-trophy"></i>Select period and click Load</div></td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADMIN MESSAGES -->
+        <div id="section-messages" class="content-section">
+            <div class="withdrawals-section" style="margin-bottom:25px;">
+                <div class="section-header"><h3><i class="fas fa-plus-circle"></i> Create Message</h3></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+                    <div class="form-group">
+                        <label class="form-label">Target</label>
+                        <select class="form-select" id="msgTarget" onchange="toggleMsgTarget()">
+                            <option value="all">All Users</option>
+                            <option value="username">Specific Username</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="msgUsernameGroup" style="display:none;">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-input" id="msgUsername" placeholder="Enter username">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Type</label>
+                        <select class="form-select" id="msgType">
+                            <option value="info">Info (Blue)</option>
+                            <option value="success">Success (Green)</option>
+                            <option value="warning">Warning (Orange)</option>
+                            <option value="danger">Danger (Red)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Icon</label>
+                        <input type="text" class="form-input" id="msgIcon" placeholder="fa-bell" value="fa-bell">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Title</label>
+                    <input type="text" class="form-input" id="msgTitle" placeholder="e.g., Withdrawal Notice">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Message</label>
+                    <textarea class="form-textarea" id="msgText" placeholder="Your message..."></textarea>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+                    <div class="form-group">
+                        <label class="form-label">Button Text (optional)</label>
+                        <input type="text" class="form-input" id="msgBtnText" placeholder="e.g., View Details">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Button URL (optional)</label>
+                        <input type="text" class="form-input" id="msgBtnUrl" placeholder="/withdrawals.html">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Expires At (optional)</label>
+                    <input type="datetime-local" class="form-input" id="msgExpiry">
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+                    <label class="toggle-switch"><input type="checkbox" id="msgActive" checked><span class="toggle-slider"></span></label>
+                    <span style="font-size:14px;">Active</span>
+                </div>
+                <button class="filter-btn" onclick="saveMessage()"><i class="fas fa-save"></i> Save Message</button>
+            </div>
+            <div class="withdrawals-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-list"></i> All Messages</h3>
+                    <button class="filter-btn" onclick="loadMessages()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>S/N</th><th>Target</th><th>Type</th><th>Title</th><th>Message</th><th>Status</th><th>Expires</th><th>Created</th><th>Actions</th></tr></thead>
+                        <tbody id="msgsBody"><tr><td colspan="9"><div class="empty-state"><i class="fas fa-envelope"></i>No messages yet</div></td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- VIEW MODAL -->
+<div class="modal-overlay" id="viewModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3><i class="fas fa-eye"></i> Withdrawal Details</h3>
+            <button class="modal-close" onclick="closeModal('viewModal')">&times;</button>
+        </div>
+        <div id="viewModalContent"></div>
+        <div class="modal-actions" id="viewModalFooter"></div>
+    </div>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="modal-overlay" id="confirmModal">
+    <div class="modal modal-small">
+        <div class="modal-header" style="justify-content:center;border-bottom:none;">
+            <h3 id="confirmTitle" style="justify-content:center;">Confirm</h3>
+        </div>
+        <p id="confirmMsg" style="color:var(--text-muted);margin-bottom:20px;font-size:14px;"></p>
+        <div class="detail-card" id="confirmDetails" style="text-align:left;"></div>
+        <div class="modal-actions" style="justify-content:center;">
+            <button class="modal-btn" id="confirmYes" style="background:var(--danger);color:white;">Confirm</button>
+            <button class="modal-btn modal-btn-cancel" onclick="closeModal('confirmModal')"><i class="fas fa-times"></i> Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script src="withdrawals.js"></script>
+</body>
+</html>

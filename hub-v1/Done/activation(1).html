@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Activation | Earncial</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #00aaff;
+            --primary-dark: #008ecc;
+            --primary-light: #e0f2fe;
+            --bg-body: #f8faff;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --shadow: 0 8px 20px rgba(0,0,0,0.08);
+            --radius: 16px;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --sidebar-width: 260px;
+            --header-height: 70px;
+        }
+
+        body.dark-mode {
+            --primary: #53d6ff;
+            --primary-dark: #00aaff;
+            --primary-light: #1e3a8a;
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; transition: background 0.3s, color 0.3s, border-color 0.3s; }
+        body { background: var(--bg-body); color: var(--text-main); min-height: 100vh; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: var(--sidebar-width); height: 100vh; background: var(--bg-card);
+            position: fixed; top: 0; left: 0; z-index: 1000;
+            border-right: 1px solid var(--border-color);
+            display: flex; flex-direction: column; transition: transform 0.3s;
+        }
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); width: 280px; }
+            .sidebar.active { transform: translateX(0); box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+        }
+        .sidebar-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.5); z-index: 999; backdrop-filter: blur(3px);
+        }
+        .sidebar-overlay.active { display: block; }
+
+        .sidebar-header {
+            height: var(--header-height); display: flex; align-items: center;
+            gap: 12px; padding: 0 20px; border-bottom: 1px solid var(--border-color);
+        }
+        .sidebar-logo { height: 40px; width: auto; }
+        .sidebar-brand { font-size: 22px; font-weight: 700; color: var(--primary); }
+
+        .sidebar-menu { padding: 20px 0; flex: 1; overflow-y: auto; list-style: none; }
+        .menu-item {
+            padding: 12px 24px; display: flex; align-items: center;
+            color: var(--text-muted); font-weight: 500;
+            border-left: 4px solid transparent; margin-bottom: 2px; cursor: pointer;
+        }
+        .menu-item i { width: 25px; font-size: 18px; margin-right: 12px; }
+        .menu-item:hover, .menu-item.active {
+            background: var(--primary-light); color: var(--primary); border-left-color: var(--primary);
+        }
+
+        .sidebar-footer { padding: 20px; border-top: 1px solid var(--border-color); }
+        .logout-btn {
+            width: 100%; padding: 12px; background: rgba(239,68,68,0.1); color: #ef4444;
+            border: none; border-radius: 8px; cursor: pointer; font-weight: 600;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .logout-btn:hover { background: #ef4444; color: white; }
+
+        /* MAIN */
+        .main-content {
+            margin-left: var(--sidebar-width); min-height: 100vh;
+            display: flex; flex-direction: column; width: calc(100% - var(--sidebar-width));
+        }
+        @media (max-width: 768px) { .main-content { margin-left: 0; width: 100%; padding-bottom: 80px; } }
+
+        /* HEADER */
+        .top-header {
+            height: var(--header-height); background: var(--bg-card);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 30px; position: sticky; top: 0; z-index: 900;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .header-left { display: flex; align-items: center; gap: 15px; }
+        .menu-toggle { display: none; font-size: 24px; cursor: pointer; }
+        @media (max-width: 768px) { .menu-toggle { display: block; } }
+        .header-left h3 { color: var(--primary); font-size: 20px; font-weight: 600; }
+        .theme-toggle {
+            background: var(--primary-light); border: none; color: var(--text-main);
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-size: 18px;
+        }
+        .theme-toggle:hover { background: var(--primary); color: white; }
+
+        /* CONTAINER */
+        .container { padding: 30px; max-width: 1200px; margin: 0 auto; width: 100%; flex: 1; }
+        @media (max-width: 768px) { .container { padding: 20px; } }
+
+        /* CARDS */
+        .instructions-card, .deposit-card {
+            background: var(--bg-card); border-radius: var(--radius);
+            padding: 30px; box-shadow: var(--shadow);
+            border: 1px solid var(--border-color); margin-bottom: 30px;
+        }
+        .card-header {
+            display: flex; align-items: center; gap: 15px;
+            margin-bottom: 30px; padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .card-header i {
+            font-size: 28px; color: var(--primary); background: var(--primary-light);
+            width: 50px; height: 50px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .card-header h2 { font-size: 20px; color: var(--text-main); }
+
+        /* VIDEO */
+        .video-wrapper {
+            position: relative; padding-bottom: 56.25%; height: 0;
+            overflow: hidden; border-radius: 12px; background: #000; margin-bottom: 25px;
+        }
+        .video-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+        /* INFO BOX */
+        .info-box {
+            background: var(--primary-light); border-left: 4px solid var(--primary);
+            padding: 20px; border-radius: 8px; margin-bottom: 25px;
+        }
+        .info-box p {
+            font-size: 13px; color: var(--text-main);
+            margin: 8px 0; display: flex; align-items: flex-start; gap: 10px;
+        }
+        .info-box i { color: var(--primary); margin-top: 2px; }
+
+        /* ✅ GATEWAY DISPLAY (maye gurbinsa da select) */
+        .gateway-display {
+            width: 100%; padding: 16px 20px;
+            border: 2px solid var(--border-color); border-radius: 10px;
+            background: var(--bg-body); display: flex;
+            align-items: center; gap: 15px;
+        }
+        .gateway-display .gw-icon {
+            width: 44px; height: 44px; background: #ff6b35;
+            border-radius: 10px; display: flex; align-items: center;
+            justify-content: center; color: white; font-size: 20px; flex-shrink: 0;
+        }
+        .gateway-display .gw-info { flex: 1; }
+        .gateway-display .gw-name { font-weight: 600; font-size: 15px; color: var(--text-main); }
+        .gateway-display .gw-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+        .gateway-display .gw-badge {
+            background: rgba(16,185,129,0.1); color: var(--success);
+            padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;
+        }
+
+        /* BUTTON */
+        .deposit-btn {
+            width: 100%; padding: 16px; background: var(--primary); color: white;
+            border: none; border-radius: 10px; font-weight: 600; font-size: 16px;
+            cursor: pointer; display: flex; align-items: center;
+            justify-content: center; gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,170,255,0.3); transition: all 0.3s;
+        }
+        .deposit-btn:hover:not(:disabled) {
+            background: var(--primary-dark); transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,170,255,0.4);
+        }
+        .deposit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* SUCCESS MODAL */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
+            z-index: 2000; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .modal-content {
+            background: var(--bg-card); border-radius: var(--radius);
+            padding: 35px; max-width: 500px; width: 100%;
+            box-shadow: var(--shadow); animation: slideUp 0.4s ease;
+            border: 1px solid var(--border-color);
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-icon {
+            width: 70px; height: 70px; background: var(--success); color: white;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-size: 35px; margin: 0 auto 20px;
+        }
+        .modal-content h3 { font-size: 22px; text-align: center; margin-bottom: 12px; }
+        .modal-content p { font-size: 14px; text-align: center; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
+        .modal-details { background: var(--bg-body); border-radius: 10px; padding: 18px; margin-bottom: 20px; }
+        .modal-detail-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 0; border-bottom: 1px solid var(--border-color);
+        }
+        .modal-detail-row:last-child { border-bottom: none; }
+        .modal-detail-row span:first-child { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+        .modal-detail-row span:last-child { font-size: 14px; font-weight: 600; }
+        .btn-confirm {
+            width: 100%; padding: 13px; background: var(--success); color: white;
+            border: none; border-radius: 8px; font-weight: 600; font-size: 14px;
+            cursor: pointer; box-shadow: 0 4px 12px rgba(16,185,129,0.3); transition: all 0.3s;
+        }
+        .btn-confirm:hover { transform: translateY(-2px); }
+
+        /* PENDING BANNER */
+        .pending-banner {
+            display: none; background: linear-gradient(135deg, var(--warning), #fbbf24);
+            color: white; padding: 20px; border-radius: var(--radius);
+            margin-bottom: 30px; box-shadow: var(--shadow);
+        }
+        .pending-banner.active { display: block; animation: pulse 2s ease-in-out infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.9; } }
+        .pending-content { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+        @media (max-width: 768px) { .pending-content { flex-direction: column; text-align: center; } }
+        .pending-text h3 { font-size: 18px; margin-bottom: 5px; }
+        .pending-text p { font-size: 14px; opacity: 0.9; }
+        .check-btn {
+            background: white; color: var(--warning); border: none;
+            padding: 12px 24px; border-radius: 8px; font-weight: 600;
+            cursor: pointer; white-space: nowrap; transition: transform 0.2s;
+        }
+        .check-btn:hover { transform: scale(1.05); }
+
+        /* BOTTOM NAV */
+        .bottom-nav {
+            display: none; position: fixed; bottom: 0; left: 0; right: 0;
+            background: var(--bg-card); border-top: 1px solid var(--border-color);
+            height: 70px; align-items: center; justify-content: space-around;
+            z-index: 900; box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+        @media (max-width: 768px) { .bottom-nav { display: flex; } }
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 5px; padding: 10px; color: var(--text-muted);
+            font-size: 12px; font-weight: 500; cursor: pointer;
+        }
+        .nav-item i { font-size: 20px; }
+        .nav-item:hover, .nav-item.active { color: var(--primary); }
+
+        /* LOGOUT MODAL */
+        .logout-modal {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.7); align-items: center;
+            justify-content: center; z-index: 9999; backdrop-filter: blur(5px);
+        }
+        .logout-modal.active { display: flex; }
+        .logout-modal-content {
+            background: var(--bg-card); border-radius: var(--radius);
+            padding: 40px; max-width: 400px; width: 90%; text-align: center;
+        }
+        .logout-icon { font-size: 60px; color: var(--warning); margin-bottom: 20px; }
+        .logout-modal-content h3 { font-size: 24px; margin-bottom: 10px; }
+        .logout-modal-content p { color: var(--text-muted); margin-bottom: 30px; }
+        .logout-buttons { display: flex; gap: 15px; }
+        .logout-btn { flex: 1; padding: 15px; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
+        .cancel-logout { background: var(--border-color); color: var(--text-main); }
+        .cancel-logout:hover { background: var(--text-muted); color: white; }
+        .confirm-logout { background: var(--danger); color: white; }
+        .confirm-logout:hover { background: #dc2626; }
+
+        /* TOAST */
+        .toast-container { position: fixed; top: 20px; right: 20px; z-index: 3000; display: flex; flex-direction: column; gap: 10px; }
+        .toast {
+            background: var(--bg-card); border-radius: 12px; padding: 15px 20px;
+            min-width: 300px; box-shadow: var(--shadow); display: flex;
+            align-items: center; gap: 15px; animation: slideInRight 0.3s ease;
+            border: 1px solid var(--border-color); border-left: 5px solid var(--primary);
+        }
+        .toast.success { border-left-color: var(--success); }
+        .toast.error { border-left-color: var(--danger); }
+        .toast.warning { border-left-color: var(--warning); }
+        .toast-icon { font-size: 20px; }
+        .toast.success .toast-icon { color: var(--success); }
+        .toast.error .toast-icon { color: var(--danger); }
+        .toast.warning .toast-icon { color: var(--warning); }
+        .toast-content strong { display: block; margin-bottom: 3px; font-size: 14px; }
+        .toast-content p { font-size: 13px; color: var(--text-muted); margin: 0; }
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="logo.png" alt="Earncial" class="sidebar-logo">
+            <span class="sidebar-brand">Earncial</span>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html" class="menu-item"><i class="fas fa-th-large"></i> Dashboard</a></li>
+            <li><a href="tasks.html" class="menu-item"><i class="fas fa-tasks"></i> Tasks</a></li>
+            <li><a href="social-media.html" class="menu-item"><i class="fas fa-share-alt"></i> Social Handles</a></li>
+            <li><a href="withdraw.html" class="menu-item"><i class="fas fa-money-bill-wave"></i> Withdraw</a></li>
+            <li><a href="referrals.html" class="menu-item"><i class="fas fa-users"></i> Referrals</a></li>
+            <li><a href="transactions.html" class="menu-item"><i class="fas fa-history"></i> Transactions</a></li>
+            <li><a href="profile.html" class="menu-item"><i class="fas fa-user-cog"></i> Profile</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <button class="logout-btn" onclick="openLogoutModal()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-header">
+            <div class="header-left">
+                <div class="menu-toggle" onclick="openSidebar()"><i class="fas fa-bars"></i></div>
+                <h3>Account Activation</h3>
+            </div>
+            <div class="header-right">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="container">
+
+            <!-- PENDING BANNER -->
+            <div class="pending-banner" id="pendingBanner">
+                <div class="pending-content">
+                    <div class="pending-text">
+                        <h3><i class="fas fa-hourglass-half"></i> Activation Pending</h3>
+                        <p id="pendingMsg">We're processing your activation payment...</p>
+                    </div>
+                    <button class="check-btn" onclick="checkActivationStatus()">
+                        <i class="fas fa-sync-alt"></i> Check Status
+                    </button>
+                </div>
+            </div>
+
+            <!-- VIDEO INSTRUCTIONS -->
+            <div class="instructions-card">
+                <div class="card-header">
+                    <i class="fab fa-youtube"></i>
+                    <h2>How to Activate Your Account</h2>
+                </div>
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                        title="Activation Tutorial" allowfullscreen></iframe>
+                </div>
+                <div class="info-box">
+                    <p><i class="fas fa-check-circle"></i> <strong>One-Time Payment:</strong> Pay only <span id="payFee">₦1,000</span> once. No recurring charges!</p>
+                    <p><i class="fas fa-check-circle"></i> <strong>Instant Activation:</strong> Account activated immediately after payment</p>
+                    <p><i class="fas fa-check-circle"></i> <strong>Full Access:</strong> Start tasks, add social handles, and earn money</p>
+                    <p><i class="fas fa-check-circle"></i> <strong>Lifetime Access:</strong> Once activated, your account stays active forever</p>
+                    <p><i class="fas fa-shield-alt"></i> <strong>100% Secure:</strong> All payments processed through trusted gateways</p>
+                </div>
+            </div>
+
+            <!-- PAYMENT FORM -->
+            <div class="deposit-card">
+                <div class="card-header">
+                    <i class="fas fa-credit-card"></i>
+                    <h2>Activation Payment — <span id="activationFee">₦1,000</span></h2>
+                </div>
+
+                <form id="activationForm">
+
+                    <!-- ✅ Gateway display - babu select, Flutterwave kawai -->
+                    <div class="form-group">
+                        <label><i class="fas fa-university"></i> Payment Method</label><br><br>
+                        <div class="gateway-display">
+                            <div class="gw-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="gw-info">
+                                <div class="gw-name">Flutterwave</div>
+                                <div class="gw-desc">Bank Transfer · Card · USSD</div>
+                            </div>
+                            <span class="gw-badge">✓ Secure</span>
+                        </div>
+                    </div>
+<br>
+                    <div class="info-box">
+                        <p><i class="fas fa-info-circle"></i> Activation Fee: <strong id="inforBoxFee">₦1,000</strong> (One-time payment)</p>
+                        <p><i class="fas fa-university"></i> Bank Transfer page will open. You can also pay by Card.</p>
+                        <p><i class="fas fa-clock"></i> Instant activation after successful payment</p>
+                    </div>
+
+                    <button type="submit" class="deposit-btn" id="payBtn">
+                        <i class="fas fa-lock"></i> Pay & Activate Now
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- SUCCESS MODAL -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>🎉 Activation Successful!</h3>
+            <p>Your account has been activated. You can now start earning!</p>
+            <div class="modal-details">
+                <div class="modal-detail-row">
+                    <span>Account Status</span>
+                    <span style="color: var(--success);">✓ Active</span>
+                </div>
+                <div class="modal-detail-row">
+                    <span>Amount Paid</span>
+                    <span id="modalAmount">₦0</span>
+                </div>
+                <div class="modal-detail-row">
+                    <span>Activation Date</span>
+                    <span id="activationDate">--</span>
+                </div>
+            </div>
+            <button class="btn-confirm" onclick="goToDashboard()">
+                <i class="fas fa-arrow-right"></i> Go to Dashboard
+            </button>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="tasks.html" class="nav-item"><i class="fas fa-tasks"></i><span>Tasks</span></a>
+        <a href="activation.html" class="nav-item active"><i class="fas fa-rocket"></i><span>Activate</span></a>
+        <a href="profile.html" class="nav-item"><i class="fas fa-user"></i><span>Profile</span></a>
+        <div class="nav-item" onclick="openLogoutModal()"><i class="fas fa-sign-out-alt"></i><span>Logout</span></div>
+    </nav>
+
+    <!-- LOGOUT MODAL -->
+    <div class="logout-modal" id="logoutModal">
+        <div class="logout-modal-content">
+            <div class="logout-icon"><i class="fas fa-sign-out-alt"></i></div>
+            <h3>Logout</h3>
+            <p>Are you sure you want to logout?</p>
+            <div class="logout-buttons">
+                <button class="logout-btn cancel-logout" onclick="closeLogoutModal()">Cancel</button>
+                <button class="logout-btn confirm-logout" onclick="confirmLogout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+    <script src="activation.js"></script>
+</body>
+</html>

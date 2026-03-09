@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service | Earncial</title>
+    <meta name="description" content="Earncial Terms of Service — rules, obligations, prohibited conduct, fees, dispute resolution, and legal framework governing use of the Earncial platform.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://earncial.com/terms.html">
+    <link rel="icon" type="image/png" href="logo.png">
+    <meta property="og:title" content="Terms of Service | Earncial">
+    <meta property="og:description" content="Read Earncial's Terms of Service — the rules that govern use of our task marketplace and product marketplace platform.">
+    <meta property="og:url" content="https://earncial.com/terms.html">
+    <meta property="og:site_name" content="Earncial">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {"@type":"BreadcrumbList","itemListElement":[
+          {"@type":"ListItem","position":1,"name":"Home","item":"https://earncial.com"},
+          {"@type":"ListItem","position":2,"name":"Terms of Service","item":"https://earncial.com/terms.html"}
+        ]},
+        {"@type":"WebPage","name":"Earncial Terms of Service",
+         "url":"https://earncial.com/terms.html",
+         "description":"Terms of Service governing use of the Earncial platform.",
+         "datePublished":"2026-01-01","dateModified":"2026-01-01"}
+      ]
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-blue: #00aaff;
+            --dark-blue: #008ecc;
+            --white: #FFFFFF;
+            --light-bg: #F8FAFC;
+            --light-grey: #E2E8F0;
+            --dark-bg: #0F172A;
+            --card-dark: #1E293B;
+            --text-color: #334155;
+            --text-light: #64748B;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-bg);
+            color: var(--text-color);
+            transition: var(--transition);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        a { text-decoration: none; color: inherit; }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: var(--white); box-shadow: var(--shadow);
+            padding: 0 20px; height: 70px;
+            display: flex; align-items: center; justify-content: space-between;
+            position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid var(--primary-blue);
+        }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 700; color: var(--primary-blue); }
+        .logo-image { width: 42px; height: 42px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,170,255,0.3); }
+        .logo-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .nav-right { display: flex; align-items: center; gap: 16px; }
+        .menu-toggle, .theme-toggle { background: none; border: none; font-size: 20px; color: var(--text-color); cursor: pointer; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+        .menu-toggle:hover, .theme-toggle:hover { background: var(--light-grey); color: var(--primary-blue); }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar { width: 260px; background: var(--white); box-shadow: var(--shadow-lg); transition: var(--transition); position: fixed; height: 100vh; z-index: 200; overflow-y: auto; transform: translateX(-100%); left: 0; top: 0; border-right: 3px solid var(--primary-blue); }
+        .sidebar.open { transform: translateX(0); }
+        @media (min-width: 769px) {
+            .sidebar { transform: translateX(0) !important; top: 70px; height: calc(100vh - 70px); z-index: 50; }
+            .main-content { margin-left: 260px; }
+            .footer { margin-left: 260px; }
+            .mobile-overlay { display: none !important; }
+            #closeSidebar { display: none; }
+        }
+        .sidebar-header { padding: 24px 20px; border-bottom: 1px solid var(--light-grey); display: flex; align-items: center; justify-content: space-between; }
+        .sidebar-logo { display: flex; align-items: center; }
+        .sidebar-logo .logo-image { margin-right: 10px; }
+        .close-sidebar { background: none; border: none; font-size: 20px; color: var(--text-light); cursor: pointer; transition: var(--transition); }
+        .close-sidebar:hover { color: var(--primary-blue); }
+        .sb-group { padding: 10px 20px 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-light); }
+        .sidebar-menu { padding: 8px 0; }
+        .menu-item { padding: 11px 20px; display: flex; align-items: center; color: var(--text-color); font-size: 13.5px; font-weight: 500; transition: var(--transition); border-left: 3px solid transparent; }
+        .menu-item:hover, .menu-item.active { background: rgba(0,170,255,0.07); color: var(--primary-blue); border-left-color: var(--primary-blue); padding-left: 24px; }
+        .menu-item i { margin-right: 12px; font-size: 16px; width: 20px; text-align: center; }
+        .sidebar-divider { border: none; border-top: 1px solid var(--light-grey); margin: 6px 0; }
+        .sidebar-auth { padding: 16px 20px; border-top: 1px solid var(--light-grey); display: flex; flex-direction: column; gap: 10px; }
+        .sidebar-btn { padding: 11px 16px; border-radius: 8px; text-align: center; font-weight: 600; font-size: 13px; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .sidebar-btn-primary { background: var(--primary-blue); color: white; }
+        .sidebar-btn-primary:hover { background: var(--dark-blue); }
+        .sidebar-btn-outline { background: transparent; border: 1px solid var(--light-grey); color: var(--text-color); }
+        .sidebar-btn-outline:hover { background: var(--light-grey); }
+
+        /* ===== OVERLAY ===== */
+        .mobile-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 150; opacity: 0; visibility: hidden; transition: var(--transition); backdrop-filter: blur(3px); }
+        .mobile-overlay.active { opacity: 1; visibility: visible; }
+
+        /* ===== MAIN ===== */
+        .main-content { flex: 1; display: flex; flex-direction: column; }
+
+        /* ===== HERO ===== */
+        .hero { background: linear-gradient(135deg, #00aaff 0%, #0055aa 100%); padding: 52px 24px 68px; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, rgba(255,255,255,0.08) 0%, transparent 60%); }
+        .hero-breadcrumb { font-size: 12px; color: rgba(255,255,255,0.75); margin-bottom: 14px; position: relative; }
+        .hero-breadcrumb a { color: rgba(255,255,255,0.9); font-weight: 500; }
+        .hero h1 { font-size: clamp(24px,4vw,36px); font-weight: 700; color: white; margin-bottom: 10px; position: relative; }
+        .hero-meta { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 14px; position: relative; }
+        .hero-meta span { font-size: 12px; color: rgba(255,255,255,0.8); display: flex; align-items: center; gap: 6px; }
+
+        /* ===== AGREEMENT BANNER ===== */
+        .agree-banner { background: rgba(245,158,11,0.1); border: 1.5px solid rgba(245,158,11,0.35); border-radius: 12px; padding: 16px 20px; margin-bottom: 30px; display: flex; align-items: flex-start; gap: 14px; }
+        .agree-banner i { color: #F59E0B; font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+        .agree-banner p { font-size: 13px; color: var(--text-color); line-height: 1.6; }
+        .agree-banner strong { color: #92400e; }
+
+        /* ===== PAGE BODY ===== */
+        .page-body { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; width: 100%; }
+
+        /* ===== TOC ===== */
+        .toc-card { background: var(--white); border: 1.5px solid var(--light-grey); border-radius: 12px; padding: 22px 24px; margin-bottom: 36px; border-left: 4px solid var(--primary-blue); }
+        .toc-title { font-size: 13px; font-weight: 700; color: var(--text-color); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .toc-list { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; list-style: none; }
+        .toc-list li a { font-size: 13px; color: var(--primary-blue); font-weight: 500; display: flex; align-items: center; gap: 7px; transition: var(--transition); }
+        .toc-list li a:hover { color: var(--dark-blue); }
+        .toc-list li a i { font-size: 10px; }
+        @media(max-width:560px){ .toc-list { grid-template-columns: 1fr; } }
+
+        /* ===== TERMS SECTION ===== */
+        .terms-section { margin-bottom: 44px; scroll-margin-top: 90px; }
+        .terms-section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 2px solid var(--light-grey); }
+        .ts-icon { width: 42px; height: 42px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+        .terms-section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-color); }
+        .ic-blue   { background: rgba(0,170,255,0.12); color: var(--primary-blue); }
+        .ic-green  { background: rgba(16,185,129,0.12); color: #10B981; }
+        .ic-yellow { background: rgba(245,158,11,0.12); color: #F59E0B; }
+        .ic-red    { background: rgba(239,68,68,0.12); color: #EF4444; }
+        .ic-purple { background: rgba(139,92,246,0.12); color: #8b5cf6; }
+        .ic-teal   { background: rgba(20,184,166,0.12); color: #14b8a6; }
+        .ic-orange { background: rgba(251,146,60,0.12); color: #f97316; }
+        .ic-pink   { background: rgba(236,72,153,0.12); color: #ec4899; }
+        .ic-slate  { background: rgba(100,116,139,0.12); color: #64748b; }
+
+        /* ===== TERMS CONTENT ===== */
+        .terms-content { font-size: 13.5px; color: var(--text-light); line-height: 1.85; }
+        .terms-content p { margin-bottom: 12px; }
+        .terms-content h3 { font-size: 14px; font-weight: 700; color: var(--text-color); margin: 18px 0 8px; }
+        .terms-content ul, .terms-content ol { padding-left: 20px; margin: 10px 0 14px; }
+        .terms-content li { margin-bottom: 6px; }
+        .terms-content strong { color: var(--text-color); font-weight: 600; }
+        .terms-content a { color: var(--primary-blue); font-weight: 600; }
+        .terms-content table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+        .terms-content table th { background: rgba(0,170,255,0.08); color: var(--text-color); font-weight: 700; padding: 10px 14px; text-align: left; border: 1px solid var(--light-grey); }
+        .terms-content table td { padding: 9px 14px; border: 1px solid var(--light-grey); color: var(--text-light); vertical-align: top; }
+        .terms-content table tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+        .note-box { background: rgba(0,170,255,0.07); border-left: 3px solid var(--primary-blue); padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 12px; color: #0077aa; }
+        .warn-box { background: rgba(245,158,11,0.08); border-left: 3px solid #F59E0B; padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 12px; color: #92400e; }
+        .danger-box { background: rgba(239,68,68,0.07); border-left: 3px solid #EF4444; padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 12px; color: #991b1b; }
+        .success-box { background: rgba(16,185,129,0.07); border-left: 3px solid #10B981; padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 12px; color: #065f46; }
+
+        /* Violation cards */
+        .violation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+        .violation-card { background: rgba(239,68,68,0.05); border: 1.5px solid rgba(239,68,68,0.2); border-radius: 10px; padding: 14px; }
+        .violation-card-icon { font-size: 22px; margin-bottom: 7px; }
+        .violation-card-title { font-size: 13px; font-weight: 700; color: #991b1b; margin-bottom: 4px; }
+        .violation-card-desc { font-size: 12px; color: var(--text-light); line-height: 1.6; }
+        @media(max-width:560px){ .violation-grid { grid-template-columns: 1fr; } }
+
+        /* Fee highlight */
+        .fee-highlight { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,170,255,0.1); border: 1px solid rgba(0,170,255,0.3); border-radius: 8px; padding: 4px 12px; font-size: 13px; font-weight: 700; color: var(--primary-blue); margin: 2px 0; }
+
+        /* Coming soon badge */
+        .badge-soon { display: inline-flex; align-items: center; gap: 5px; background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 700; color: #92400e; margin-left: 8px; vertical-align: middle; }
+
+        /* ===== BACK TO TOP ===== */
+        .back-top { position: fixed; bottom: 24px; right: 24px; background: var(--primary-blue); color: white; width: 42px; height: 42px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; box-shadow: 0 4px 16px rgba(0,170,255,0.4); opacity: 0; transition: opacity 0.3s, transform 0.2s; z-index: 50; }
+        .back-top.visible { opacity: 1; }
+        .back-top:hover { transform: translateY(-3px); }
+
+        /* ===== FOOTER ===== */
+        .footer { background: var(--white); padding: 40px 20px 20px; border-top: 1px solid var(--light-grey); }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .footer-section h3 { font-size: 17px; margin-bottom: 16px; color: var(--primary-blue); display: flex; align-items: center; gap: 8px; font-weight: 700; }
+        .footer-section p { color: var(--text-light); margin-bottom: 14px; font-size: 13.5px; line-height: 1.7; }
+        .footer-brand-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .footer-brand-logo img { width: 46px; height: 46px; object-fit: contain; }
+        .footer-brand-logo span { font-size: 22px; font-weight: 700; color: var(--primary-blue); }
+        .footer-cac { display: flex; align-items: flex-start; gap: 10px; background: rgba(16,185,129,0.07); border: 1px solid rgba(16,185,129,0.25); border-radius: 10px; padding: 10px 12px; margin-bottom: 16px; }
+        .footer-cac i { color: #10B981; font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+        .footer-cac-title { font-size: 11px; font-weight: 700; color: #10B981; letter-spacing: 0.3px; }
+        .footer-cac-num { font-size: 11px; color: var(--text-light); margin-top: 2px; line-height: 1.5; }
+        .footer-cac-num strong { color: var(--text-color); }
+        .social-links { display: flex; gap: 10px; margin-top: 4px; flex-wrap: wrap; }
+        .social-link { width: 36px; height: 36px; border-radius: 50%; background: var(--light-grey); display: flex; align-items: center; justify-content: center; color: var(--text-color); font-size: 14px; transition: var(--transition); }
+        .social-link:hover { background: var(--primary-blue); color: white; transform: translateY(-3px); }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: var(--text-light); font-size: 14px; transition: var(--transition); display: flex; align-items: center; gap: 8px; }
+        .footer-links a i { width: 16px; text-align: center; }
+        .footer-links a:hover { color: var(--primary-blue); padding-left: 5px; }
+        .footer-bottom { text-align: center; padding-top: 20px; margin-top: 30px; border-top: 1px solid var(--light-grey); color: var(--text-light); font-size: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+        .footer-bottom-links { display: flex; gap: 20px; }
+        .footer-bottom-links a { color: var(--text-light); font-size: 13px; transition: var(--transition); }
+        .footer-bottom-links a:hover { color: var(--primary-blue); }
+        .footer-cac-tag { display: flex; align-items: center; gap: 5px; font-size: 13px; color: #10B981; font-weight: 600; }
+
+        /* ===== DARK MODE ===== */
+        .dark-mode { background: linear-gradient(135deg, #0c1a2d 0%, #0f172a 50%, #1e293b 100%); color: #E2E8F0; }
+        .dark-mode .header, .dark-mode .sidebar { background: var(--card-dark); }
+        .dark-mode .header { border-bottom-color: #334155; }
+        .dark-mode .toc-card, .dark-mode .violation-card { background: var(--card-dark); border-color: #334155; }
+        .dark-mode .violation-card { background: rgba(239,68,68,0.06); border-color: rgba(239,68,68,0.25); }
+        .dark-mode .agree-banner { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.25); }
+        .dark-mode .agree-banner p { color: #E2E8F0; }
+        .dark-mode .terms-section-header { border-bottom-color: #334155; }
+        .dark-mode .terms-section-header h2, .dark-mode .toc-title { color: #E2E8F0; }
+        .dark-mode .terms-content { color: #94A3B8; }
+        .dark-mode .terms-content h3, .dark-mode .terms-content strong { color: #E2E8F0; }
+        .dark-mode .terms-content table th { background: rgba(0,170,255,0.12); color: #E2E8F0; border-color: #334155; }
+        .dark-mode .terms-content table td { border-color: #334155; color: #94A3B8; }
+        .dark-mode .terms-content table tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+        .dark-mode .violation-card-desc { color: #94A3B8; }
+        .dark-mode .sidebar { border-right-color: #334155; }
+        .dark-mode .sidebar-header, .dark-mode .sidebar-auth { border-color: #334155; }
+        .dark-mode .sidebar-divider { border-top-color: #334155; }
+        .dark-mode .menu-item { color: #CBD5E1; }
+        .dark-mode .menu-item:hover, .dark-mode .menu-item.active { background: rgba(0,170,255,0.08); color: var(--primary-blue); }
+        .dark-mode .sb-group { color: #475569; }
+        .dark-mode .note-box { background: rgba(0,170,255,0.1); color: #7dd3fc; }
+        .dark-mode .warn-box { background: rgba(245,158,11,0.1); color: #fcd34d; }
+        .dark-mode .danger-box { background: rgba(239,68,68,0.08); color: #fca5a5; }
+        .dark-mode .success-box { background: rgba(16,185,129,0.1); color: #6ee7b7; }
+        .dark-mode .footer { background: var(--card-dark); border-top-color: #334155; }
+        .dark-mode .footer-links a, .dark-mode .footer-bottom { color: #94A3B8; }
+        .dark-mode .footer-bottom-links a { color: #94A3B8; }
+        .dark-mode .social-link { background: #334155; color: #94A3B8; }
+        .dark-mode .social-link:hover { background: var(--primary-blue); color: white; }
+
+        @media (max-width: 768px) {
+            .footer-content { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .footer-bottom-links { justify-content: center; }
+        }
+        
+/* ===== MOBILE RESPONSIVE FIX ===== */
+@media (max-width: 480px) {
+
+    /* Fix tables — correct class is terms-content */
+    .terms-content table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        white-space: nowrap;
+    }
+
+    /* Reduce page body padding */
+    .page-body {
+        padding: 24px 16px 60px;
+    }
+
+    /* Hero meta — tighter gap */
+    .hero-meta {
+        gap: 10px;
+    }
+
+    /* TOC — single column */
+    .toc-list {
+        grid-template-columns: 1fr;
+    }
+
+    /* Violation grid — single column */
+    .violation-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Footer bottom */
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-bottom-links {
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+    </style>
+</head>
+<body id="body">
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+    <a href="index.html" class="logo">
+        <div class="logo-image">
+            <img src="logo.png" alt="Earncial Logo" onerror="this.parentElement.style.background='#00aaff';this.parentElement.innerHTML='<span style=color:white;font-weight:700;font-size:20px>E</span>';">
+        </div>
+        <span>Earncial</span>
+    </a>
+    <div class="nav-right">
+        <button class="theme-toggle" id="darkModeToggle" title="Toggle dark mode"><i class="fas fa-moon" id="themeIcon"></i></button>
+        <button class="menu-toggle" id="menuToggle" title="Open menu"><i class="fas fa-bars"></i></button>
+    </div>
+</header>
+
+<!-- ===== SIDEBAR ===== -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <div class="logo-image" style="width:36px;height:36px;margin-right:10px;">
+                <img src="logo.png" alt="Earncial" onerror="this.parentElement.style.background='#00aaff';this.parentElement.innerHTML='<span style=color:white;font-weight:700>E</span>';">
+            </div>
+            <span style="font-weight:700;color:var(--primary-blue);font-size:16px;">Earncial</span>
+        </div>
+        <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
+    </div>
+
+    <div class="sidebar-menu">
+        <div class="sb-group">This Page</div>
+        <a href="#acceptance"   class="menu-item terms-nav"><i class="fas fa-handshake"></i> Acceptance</a>
+        <a href="#platform"     class="menu-item terms-nav"><i class="fas fa-layer-group"></i> Our Platform</a>
+        <a href="#accounts"     class="menu-item terms-nav"><i class="fas fa-user-circle"></i> Accounts</a>
+        <a href="#earner-terms" class="menu-item terms-nav"><i class="fas fa-coins"></i> Earner Rules</a>
+        <a href="#adv-terms"    class="menu-item terms-nav"><i class="fas fa-bullhorn"></i> Advertiser Rules</a>
+        <a href="#marketplace"  class="menu-item terms-nav"><i class="fas fa-store"></i> Marketplace</a>
+        <a href="#fees"         class="menu-item terms-nav"><i class="fas fa-tag"></i> Fees &amp; Payments</a>
+        <a href="#prohibited"   class="menu-item terms-nav"><i class="fas fa-ban"></i> Prohibited Conduct</a>
+        <a href="#termination"  class="menu-item terms-nav"><i class="fas fa-user-slash"></i> Termination</a>
+        <a href="#disputes"     class="menu-item terms-nav"><i class="fas fa-balance-scale"></i> Disputes</a>
+        <a href="#liability"    class="menu-item terms-nav"><i class="fas fa-shield-alt"></i> Liability</a>
+        <a href="#ip"           class="menu-item terms-nav"><i class="fas fa-copyright"></i> Intellectual Property</a>
+        <a href="#governing"    class="menu-item terms-nav"><i class="fas fa-gavel"></i> Governing Law</a>
+        <a href="#contact"      class="menu-item terms-nav"><i class="fas fa-envelope"></i> Contact</a>
+
+        <hr class="sidebar-divider">
+        <div class="sb-group">Platform</div>
+        <a href="index.html"        class="menu-item"><i class="fas fa-home"></i> Home</a>
+        <a href="how-it-works.html" class="menu-item"><i class="fas fa-cogs"></i> How It Works</a>
+        <a href="faq.html"          class="menu-item"><i class="fas fa-question-circle"></i> FAQ</a>
+        <a href="support.html"      class="menu-item"><i class="fas fa-headset"></i> Support</a>
+
+        <hr class="sidebar-divider">
+        <div class="sb-group">Legal</div>
+        <a href="privacy.html"  class="menu-item"><i class="fas fa-lock"></i> Privacy Policy</a>
+        <a href="terms.html"    class="menu-item active"><i class="fas fa-file-alt"></i> Terms of Service</a>
+        <a href="cookies.html"  class="menu-item"><i class="fas fa-cookie-bite"></i> Cookie Policy</a>
+    </div>
+
+    <div class="sidebar-auth">
+        <a href="sign-in.html"  class="sidebar-btn sidebar-btn-outline"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+        <a href="sign-up.html"  class="sidebar-btn sidebar-btn-primary"><i class="fas fa-user-plus"></i> Create Account</a>
+    </div>
+</div>
+
+<!-- ===== OVERLAY ===== -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-content">
+
+    <section class="hero">
+        <p class="hero-breadcrumb"><a href="index.html">Home</a> &rsaquo; Terms of Service</p>
+        <h1><i class="fas fa-file-contract" style="margin-right:10px;opacity:0.9;"></i>Terms of Service</h1>
+        <div class="hero-meta">
+            <span><i class="fas fa-calendar-alt"></i> Effective: August 10, 2025</span>
+            <span><i class="fas fa-sync-alt"></i> Last updated: January 1, 2026</span>
+            <span><i class="fas fa-certificate"></i> CAC RC No. 9374009</span>
+            <span><i class="fas fa-gavel"></i> Governed by Nigerian Law</span>
+        </div>
+    </section>
+
+    <div class="page-body">
+
+        <!-- Agreement Banner -->
+        <div class="agree-banner">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p><strong>Please read these Terms carefully before using Earncial.</strong> By creating an account, accessing, or using any part of the Earncial platform, you confirm that you have read, understood, and agreed to be bound by these Terms of Service. If you do not agree, do not use the platform.</p>
+        </div>
+
+        <!-- TOC -->
+        <div class="toc-card">
+            <div class="toc-title"><i class="fas fa-list" style="margin-right:8px;color:var(--primary-blue);"></i>Table of Contents</div>
+            <ul class="toc-list">
+                <li><a href="#acceptance"><i class="fas fa-chevron-right"></i> 1. Acceptance of Terms</a></li>
+                <li><a href="#platform"><i class="fas fa-chevron-right"></i> 2. About Our Platform</a></li>
+                <li><a href="#accounts"><i class="fas fa-chevron-right"></i> 3. Accounts &amp; Registration</a></li>
+                <li><a href="#earner-terms"><i class="fas fa-chevron-right"></i> 4. Earner Terms</a></li>
+                <li><a href="#adv-terms"><i class="fas fa-chevron-right"></i> 5. Advertiser Terms</a></li>
+                <li><a href="#marketplace"><i class="fas fa-chevron-right"></i> 6. Product Marketplace</a></li>
+                <li><a href="#fees"><i class="fas fa-chevron-right"></i> 7. Fees &amp; Payments</a></li>
+                <li><a href="#prohibited"><i class="fas fa-chevron-right"></i> 8. Prohibited Conduct</a></li>
+                <li><a href="#termination"><i class="fas fa-chevron-right"></i> 9. Termination &amp; Bans</a></li>
+                <li><a href="#disputes"><i class="fas fa-chevron-right"></i> 10. Dispute Resolution</a></li>
+                <li><a href="#liability"><i class="fas fa-chevron-right"></i> 11. Limitation of Liability</a></li>
+                <li><a href="#ip"><i class="fas fa-chevron-right"></i> 12. Intellectual Property</a></li>
+                <li><a href="#governing"><i class="fas fa-chevron-right"></i> 13. Governing Law</a></li>
+                <li><a href="#contact"><i class="fas fa-chevron-right"></i> 14. Contact Us</a></li>
+            </ul>
+        </div>
+
+        <!-- ══ 1. ACCEPTANCE ══ -->
+        <section class="terms-section" id="acceptance">
+            <div class="terms-section-header">
+                <div class="ts-icon ic-blue"><i class="fas fa-handshake"></i></div>
+                <h2>1. Acceptance of Terms</h2>
+            </div>
+            <div class="terms-content">
+                <p>These Terms of Service ("<strong>Terms</strong>") constitute a legally binding agreement between you ("<strong>User</strong>", "<strong>you</strong>") and <strong>Earncial Global</strong> (CAC RC No. 9374009), the operator of the Earncial platform ("<strong>Earncial</strong>", "<strong>we</strong>", "<strong>us</strong>").</p>
+                <p>These Terms govern your access to and use of the Earncial website, platform, services, and any future features including the Task Marketplace and Product Marketplace (collectively, the "<strong>Service</strong>").</p>
+                <p>By doing any of the following, you agree to these Terms:</p>
+                <ul>
+                    <li>Creating an Earncial account</li>
+                    <li>Clicking "I agree" or similar during registration</li>
+                    <li>Accessing or using any part of the Earncial platform</li>
+                    <li>Completing or posting a task</li>
+                    <li>Making or receiving a payment through Earncial</li>
+                </ul>
+                <div class="warn-box">⚠️ If you do not agree to these Terms, you must not create an account or use the Earncial platform in any way.</div>
+                <p>We reserve the right to update these Terms at any time. Continued use of the platform after changes are published constitutes your acceptance of the revised Terms. We will notify you of material changes via email or a prominent notice on the platform.</p>
+            </div>
+        </section>
+
+        <!-- ══ 2. PLATFORM ══ -->
+        <section class="terms-section" id="platform">
+            <div class="terms-section-header">
+                <div class="ts-icon ic-blue"><i class="fas fa-layer-group"></i></div>
+                <h2>2. About Our Platform</h2>
+            </div>
+            <div class="terms-content">
+                <p>Earncial operates as a <strong>multi-service digital platform</strong> comprising the following services:</p>
+
+                <h3>2.1 — Task Marketplace (Live)</h3>
+                <p>A marketplace that connects <strong>Earners</strong> and <strong>Advertisers</strong> for the completion of social media engagement tasks. Earncial acts as an intermediary — facilitating connections, verifying task completions, and processing payments — but is not a party to the agreement between individual earners and advertisers.</p>
+                <ul>
+                    <li><strong>Earners</strong> complete social media tasks (follow, like, subscribe, comment, join, watch, share, etc.) in exchange for monetary compensation</li>
+                    <li><strong>Advertisers</strong> post tasks and pay for genuine social media engagement to grow their online presence</li>
+                    <li>Earncial verifies task completion through screenshot review before releasing payment</li>
+                </ul>
+
+                <h3>2.2 — Product Marketplace <span class="badge-soon"><i class="fas fa-clock"></i> Coming Soon</span></h3>
+                <p>A marketplace for buying and selling physical products, digital products, and services. This feature is currently in development and not yet live. Additional specific terms will apply to the Product Marketplace upon launch and will be incorporated into these Terms.</p>
+                <p>The Product Marketplace will support:</p>
+                <ul>
+                    <li><strong>Physical products</strong> — clothing, gadgets, accessories, and other tangible goods</li>
+                    <li><strong>Digital products</strong> — eBooks, templates, courses, software, and other downloadable content</li>
+                    <li><strong>Services</strong> — freelance and professional services offered by users</li>
+                </ul>
+                <div class="note-box">💡 Earncial is a <strong>marketplace intermediary</strong>. We connect buyers and sellers and earners and advertisers, but we are not the seller of goods nor the employer of earners. All transactions are between independent users of the platform.</div>
+            </div>
+        </section>
+
+        <!-- ══ 3. ACCOUNTS ══ -->
+        <section class="terms-section" id="accounts">
+            <div class="terms-section-header">
+                <div class="ts-icon ic-green"><i class="fas fa-user-circle"></i></div>
+                <h2>3. Accounts &amp; Registration</h2>
+            </div>
+            <div class="terms-content">
+                <h3>3.1 — Eligibility</h3>
+                <p>To create an Earncial account you must:</p>
+                <ul>
+                    <li>Be at least <strong>18 years of age</strong></li>
+                    <li>Provide accurate, complete, and truthful information during registration</li>
+                    <li>Have the legal capacity to enter into a binding contract in your jurisdiction</li>
+                    <li>Not have been previously banned or suspended from Earncial</li>
+                </ul>
+
+                <h3>3.2 — Account Types</h3>
+                <table>
+                    <tr><th>Account Type</th><th>Who It's For</th><th>Key Requirement</th></tr>
+                    <tr>
+                        <td><strong>Earner</strong></td>
+                        <td>Individuals who complete social media tasks for payment</td>
+                        <td>One-time activation fee of ₦1,000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Advertiser</strong></td>
+                        <td>Individuals or businesses posting tasks to grow social media</td>
+                        <td>Minimum wallet deposit of ₦1,000 to post tasks</td>
+                    </tr>
+                </table>
+                <div class="warn-box">⚠️ <strong>Account type is permanent.</strong> You cannot switch from Earner to Advertiser or vice versa after registration. Create your account carefully.</div>
+
+                <h3>3.3 — One Account Per Person</h3>
+                <p>Each user is permitted to hold <strong>one account only</strong>. Creating multiple accounts — whether as an earner, an advertiser, or across both types — is strictly prohibited and will result in <strong>immediate permanent banning of all associated accounts</strong> and forfeiture of all balances.</p>
+
+                <h3>3.4 — Account Security</h3>
+                <p>You are solely responsible for maintaining the confidentiality of your login credentials and for all activity that occurs under your account. You agree to:</p>
+                <ul>
+                    <li>Use a strong, unique password for your Earncial account</li>
+                    <li>Never share your password with anyone — including anyone claiming to be Earncial staff</li>
+                    <li>Notify us immediately at <a href="mailto:support@earncial.com">support@earncial.com</a> if you suspect unauthorised access</li>
+                </ul>
+                <p>Earncial will never ask for your password under any circumstances.</p>
+
+                <h3>3.5 — Accurate Information</h3>
+                <p>You must provide truthful and accurate information at registration and keep it updated. Providing false information — including a false name, age, bank account, or social media handles — may result in immediate account termination and forfeiture of earnings.</p>
+            </div>
+        </section>
+
+        <!-- ══ 4. EARNER TERMS ══ -->
+        <section class="terms-section" id="earner-terms">
+            <div class="terms-section-header">
+                <div class="ts-icon ic-green"><i class="fas fa-coins"></i></div>
+                <h2>4. Earner Terms</h2>
+            </div>
+            <div class="terms-content">
+                <h3>4.1 — Activation</h3>
+                <p>Before completing any tasks, earners must pay a <strong>one-time, non-refundable activation fee of ₦1,000</strong>. This fee covers account setup, verification processing, and platform access. It is charged once and never again.</p>
+
+                <h3>4.2 — Social Media Handle Verification</h3>
+                <p>Earners must link and verify their social media handles before completing tasks on any platform. The verification process requires:</p>
+                <ol>
+                    <li>Submitting your username for the target platform</li>
+                    <li>Placing a Earncial-provided verification text in your profile bio</li>
+                    <li>Submitting for admin review and approval</li>
+                </ol>
+                <p>Each platform must be verified separately. Earncial may revoke handle approval at any time if the handle is found to violate these Terms.</p>
+
+                <h3>4.3 — Completing Tasks</h3>
+                <p>When completing tasks, earners agree to:</p>
+                <ul>
+                    <li>Read and follow task instructions carefully and exactly</li>
+                    <li>Complete the task using only your verified, linked account</li>
+                    <li>Submit a clear, unedited screenshot clearly showing your username and the completed action</li>
+                    <li>Maintain the completed action — you must not undo it (e.g. unfollow, unlike, leave group) after submission</li>
+                    <li>Not submit a task you have previously completed</li>
+                </ul>
+
+                <h3>4.4 — Earnings &amp; Withdrawals</h3>
+                <ul>
+                    <li>Earnings are credited to your Earncial balance only after task approval by Earncial admin</li>
+                    <li>Minimum withdrawal amount: <span class="fee-highlight">₦1,000</span></li>
+                    <li>A <span class="fee-highlight">10% fee</span> is deducted from every withdrawal</li>
+                    <li>Withdrawals are processed to your registered bank account only</li>
+                    <li>The bank account name must match your registered Earncial name</li>
+                </ul>
+                <div class="note-box">💡 The withdrawal fee breakdown is shown transparently before you confirm — you always know exactly how much you will receive.</div>
+
+                <h3>4.5 — Nature of Relationship</h3>
+                <p>Earners on Earncial are <strong>independent users</strong>, not employees, contractors, or agents of Earncial. Completing tasks does not create an employment relationship between you and Earncial or between you and the advertiser who posted the task.</p>
+            </div>
+        </section>
+
+        <!-- ══ 5. ADVERTISER TERMS ══ -->
+        <section class="terms-section" id="adv-terms">
+            <div class="terms-section-header">
+                <div class="ts-icon ic-yellow"><i class="fas fa-bullhorn"></i></div>
+                <h2>5. Advertiser Terms</h2>
+            </div>
+            <div class="terms-content">
+                <h3>5.1 — Wallet &amp; Deposits</h3>
+                <ul>
+                    <li>Advertisers must fund their Earncial wallet before posting tasks</li>
+                    <li>Minimum deposit amount: <span class="fee-highlight">₦1,000</span></li>
+                    <li>Deposits are processed via Flutterwave. Flutterwave adds its own processing fee — the amount shown on Flutterwave may be higher than the amount entered on Earncial. You must pay the exact amount shown on Flutterwave</li>
+                    <li>Wallet funds do not expire and may be used for any tasks posted on the platform</li>
+                </ul>
+
+                <h3>5.2 — Posting Tasks</h3>
+                <p>By posting a task on Earncial, the advertiser warrants that:</p>
+                <ul>
+                    <li>They own or have the right to promote the social media account, content, or product in the task</li>
+                    <li>The task URL is accurate, complete, and leads directly to the correct destination</li>
+                    <li>The task does not violate the terms of any social media platform it targets</li>
+                    <li>The task does not promote illegal, harmful, deceptive, or offensive content</li>
+                    <li>They have sufficient wallet balance to cover the full task cost before submitting</li>
+                </ul>
+                <p>Tasks are subject to admin review before going live. Earncial reserves the right to reject any task without explanation.</p>
+
+                <h3>5.3 — Task Management</h3>
+                <ul>
+                    <li><strong>Pause / Resume:</strong> Tasks may be paused and resumed at any time at no cost</li>
+                    <li><strong>Increase Participants:</strong> Additional participants (minimum 10) may be added to a live task at any time — the cost is deducted instantly and no re-approval is required</li>
+                    <li><strong>Delete Task:</strong> Advertisers may delete a task and receive a <span class="fee-highlight">95% refund</span> of the remaining unused budget to their wallet. The 5% is non-refundable and covers platform processing charges</li>
+                </ul>
+
+                <h3>5.4 — Approval &amp; Rejection of Submissions</h3>
+                <p>Earncial's admin team reviews all earner task submissions. Advertisers do not manually approve or reject individual submissions — this is managed by Earncial to ensure fairness and prevent abuse. Advertisers agree to accept Earncial's review decisions on task submissions.</p>
+
+                <h3>5.5 — Prohibited Tasks</h3>
+                <p>Advertisers may not post tasks that:</p>
+                <ul>
+                    <li>Promote illegal products, services, or activities</li>
+                    <li>Contain sexually explicit, violent, or hateful content</li>
+                    <li>Involve phishing, scams, or deceptive schemes</li>
+                    <li>Violate the intellectual property rights of third parties</li>
+                    <li>Direct earners to download malicious software or visit harmful websites</li>
+                    <li>Request earners to share personal financial or sensitive information</li>
+                </ul>
+                <div class="danger-box">🚫 Posting prohibited tasks will result in immediate account suspension, forfeiture of wallet balance, and may be reported to relevant authorities.</div>
+            </div>
+        </section>
+
+        <!-- ══ 6. MARKETPLACE ══ -->
+        <section class="terms-section" id="marketplace">
+            <div class="terms-section-header">
+                <div class="ts-icon ic-orange"><i class="fas fa-store"></i></div>
+                <h2>6. Product Marketplace <span class="badge-soon"><i class="fas fa-clock"></i> Coming Soon</span></h2>
+            </div>
+            <div class="terms-content">
+                <p>The Earncial Product Marketplace is currently in development and is not yet live. The following terms will apply upon launch.</p>
+
+                <h3>6.1 — What Can Be Listed</h3>
+                <p>The Product Marketplace will allow users to list and sell:</p>
+                <ul>
+                    <li><strong>Physical products</strong> — clothing, gadgets, accessories, household items, and other tangible goods that can be physically shipped</li>
+                    <li><strong>Digital products</strong> — eBooks, templates, courses, design files, software, and other downloadable or deliverable digital content</li>
+                    <li><strong>Services</strong> — freelance and professional services including writing, design, development, consulting, and other skills-based offerings</li>
+                </ul>
+
+                <h3>6.2 — Seller Responsibilities</h3>
+                <p>Sellers on the Product Marketplace will be required to:</p>
+                <ul>
+                    <li>Pay a <strong>listing fee</strong> per item listed (amount to be communicated at launch)</li>
+                    <li>Provide accurate product descriptions, pricing, and images</li>
+                    <li>Fulfill orders promptly and as described</li>
+                    <li>Not list counterfeit, stolen, prohibited, or intellectual property-infringing items</li>
+                    <li>Handle disputes with buyers in good faith</li>
+                </ul>
+
+                <h3>6.3 — Prohibited Listings</h3>
+                <p>The following may not be listed or sold on the Earncial Marketplace:</p>
+                <ul>
+                    <li>Illegal goods or controlled substances</li>
+                    <li>Counterfeit or replica branded products</li>
+                    <li>Weapons, ammunition, or dangerous materials</li>
+                    <li>Adult content or sexually explicit material</li>
+                    <li>Stolen goods or fraudulently obtained items</li>
+                    <li>Products that infringe third-party intellectual property rights</li>
+                    <li>Financial instruments, currencies, or investment products</li>
+                </ul>
+
+                <div class="note-box">💡 Full Marketplace Terms — including fees, buyer protections, return policy, and dispute resolution — will be published and incorporated into these Terms upon launch. We will notify all users.</div>
+            </div>
+        </section>
+
+        <!-- ══ 7. FEES & PAYMENTS ══ -->
+        <section class="terms-section" id="fees">
+            <div class="terms-section-header">
+                <div class="ts-icon ic-purple"><i class="fas fa-tag"></i></div>
+                <h2>7. Fees &amp; Payments</h2>
+            </div>
+            <div class="terms-content">
+                <h3>7.1 — Fee Summary</h3>
+                <table>
+                    <tr><th>Fee</th><th>Amount</th><th>Who Pays</th><th>When</th></tr>
+                    <tr>
+                        <td><strong>Activation Fee</strong></td>
+                        <td>₦1,000 (one-time)</td>
+                        <td>Earners</td>
+                        <td>Once, before completing any task</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Withdrawal Fee</strong></td>
+                        <td>10% of withdrawal amount</td>
+                        <td>Earners</td>
+                        <td>Every withdrawal</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Minimum Withdrawal</strong></td>
+                        <td>₦1,000</td>
+                        <td>Earners</td>
+                        <td>Per withdrawal request</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Minimum Deposit</strong></td>
+                        <td>₦1,000</td>
+                        <td>Advertisers</td>
+                        <td>Per deposit</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Task Cost</strong></td>
+                        <td>Price per task × participants</td>
+                        <td>Advertisers</td>
+                        <td>When task is submitted</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Task Deletion Refund</strong></td>
+                        <td>95% of unused budget (5% non-refundable)</td>
+                        <td>Advertisers receive</td>
+                        <td>When task is deleted</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Marketplace Listing Fee</strong></td>
+                        <td>To be announced at launch</td>
+                        <td>Sellers</td>
+                        <td>Per listing (coming soon)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flutterwave Processing Fee</strong></td>
+                        <td>Determined by Flutterwave</td>
+                        <td>Advertisers</td>
+                        <td>On every deposit via Flutterwave</td>
+                    </tr>
+                </table>
+
+                <h3>7.2 — Payment Processing</h3>
+                <p>All deposits are processed by <strong>Flutterwave</strong>, our third-party payment provider. Earncial does not store credit card or bank card details. By making a deposit, you also agree to Flutterwave's Terms of Service.</p>
+
+                <h3>7.3 — All Fees Are Final</h3>
+                <p>All fees charged by Earncial are <strong>final and non-negotiable</strong> unless otherwise stated. The activation fee is non-refundable under all circumstances. Withdrawal fees are deducted automatically and shown to you before you confirm.</p>
+
+                <h3>7.4 — Earncial's Right to Change Fees</h3>
+                <p>Earncial reserves the right to modify its fee structure at any time. We will provide at least <strong>14 days' advance notice</strong> of any fee changes via email or a platform-wide announcement.</p>
+                <div class="warn-box">⚠️ The activation fee (₦1,000) is strictly one-time and non-refundable — even if your account is subsequently banned for a violation.</div>
+            </div>
+        </section>
+
+        <!-- ══ 8. PROHIBITED CONDUCT ══ -->
+        <section class="terms-section" id="prohibited">
+            <div class="terms-section-header">
+                <div class="ts-icon ic-red"><i class="fas fa-ban"></i></div>
+                <h2>8. Prohibited Conduct</h2>
+            </div>
+            <div class="terms-content">
+                <p>The following conduct is <strong>strictly prohibited</strong> on the Earncial platform. Violation of any of these rules will result in immediate permanent account termination and forfeiture of all balances.</p>
+
+                <div class="violation-grid">
+                    <div class="violation-card">
+                        <div class="violation-card-icon">🖼️</div>
+                        <div class="violation-card-title">Fake Screenshots / Cheating</div>
+                        <div class="violation-card-desc">Submitting edited, fabricated, or false screenshot proof for task completion. Any form of deception to claim earnings you have not genuinely earned.</div>
+                    </div>
+                    <div class="violation-card">
+                        <div class="violation-card-icon">👥</div>
+                        <div class="violation-card-title">Multiple Accounts</div>
+                        <div class="violation-card-desc">Creating or operating more than one Earncial account per person, whether as earner, advertiser, or both. All accounts will be permanently banned.</div>
+                    </div>
+                    <div class="violation-card">
+                        <div class="violation-card-icon">↩️</div>
+                        <div class="violation-card-title">Reversing Completed Actions</div>
+                        <div class="violation-card-desc">Unfollowing, unliking, leaving, or otherwise undoing a task action after submitting the proof. You must maintain all task actions permanently.</div>
+                    </div>
+                    <div class="violation-card">
+                        <div class="violation-card-icon">🤖</div>
+                        <div class="violation-card-title">Bots &amp; Automation</div>
+                        <div class="violation-card-desc">Using automated tools, scripts, bots, or any software to complete tasks, generate screenshots, or interact with the Earncial platform artificially.</div>
+                    </div>
+                    <div class="violation-card">
+                        <div class="violation-card-icon">🔞</div>
+                        <div class="violation-card-title">Minors Under 18</div>
+                        <div class="violation-card-desc">Persons under the age of 18 are strictly prohibited from using Earncial. Any account found to belong to a minor will be permanently closed immediately.</div>
+                    </div>
+                    <div class="violation-card">
+                        <div class="violation-card-icon">🚫</div>
+                        <div class="violation-card-title">General Fraud &amp; Abuse</div>
+                        <div class="violation-card-desc">Any attempt to defraud Earncial, other users, advertisers, or earners — including chargebacks, false disputes, or exploiting platform bugs for financial gain.</div>
+                    </div>
+                </div>
+
+                <h3>Additional Prohibited Activities</h3>
+                <ul>
+                    <li>Hacking, reverse-engineering, or attempting to gain unauthorised access to any part of the platform</li>
+                    <li>Scraping, crawling, or data-mining the platform without written permission</li>
+                    <li>Harassing, threatening, or abusing other users or Earncial staff</li>
+                    <li>Impersonating Earncial, its staff, or other users</li>
+                    <li>Using Earncial to launder money or conduct illegal financial activity</li>
+                    <li>Circumventing or attempting to bypass any security measure, fee, or restriction on the platform</li>
+                </ul>
+                <div class="danger-box">🚫 <strong>Zero tolerance policy.</strong> Earncial does not issue warnings for serious violations. Cheating, fake screenshots, bots, or multiple accounts result in immediate permanent ban and permanent forfeiture of all wallet balances — including the activation fee. We actively monitor for fraud.</div>
+            </div>
+        </section>
+
+        <!-- ══ 9. TERMINATION ══ -->
+        <section class="terms-section" id="termination">
+            <div class="terms-section-header">
+                <div class="ts-icon ic-red"><i class="fas fa-user-slash"></i></div>
+                <h2>9. Termination &amp; Account Bans</h2>
+            </div>
+            <div class="terms-content">
+                <h3>9.1 — Termination by Earncial</h3>
+                <p>Earncial reserves the right to suspend or permanently terminate any account at any time, with or without prior notice, for:</p>
+                <ul>
+                    <li>Any violation of these Terms of Service</li>
+                    <li>Fraudulent, abusive, or deceptive activity</li>
+                    <li>Providing false information during registration or activity</li>
+                    <li>Any conduct that Earncial determines, in its sole discretion, to be harmful to the platform, other users, or third parties</li>
+                </ul>
+
+                <h3>9.2 — Consequences of Ban</h3>
+                <p>Upon permanent termination for a Terms violation:</p>
+                <ul>
+                    <li>All wallet balances (including earnings, unused deposits) are <strong>permanently forfeited</strong></li>
+                    <li>The activation fee is <strong>non-refundable</strong></li>
+                    <li>You may not create a new account — doing so will result in the new account being banned as well</li>
+                    <li>Any pending task submissions or advertiser task budgets are forfeited</li>
+                </ul>
+
+                <h3>9.3 — Voluntary Account Deletion</h3>
+                <p>You may request deletion of your account at any time by contacting <a href="mailto:support@earncial.com">support@earncial.com</a>. Upon voluntary deletion:</p>
+                <ul>
+                    <li>Any remaining earner balance may be withdrawn before deletion (subject to minimum withdrawal and fee)</li>
+                    <li>Advertiser wallet balances may be refunded minus any applicable processing charges</li>
+                    <li>Transaction records are retained as required by law (see Privacy Policy)</li>
+                </ul>
+
+                <h3>9.4 — Termination by You</h3>
+                <p>You may stop using the platform at any time. Simply ceasing to use the platform does not delete your account or data. You must submit a formal deletion request to remove your account.</p>
+                <div class="warn-box">⚠️ There is <strong>no appeal process</strong> for accounts banned for Terms violations. Earncial's decision is final.</div>
+            </div>
+        </section>
+
+        <!-- ══ 10. DISPUTES ══ -->
+        <section class="terms-section" id="disputes">
+            <div class="terms-section-header">
+                <div class="ts-icon ic-teal"><i class="fas fa-balance-scale"></i></div>
+                <h2>10. Dispute Resolution</h2>
+            </div>
+            <div class="terms-content">
+                <h3>10.1 — Platform Disputes (Earner vs Advertiser)</h3>
+                <p>Any dispute arising between an earner and an advertiser on the Earncial platform — including disputes about task completion, screenshot validity, or payment — shall be submitted to <strong>Earncial's admin team</strong> for resolution.</p>
+                <p>The process is as follows:</p>
+                <ol>
+                    <li>The disputing party contacts <a href="mailto:support@earncial.com">support@earncial.com</a> with full details and evidence</li>
+                    <li>Earncial's admin team reviews all evidence submitted by both parties</li>
+                    <li>Earncial issues a decision based on the platform's rules and its review of the evidence</li>
+                    <li><strong>Earncial's decision is final and binding.</strong> There is no appeal mechanism for platform disputes</li>
+                </ol>
+                <div class="note-box">💡 By using the Earncial platform, both earners and advertisers agree that Earncial's admin decision on all platform disputes is final and binding.</div>
+
+                <h3>10.2 — Disputes with Earncial</h3>
+                <p>If you have a dispute directly with Earncial (not between users), you agree to first attempt resolution by contacting us at <a href="mailto:support@earncial.com">support@earncial.com</a>. We will make every reasonable effort to resolve your concern within <strong>14 business days</strong>.</p>
+
+                <h3>10.3 — No Class Actions</h3>
+                <p>You agree to resolve any disputes with Earncial on an individual basis only. You waive any right to participate in class action lawsuits or class-wide arbitration proceedings against Earncial.</p>
+            </div>
+        </section>
+
+        <!-- ══ 11. LIABILITY ══ -->
+        <section class="terms-section" id="liability">
+            <div class="terms-section-header">
+                <div class="ts-icon ic-slate"><i class="fas fa-shield-alt"></i></div>
+                <h2>11. Limitation of Liability</h2>
+            </div>
+            <div class="terms-content">
+                <h3>11.1 — No Employment or Agency</h3>
+                <p>Earncial is a marketplace intermediary. Nothing in these Terms creates an employment, partnership, joint venture, or agency relationship between Earncial and any user. Earncial is not responsible for the conduct of earners or advertisers on the platform.</p>
+
+                <h3>11.2 — Platform Availability</h3>
+                <p>We strive to keep the Earncial platform available 24/7, but we do not guarantee uninterrupted access. We are not liable for losses arising from platform downtime, maintenance, technical errors, or circumstances beyond our control.</p>
+
+                <h3>11.3 — Third-Party Platforms</h3>
+                <p>Earncial is not affiliated with, endorsed by, or responsible for any third-party social media platform (Instagram, TikTok, YouTube, Facebook, Twitter, Telegram, etc.). Changes to third-party platform policies that affect earners' ability to complete tasks are not Earncial's liability.</p>
+
+                <h3>11.4 — Limitation of Damages</h3>
+                <p>To the maximum extent permitted by applicable law, Earncial's total liability to any user shall not exceed the amount that user paid to Earncial in the <strong>90 days preceding the event</strong> giving rise to the claim. Earncial is not liable for indirect, incidental, special, or consequential damages.</p>
+
+                <h3>11.5 — User Content</h3>
+                <p>Earncial is not responsible for content posted by users including task descriptions, product listings, or screenshots. Users are solely responsible for the content they submit to the platform.</p>
+            </div>
+        </section>
+
+        <!-- ══ 12. IP ══ -->
+        <section class="terms-section" id="ip">
+            <div class="terms-section-header">
+                <div class="ts-icon ic-purple"><i class="fas fa-copyright"></i></div>
+                <h2>12. Intellectual Property</h2>
+            </div>
+            <div class="terms-content">
+                <h3>12.1 — Earncial's Intellectual Property</h3>
+                <p>All content on the Earncial platform — including the name "Earncial", logo, design, code, text, graphics, and features — is the exclusive intellectual property of <strong>Earncial Global</strong> and is protected by applicable intellectual property laws.</p>
+                <p>You may not copy, reproduce, modify, distribute, or create derivative works from any Earncial content without our prior written permission.</p>
+
+                <h3>12.2 — User Content Licence</h3>
+                <p>By submitting screenshots, product images, descriptions, or any other content to the Earncial platform, you grant Earncial a <strong>non-exclusive, worldwide, royalty-free licence</strong> to use, store, display, and process that content solely for the purpose of operating the platform and resolving disputes.</p>
+
+                <h3>12.3 — Reporting Infringement</h3>
+                <p>If you believe any content on Earncial infringes your intellectual property rights, please notify us at <a href="mailto:support@earncial.com">support@earncial.com</a> with the subject line <strong>"IP Infringement Notice"</strong>. We will investigate and take appropriate action promptly.</p>
+            </div>
+        </section>
+
+        <!-- ══ 13. GOVERNING LAW ══ -->
+        <section class="terms-section" id="governing">
+            <div class="terms-section-header">
+                <div class="ts-icon ic-teal"><i class="fas fa-gavel"></i></div>
+                <h2>13. Governing Law</h2>
+            </div>
+            <div class="terms-content">
+                <p>These Terms of Service shall be governed by and construed in accordance with the <strong>laws of the Federal Republic of Nigeria</strong>, including but not limited to:</p>
+                <ul>
+                    <li>The Companies and Allied Matters Act (CAMA)</li>
+                    <li>The Nigeria Data Protection Act (NDPA)</li>
+                    <li>The Cybercrimes (Prohibition, Prevention, etc.) Act</li>
+                    <li>The Consumer Protection Council Act</li>
+                </ul>
+                <p>Any legal proceedings arising out of or in connection with these Terms shall be brought exclusively in the courts of Nigeria, and both parties submit to the jurisdiction of those courts.</p>
+                <div class="note-box">💡 Earncial is registered with Nigeria's Corporate Affairs Commission as <strong>Earncial Global</strong>, RC No. <strong>9374009</strong>. All business activities are conducted in compliance with applicable Nigerian law.</div>
+            </div>
+        </section>
+
+        <!-- ══ 14. CONTACT ══ -->
+        <section class="terms-section" id="contact">
+            <div class="terms-section-header">
+                <div class="ts-icon ic-blue"><i class="fas fa-envelope"></i></div>
+                <h2>14. Contact Us</h2>
+            </div>
+            <div class="terms-content">
+                <p>For any questions, concerns, or notices related to these Terms of Service, contact us at:</p>
+                <table>
+                    <tr><th>Purpose</th><th>Contact</th></tr>
+                    <tr><td><strong>📧 General Terms Questions</strong></td><td><a href="mailto:support@earncial.com">support@earncial.com</a></td></tr>
+                    <tr><td><strong>⚖️ Disputes &amp; Complaints</strong></td><td><a href="mailto:support@earncial.com">support@earncial.com</a> — Subject: "Dispute"</td></tr>
+                    <tr><td><strong>🚫 Report a Violation</strong></td><td><a href="mailto:support@earncial.com">support@earncial.com</a> — Subject: "Report Violation"</td></tr>
+                    <tr><td><strong>©️ IP Infringement</strong></td><td><a href="mailto:support@earncial.com">support@earncial.com</a> — Subject: "IP Infringement Notice"</td></tr>
+                    <tr><td><strong>🏢 Legal / Business</strong></td><td>Earncial Global · CAC RC No. 9374009</td></tr>
+                </table>
+                <p style="margin-top:16px;">We aim to respond to all Terms-related enquiries within <strong>5 business days</strong>.</p>
+                <div class="success-box">✅ You can also raise a concern through our <a href="support.html">Support Center</a> at any time.</div>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <div class="footer-brand-logo">
+                <img src="logo.png" alt="Earncial Logo" onerror="this.style.display='none'">
+                <span>Earncial</span>
+            </div>
+            <p>The world's most rewarding platform for earning money online. Complete simple social media tasks and get paid directly to your account — or grow your brand by reaching thousands of real, active users worldwide.</p>
+            <div class="footer-cac">
+                <i class="fas fa-certificate"></i>
+                <div>
+                    <div class="footer-cac-title">✅ CAC Verified Business</div>
+                    <div class="footer-cac-num">Earncial Global · RC No. <strong>9374009</strong><br>Corporate Affairs Commission, Nigeria</div>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="https://facebook.com/earncial"  target="_blank" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com/earncial"   target="_blank" class="social-link"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://instagram.com/earncial" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="https://t.me/earncial"          target="_blank" class="social-link"><i class="fab fa-telegram-plane"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h3><i class="fas fa-link"></i> Quick Links</h3>
+            <ul class="footer-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="how-it-works.html"><i class="fas fa-cogs"></i> How It Works</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+                <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                <li><a href="tutorials.html"><i class="fas fa-play-circle"></i> Tutorials</a></li>
+                <li><a href="support.html"><i class="fas fa-headset"></i> Support</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3><i class="fas fa-coins"></i> For Earners</h3>
+            <ul class="footer-links">
+                <li><a href="sign-up.html"><i class="fas fa-user-plus"></i> Create Account</a></li>
+                <li><a href="sign-in.html"><i class="fas fa-sign-in-alt"></i> Sign In</a></li>
+                <li><a href="how-it-works.html"><i class="fas fa-cogs"></i> How It Works</a></li>
+                <li><a href="faq.html#earner"><i class="fas fa-question-circle"></i> Earner FAQ</a></li>
+                <li><a href="tutorials.html"><i class="fas fa-play-circle"></i> Tutorials</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3><i class="fas fa-bullhorn"></i> For Advertisers</h3>
+            <ul class="footer-links">
+                <li><a href="sign-up.html"><i class="fas fa-building"></i> Advertiser Sign Up</a></li>
+                <li><a href="sign-in.html"><i class="fas fa-sign-in-alt"></i> Sign In</a></li>
+                <li><a href="how-it-works.html"><i class="fas fa-cogs"></i> How It Works</a></li>
+                <li><a href="faq.html#advertiser"><i class="fas fa-question-circle"></i> Advertiser FAQ</a></li>
+                <li><a href="support.html"><i class="fas fa-headset"></i> Get Support</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3><i class="fas fa-envelope"></i> Contact Us</h3>
+            <p>Questions about our Terms? We're here to help.</p>
+            <ul class="footer-links">
+                <li><a href="mailto:support@earncial.com"><i class="fas fa-envelope"></i> support@earncial.com</a></li>
+                <li><a href="support.html"><i class="fas fa-headset"></i> Support Center</a></li>
+                <li><a href="privacy.html"><i class="fas fa-lock"></i> Privacy Policy</a></li>
+                <li><a href="terms.html"><i class="fas fa-file-alt"></i> Terms of Service</a></li>
+                <li><a href="cookies.html"><i class="fas fa-cookie-bite"></i> Cookie Policy</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="footer-bottom-links">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Service</a>
+            <a href="cookies.html">Cookie Policy</a>
+        </div>
+        <div class="footer-cac-tag">
+            <i class="fas fa-check-circle"></i> CAC Registered &middot; RC No. <strong style="margin-left:3px;">9374009</strong>
+        </div>
+        <div>&copy; 2026 Earncial. All rights reserved.</div>
+    </div>
+</footer>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+    // ===== DARK MODE =====
+    var body = document.getElementById('body');
+    var themeIcon = document.getElementById('themeIcon');
+    function toggleDarkMode() {
+        var isDark = body.classList.toggle('dark-mode');
+        localStorage.setItem('earncial-theme', isDark ? 'dark' : 'light');
+        themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
+    if (localStorage.getItem('earncial-theme') === 'dark') {
+        body.classList.add('dark-mode');
+        themeIcon.className = 'fas fa-sun';
+    }
+
+    // ===== SIDEBAR =====
+    var sidebar  = document.getElementById('sidebar');
+    var overlay  = document.getElementById('mobileOverlay');
+    var menuBtn  = document.getElementById('menuToggle');
+    var closeBtn = document.getElementById('closeSidebar');
+    function openSidebar()  { sidebar.classList.add('open'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
+    menuBtn.addEventListener('click', openSidebar);
+    closeBtn.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeSidebar(); });
+
+    // ===== SIDEBAR ACTIVE ON SCROLL =====
+    window.addEventListener('scroll', function() {
+        document.getElementById('backTop').classList.toggle('visible', window.scrollY > 400);
+        var sections = document.querySelectorAll('.terms-section');
+        var navLinks = document.querySelectorAll('.terms-nav');
+        sections.forEach(function(sec, i) {
+            var rect = sec.getBoundingClientRect();
+            if (rect.top <= 100 && rect.bottom >= 100 && navLinks[i]) {
+                navLinks.forEach(function(l) { l.classList.remove('active'); });
+                navLinks[i].classList.add('active');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

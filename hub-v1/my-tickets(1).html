@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Support Tickets | Earncial</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary:#00aaff; --primary-dark:#008ecc; --primary-light:#e0f2fe;
+            --bg-body:#f8faff; --bg-card:#ffffff; --text-main:#1e293b;
+            --text-muted:#64748b; --border-color:#e2e8f0;
+            --sidebar-width:260px; --header-height:70px; --nav-height:70px;
+            --shadow:0 8px 20px rgba(0,0,0,.08); --radius:16px;
+            --success:#10b981; --warning:#f59e0b; --danger:#ef4444;
+            --purple:#8b5cf6; --info:#3b82f6;
+        }
+        body.dark-mode {
+            --primary:#53d6ff; --primary-dark:#00aaff; --primary-light:#1e3a8a;
+            --bg-body:#0f172a; --bg-card:#1e293b; --text-main:#f1f5f9;
+            --text-muted:#94a3b8; --border-color:#334155;
+            --shadow:0 8px 20px rgba(0,0,0,.4);
+        }
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;transition:background .3s,color .3s,border-color .3s;}
+        body{background:var(--bg-body);color:var(--text-main);min-height:100vh;display:flex;padding-bottom:var(--nav-height);overflow-x:hidden;}
+        a{text-decoration:none;color:inherit;} ul{list-style:none;}
+
+        /* SIDEBAR */
+        .sidebar{width:var(--sidebar-width);height:100vh;background:var(--bg-card);position:fixed;top:0;left:0;z-index:1200;border-right:1px solid var(--border-color);display:flex;flex-direction:column;transition:transform .3s;}
+        @media(max-width:768px){.sidebar{transform:translateX(-100%);width:280px;}.sidebar.active{transform:translateX(0);box-shadow:0 0 50px rgba(0,0,0,.5);}}
+        .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;backdrop-filter:blur(3px);}
+        .sidebar-overlay.active{display:block;}
+        .brand{height:var(--header-height);display:flex;align-items:center;padding:0 24px;border-bottom:1px solid var(--border-color);gap:12px;flex-shrink:0;}
+        .brand-logo{width:45px;height:45px;overflow:hidden;flex-shrink:0;}
+        .brand-logo img{width:100%;height:100%;object-fit:contain;}
+        .brand-text{font-size:20px;font-weight:600;color:var(--primary);}
+        .sidebar-menu{padding:20px 0;flex:1;overflow-y:auto;}
+        .sidebar-menu::-webkit-scrollbar{width:6px;}
+        .sidebar-menu::-webkit-scrollbar-thumb{background:var(--border-color);border-radius:3px;}
+        .sidebar-menu li{margin-bottom:2px;}
+        .menu-item{padding:12px 24px;display:flex;align-items:center;color:var(--text-muted);font-weight:500;border-left:4px solid transparent;}
+        .menu-item i{width:25px;font-size:18px;margin-right:12px;text-align:center;}
+        .menu-item:hover,.menu-item.active{background:var(--primary-light);color:var(--primary);border-left-color:var(--primary);}
+        .sidebar-footer{padding:20px;border-top:1px solid var(--border-color);margin-top:auto;flex-shrink:0;}
+        .logout-btn{width:100%;padding:12px;background:rgba(239,68,68,.1);color:#ef4444;border:none;border-radius:8px;cursor:pointer;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px;transition:.2s;}
+        .logout-btn:hover{background:#ef4444;color:white;}
+
+        /* MAIN */
+        .main-content{margin-left:var(--sidebar-width);min-height:100vh;display:flex;flex-direction:column;width:calc(100% - var(--sidebar-width));flex-grow:1;}
+        @media(max-width:768px){.main-content{margin-left:0;width:100%;}}
+
+        /* HEADER */
+        .top-header{height:var(--header-height);background:var(--bg-card);display:flex;align-items:center;justify-content:space-between;padding:0 30px;position:sticky;top:0;z-index:900;border-bottom:1px solid var(--border-color);flex-shrink:0;}
+        .menu-toggle{display:none;font-size:24px;cursor:pointer;color:var(--text-main);}
+        @media(max-width:768px){.menu-toggle{display:block;}}
+        .header-logo{display:flex;align-items:center;gap:12px;}
+        .header-logo-img{width:40px;height:40px;border-radius:10px;overflow:hidden;}
+        .header-logo-img img{width:100%;height:100%;object-fit:contain;}
+        .header-brand-text{font-size:23px;font-weight:700;color:var(--primary);}
+        .header-right{display:flex;align-items:center;gap:20px;}
+        .notif-btn{position:relative;cursor:pointer;display:flex;align-items:center;}
+        .notif-btn i{font-size:22px;color:var(--text-main);}
+        .notif-badge{position:absolute;top:-8px;right:-8px;background:#ef4444;color:white;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;border:2px solid var(--bg-card);}
+        .eye-toggle{background:var(--primary-light);border:none;color:var(--text-main);width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:.3s;}
+
+        /* CONTAINER */
+        .container{padding:0;max-width:100%;margin:0 auto;width:100%;flex:1;display:flex;flex-direction:column;}
+
+        /* PAGE TITLE */
+        .page-title-section{padding:25px 30px;background:linear-gradient(135deg, #00aaff 0%, #0077cc 60%, #005fa3 100%);border-bottom:1px solid var(--border-color);position:relative;overflow:hidden;}
+        .page-title-section::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+        .page-title-section h1{font-size:26px;font-weight:700;color:white;margin-bottom:6px;position:relative;display:flex;align-items:center;gap:12px;}
+        .page-title-section p{font-size:14px;color:rgba(255,255,255,.85);position:relative;}
+        @media(max-width:768px){.page-title-section{padding:20px 15px;}.page-title-section h1{font-size:22px;}}
+
+        /* INNER */
+        .inner{padding:30px 30px;max-width:1400px;margin:0 auto;width:100%;flex:1;display:flex;flex-direction:column;}
+        @media(max-width:768px){.inner{padding:20px 15px;}}
+
+        /* MINI STATS (Admin Style) */
+        .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:15px;margin-bottom:25px;}
+        @media(max-width:768px){.stats-grid{grid-template-columns:repeat(2,1fr);}}
+        .stat-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:18px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow);}
+        .stat-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;color:white;flex-shrink:0;}
+        .stat-icon.total{background:#00aaff;}
+        .stat-icon.open{background:#ef4444;}
+        .stat-icon.replied{background:#f59e0b;}
+        .stat-icon.closed{background:#10b981;}
+        .stat-icon.rating{background:#8b5cf6;}
+        .stat-info h4{font-size:20px;font-weight:700;margin-bottom:2px;color:var(--text-main);}
+        .stat-info p{font-size:12px;color:var(--text-muted);}
+
+        /* TOOLBAR */
+        .toolbar{display:flex;align-items:center;gap:15px;margin-bottom:20px;flex-wrap:wrap;}
+        .search-box{flex:1;min-width:250px;position:relative;}
+        .search-box input{width:100%;padding:12px 45px 12px 40px;border-radius:10px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-main);font-size:14px;outline:none;transition:.3s;}
+        .search-box input:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-light);}
+        .search-box i.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:16px;}
+        .search-box i.clear-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:14px;cursor:pointer;display:none;}
+        .search-box i.clear-icon.active{display:block;}
+        .filter-select{padding:12px 15px;border-radius:10px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-main);font-size:14px;cursor:pointer;outline:none;font-weight:500;}
+        .btn-new-ticket{background:var(--primary);color:white;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px;transition:.3s;}
+        .btn-new-ticket:hover{background:var(--primary-dark);transform:translateY(-2px);}
+
+        /* TABLE */
+        .table-card{background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);box-shadow:var(--shadow);overflow:hidden;margin-bottom:20px;}
+        .table-responsive{overflow-x:auto;}
+        table{width:100%;border-collapse:collapse;}
+        thead{background:var(--bg-body);border-bottom:2px solid var(--border-color);}
+        thead th{padding:16px 20px;text-align:left;font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;}
+        tbody tr{border-bottom:1px solid var(--border-color);transition:.2s;}
+        tbody tr:hover{background:var(--primary-light);}
+        tbody td{padding:16px 20px;font-size:14px;color:var(--text-main);}
+        .ticket-id{font-family:monospace;font-weight:600;color:var(--primary);cursor:pointer;}
+        .ticket-id:hover{text-decoration:underline;}
+        .ticket-subject{max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+        .status-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:8px;font-size:11px;font-weight:600;}
+        .status-badge.open{background:rgba(239,68,68,.1);color:var(--danger);}
+        .status-badge.replied{background:rgba(245,158,11,.1);color:var(--warning);}
+        .status-badge.closed{background:rgba(16,185,129,.1);color:var(--success);}
+        .btn-view{background:var(--primary);color:white;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px;transition:.3s;}
+        .btn-view:hover{background:var(--primary-dark);}
+
+        /* PAGINATION */
+        .pagination{display:flex;align-items:center;justify-content:space-between;padding:20px;background:var(--bg-card);border-top:1px solid var(--border-color);flex-wrap:wrap;gap:15px;}
+        .pagination-info{font-size:13px;color:var(--text-muted);}
+        .pagination-controls{display:flex;align-items:center;gap:10px;}
+        .page-btn{padding:8px 14px;border-radius:8px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-main);cursor:pointer;font-size:13px;font-weight:600;transition:.3s;}
+        .page-btn:hover{background:var(--primary-light);border-color:var(--primary);color:var(--primary);}
+        .page-btn:disabled{opacity:.5;cursor:not-allowed;}
+        .page-btn.active{background:var(--primary);color:white;border-color:var(--primary);}
+
+        /* CHAT MODAL */
+        .chat-modal{display:none;position:fixed;inset:0;background:var(--bg-body);z-index:9999;flex-direction:column;}
+        .chat-modal.active{display:flex;}
+        .chat-modal-header{height:var(--header-height);background:var(--bg-card);border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;padding:0 30px;flex-shrink:0;}
+        .chat-modal-title h3{font-size:18px;color:var(--text-main);margin-bottom:4px;display:flex;align-items:center;gap:10px;}
+        .chat-modal-title p{font-size:12px;color:var(--text-muted);}
+        .chat-modal-actions{display:flex;align-items:center;gap:12px;}
+        .btn-copy{background:var(--primary-light);color:var(--primary);border:none;padding:10px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.3s;}
+        .btn-copy:hover{background:var(--primary);color:white;}
+        .btn-close-chat{background:rgba(239,68,68,.1);color:var(--danger);border:none;padding:10px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.3s;}
+        .btn-close-chat:hover{background:var(--danger);color:white;}
+        .chat-modal-body{flex:1;overflow-y:auto;padding:30px;max-width:900px;margin:0 auto;width:100%;display:flex;flex-direction:column;gap:20px;}
+        .chat-modal-body::-webkit-scrollbar{width:10px;}
+        .chat-modal-body::-webkit-scrollbar-thumb{background:var(--border-color);border-radius:5px;}
+        .message{display:flex;gap:14px;align-items:start;max-width:80%;}
+        .message.user{margin-left:auto;flex-direction:row-reverse;}
+        .message-avatar{width:42px;height:42px;border-radius:50%;background:var(--primary);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;}
+        .message.admin .message-avatar{background:var(--success);}
+        .message-content{flex:1;}
+        .message-header{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+        .message-sender{font-weight:700;font-size:14px;color:var(--text-main);}
+        .message-time{font-size:12px;color:var(--text-muted);}
+        .message-body{background:var(--bg-card);padding:14px 18px;border-radius:14px;border:1px solid var(--border-color);font-size:14px;line-height:1.7;color:var(--text-main);box-shadow:var(--shadow);}
+        .message.user .message-body{background:var(--primary);color:white;border-color:var(--primary);}
+        .message-image{margin-top:10px;border-radius:10px;max-width:100%;max-height:300px;cursor:pointer;box-shadow:var(--shadow);display:block;}
+        .message-image:hover{opacity:.9;}
+        .chat-modal-input{padding:20px 30px;background:var(--bg-card);border-top:1px solid var(--border-color);flex-shrink:0;}
+        .chat-input-wrapper{max-width:900px;margin:0 auto;}
+        #replyImagePreview{position:relative;display:none;margin-bottom:10px;}
+        #replyImagePreview button{position:absolute;top:-8px;right:-8px;}
+        .input-row{display:flex;gap:12px;}
+        .btn-upload{width:52px;height:52px;border-radius:10px;border:1.5px solid var(--border-color);background:var(--bg-card);color:var(--text-main);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:.3s;flex-shrink:0;}
+        .btn-upload:hover{background:var(--primary-light);border-color:var(--primary);color:var(--primary);}
+        .chat-input-wrapper textarea{flex:1;padding:14px;border-radius:10px;border:1.5px solid var(--border-color);background:var(--bg-body);color:var(--text-main);font-size:14px;resize:none;outline:none;font-family:'Poppins',sans-serif;min-height:52px;max-height:150px;}
+        .chat-input-wrapper textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-light);}
+        .btn-send-chat{width:52px;height:52px;border-radius:10px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--primary);color:white;transition:.3s;flex-shrink:0;}
+        .btn-send-chat:hover{background:var(--primary-dark);transform:scale(1.05);}
+
+        /* MODAL */
+        .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:3000;align-items:center;justify-content:center;backdrop-filter:blur(3px);}
+        .modal-overlay.active{display:flex;}
+        .modal{background:var(--bg-card);border-radius:var(--radius);width:90%;max-width:550px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:slideUp .3s;}
+        @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        .modal-header{padding:22px 24px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;}
+        .modal-header h3{font-size:18px;color:var(--text-main);}
+        .modal-close{background:transparent;border:none;font-size:24px;color:var(--text-muted);cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:.3s;}
+        .modal-close:hover{background:rgba(239,68,68,.1);color:var(--danger);}
+        .modal-body{padding:24px;}
+        .form-group{margin-bottom:20px;}
+        .form-label{display:block;font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;}
+        .form-input,.form-select,.form-textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border-color);background:var(--bg-body);color:var(--text-main);font-size:14px;outline:none;font-family:'Poppins',sans-serif;transition:.3s;}
+        .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-light);}
+        .form-textarea{resize:vertical;min-height:120px;}
+        .file-upload{display:flex;align-items:center;gap:12px;}
+        .file-upload input{display:none;}
+        .file-upload label{flex:1;padding:12px 14px;border-radius:10px;border:2px dashed var(--border-color);background:var(--bg-body);color:var(--text-muted);font-size:13px;cursor:pointer;text-align:center;transition:.3s;}
+        .file-upload label:hover{border-color:var(--primary);background:var(--primary-light);color:var(--primary);}
+        .file-name{font-size:12px;color:var(--text-main);display:none;}
+        .file-name.active{display:block;}
+        .modal-footer{padding:18px 24px;border-top:1px solid var(--border-color);display:flex;gap:12px;justify-content:flex-end;}
+        .btn-cancel{padding:12px 24px;border-radius:10px;border:1px solid var(--border-color);background:transparent;color:var(--text-main);font-size:14px;font-weight:600;cursor:pointer;transition:.3s;}
+        .btn-cancel:hover{background:var(--bg-body);}
+        .btn-submit{padding:12px 24px;border-radius:10px;border:none;background:var(--primary);color:white;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.3s;}
+        .btn-submit:hover{background:var(--primary-dark);}
+        .btn-submit:disabled{opacity:.5;cursor:not-allowed;}
+
+        /* BOTTOM NAV */
+        .bottom-nav{position:fixed;bottom:0;left:0;right:0;height:var(--nav-height);background:var(--bg-card);border-top:1px solid var(--border-color);display:flex;justify-content:space-around;align-items:center;z-index:1000;padding:0 20px;box-shadow:0 -5px 20px rgba(0,0,0,.1);}
+        .nav-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--text-muted);padding:8px 12px;border-radius:10px;transition:.3s;flex:1;max-width:80px;}
+        .nav-item i{font-size:20px;}.nav-item span{font-size:11px;font-weight:500;}
+        .nav-item.active,.nav-item:hover{color:var(--primary);background:var(--primary-light);}
+
+        /* TOAST */
+        .toast-container{position:fixed;top:20px;right:20px;z-index:4000;display:flex;flex-direction:column;gap:10px;}
+        .toast{background:var(--bg-card);border-radius:12px;padding:14px 18px;min-width:260px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;animation:slideInRight .3s;border:1px solid var(--border-color);}
+        .toast.success{border-left:4px solid var(--success);}
+        .toast.error{border-left:4px solid var(--danger);}
+        .toast.info{border-left:4px solid var(--primary);}
+        .toast i{font-size:18px;}
+        .toast.success i{color:var(--success);}.toast.error i{color:var(--danger);}.toast.info i{color:var(--primary);}
+        .toast p{font-size:13px;color:var(--text-muted);margin:0;flex:1;}
+        @keyframes slideInRight{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+    </style>
+</head>
+<body>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+    <div class="brand">
+        <div class="brand-logo"><img src="logo.png" alt="Earncial"></div>
+        <span class="brand-text">Earncial</span>
+    </div>
+    <ul class="sidebar-menu">
+        <li><a href="dashboard.html" class="menu-item"><i class="fas fa-th-large"></i> Dashboard</a></li>
+        <li><a href="tasks.html" class="menu-item"><i class="fas fa-tasks"></i> Browse Tasks</a></li>
+        <li><a href="earnings.html" class="menu-item"><i class="fas fa-coins"></i> Earnings</a></li>
+        <li><a href="withdraw.html" class="menu-item"><i class="fas fa-money-bill-wave"></i> Withdraw</a></li>
+        <li><a href="referrals.html" class="menu-item"><i class="fas fa-users"></i> Referrals</a></li>
+        <li><a href="tutorials.html" class="menu-item"><i class="fas fa-play-circle"></i> Tutorials</a></li>
+        <li><a href="my-tickets.html" class="menu-item active"><i class="fas fa-ticket-alt"></i> My Tickets</a></li>
+        <li><a href="support.html" class="menu-item"><i class="fas fa-headset"></i> Support</a></li>
+        <li><a href="profile.html" class="menu-item"><i class="fas fa-user-cog"></i> Profile</a></li>
+    </ul>
+    <div class="sidebar-footer">
+        <button class="logout-btn" onclick="showLogoutModal()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </div>
+</aside>
+
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Header -->
+    <header class="top-header">
+        <div class="menu-toggle" onclick="openSidebar()"><i class="fas fa-bars"></i></div>
+        <div class="header-logo">
+            <div class="header-logo-img"><img src="logo.png" alt="Earncial"></div>
+            <span class="header-brand-text">Earncial</span>
+        </div>
+        <div class="header-right">
+            <div class="notif-btn" onclick="window.location.href='notifications.html'">
+                <i class="far fa-bell"></i><span class="notif-badge">2</span>
+            </div>
+            <button class="eye-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon" id="themeIcon"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Page Title -->
+        <div class="page-title-section">
+            <h1><i class="fas fa-ticket-alt"></i>My Support Tickets</h1>
+            <p>View and manage your support requests</p>
+        </div>
+
+        <div class="inner">
+            <!-- Stats Cards (Admin Style) -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon total">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4 id="totalTickets">0</h4>
+                        <p>Total Tickets</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon open">
+                        <i class="fas fa-circle-notch"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4 id="openTickets">0</h4>
+                        <p>Open</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon replied">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4 id="repliedTickets">0</h4>
+                        <p>Replied</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon closed">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4 id="closedTickets">0</h4>
+                        <p>Closed</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon rating">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4 id="avgRating">—</h4>
+                        <p>Avg Rating</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toolbar -->
+            <div class="toolbar">
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search by ticket ID or subject..." oninput="searchTickets()">
+                    <i class="fas fa-times clear-icon" id="clearSearch" onclick="clearSearch()"></i>
+                </div>
+                <select class="filter-select" id="statusFilter" onchange="filterTickets()">
+                    <option value="all">All Status</option>
+                    <option value="open">Open</option>
+                    <option value="replied">Replied</option>
+                    <option value="closed">Closed</option>
+                </select>
+                <button class="btn-new-ticket" onclick="openNewTicketModal()">
+                    <i class="fas fa-plus"></i>
+                    New Ticket
+                </button>
+            </div>
+
+            <!-- Table -->
+            <div class="table-card">
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>Ticket ID</th>
+                                <th>Subject</th>
+                                <th>Status</th>
+                                <th>Date & Time</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ticketsTableBody">
+                            <tr>
+                                <td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">
+                                    <i class="fas fa-spinner fa-spin" style="font-size:32px;margin-bottom:10px;display:block;"></i>
+                                    Loading tickets...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="pagination">
+                    <div class="pagination-info">
+                        Showing <span id="showingFrom">0</span> to <span id="showingTo">0</span> of <span id="totalCount">0</span> tickets
+                    </div>
+                    <div class="pagination-controls">
+                        <button class="page-btn" id="prevBtn" onclick="prevPage()" disabled>
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <button class="page-btn active" id="currentPageBtn">1</button>
+                        <button class="page-btn" id="nextBtn" onclick="nextPage()" disabled>
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bottom Nav -->
+<nav class="bottom-nav">
+    <a href="dashboard.html" class="nav-item">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+    </a>
+    <a href="tasks.html" class="nav-item">
+        <i class="fas fa-tasks"></i>
+        <span>Tasks</span>
+    </a>
+    <a href="my-tickets.html" class="nav-item active">
+        <i class="fas fa-ticket-alt"></i>
+        <span>Tickets</span>
+    </a>
+    <a href="profile.html" class="nav-item">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+    </a>
+</nav>
+
+<!-- Chat Modal (Full Page WhatsApp Style) -->
+<div class="chat-modal" id="chatModal">
+    <div class="chat-modal-header">
+        <div class="chat-modal-title">
+            <h3>
+                <i class="fas fa-ticket-alt"></i>
+                <span id="chatModalTicketID">SUPP-00001</span>
+            </h3>
+            <p id="chatModalSubject">Can't withdraw money</p>
+        </div>
+        <div class="chat-modal-actions">
+            <button class="btn-copy" onclick="copyTicketID()">
+                <i class="fas fa-copy"></i>
+                Copy ID
+            </button>
+            <button class="btn-close-chat" onclick="closeChatModal()">
+                <i class="fas fa-times"></i>
+                Close
+            </button>
+        </div>
+    </div>
+    <div class="chat-modal-body" id="chatModalBody">
+        <!-- Messages loaded here -->
+    </div>
+    <div class="chat-modal-input" id="chatModalInput">
+        <div class="chat-input-wrapper">
+            <!-- Image Preview -->
+            <div id="replyImagePreview"></div>
+            
+            <!-- Input Row -->
+            <div class="input-row">
+                <input type="file" id="replyImageInput" accept="image/*" style="display:none;" onchange="onReplyImageChange(this)">
+                <button class="btn-upload" onclick="selectReplyImage()">
+                    <i class="fas fa-image"></i>
+                </button>
+                <textarea id="chatReplyMessage" placeholder="Type your reply..."></textarea>
+                <button class="btn-send-chat" onclick="sendReply()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Ticket Modal -->
+<div class="modal-overlay" id="newTicketModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3><i class="fas fa-plus-circle" style="margin-right:8px;"></i>Create New Ticket</h3>
+            <button class="modal-close" onclick="closeNewTicketModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="form-label">Subject</label>
+                <input type="text" class="form-input" id="modalSubject" placeholder="Brief description of your issue">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Category</label>
+                <select class="form-select" id="modalCategory">
+                    <option value="">Select category...</option>
+                    <option value="Account">Account & Login</option>
+                    <option value="Tasks">Tasks & Earnings</option>
+                    <option value="Payments">Payments & Withdrawals</option>
+                    <option value="Technical">Technical Issue</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Priority</label>
+                <select class="form-select" id="modalPriority">
+                    <option value="low">Low</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Message</label>
+                <textarea class="form-textarea" id="modalMessage" placeholder="Describe your issue in detail..."></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Screenshot (Optional)</label>
+                <div class="file-upload">
+                    <input type="file" id="modalScreenshot" accept="image/*" onchange="onModalFileChange(this)">
+                    <label for="modalScreenshot">
+                        <i class="fas fa-paperclip"></i> Attach Screenshot
+                    </label>
+                </div>
+                <div class="file-name" id="modalFileName"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-cancel" onclick="closeNewTicketModal()">Cancel</button>
+            <button class="btn-submit" id="modalSubmitBtn" onclick="submitNewTicket()">
+                <i class="fas fa-paper-plane"></i>
+                Submit Ticket
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Logout Modal -->
+<div class="modal-overlay" id="logoutModal">
+    <div class="modal" style="max-width:380px;">
+        <div style="padding:30px;text-align:center;">
+            <i class="fas fa-sign-out-alt" style="font-size:46px;color:var(--danger);margin-bottom:14px;display:block;"></i>
+            <h3 style="font-size:18px;font-weight:700;margin-bottom:8px;color:var(--danger);">Confirm Logout</h3>
+            <p style="font-size:13px;color:var(--text-muted);margin-bottom:22px;line-height:1.6;">Are you sure you want to logout?</p>
+            <div style="display:flex;gap:12px;">
+                <button onclick="closeLogoutModal()" style="flex:1;padding:11px;border-radius:9px;border:none;font-weight:600;font-size:13px;cursor:pointer;background:var(--border-color);color:var(--text-main);">Cancel</button>
+                <button onclick="confirmLogout()" style="flex:1;padding:11px;border-radius:9px;border:none;font-weight:600;font-size:13px;cursor:pointer;background:var(--danger);color:white;">Logout</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="my-tickets.js"></script>
+</body>
+</html>

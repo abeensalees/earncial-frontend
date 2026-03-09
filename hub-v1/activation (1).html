@@ -1,0 +1,132 @@
+<!--
+=======================================================
+DASHBOARD HTML PATCHES
+Add these to dashboard.html
+=======================================================
+-->
+
+<!--
+PATCH 1: General Message Banner (Banner #2)
+Add this AFTER the existing activation banner div
+=======================================================
+-->
+
+<!-- ✅ General Message Banner - Banner #2 (from admin) -->
+<div id="generalMessageBanner" style="
+    display: none;
+    background: linear-gradient(135deg, #00aaff, #0066cc);
+    color: white;
+    padding: 16px 20px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+">
+    <div style="display:flex; align-items:center; gap:12px; flex:1;">
+        <i class="fas fa-bullhorn gen-msg-icon" style="font-size:22px;"></i>
+        <div>
+            <div style="font-weight:700; font-size:16px;" class="gen-msg-title">Loading...</div>
+            <div style="font-size:13px; opacity:0.9; margin-top:3px;" class="gen-msg-text"></div>
+        </div>
+    </div>
+    <a class="gen-msg-btn" href="#" target="_blank" style="
+        display: none;
+        background: white;
+        color: #0066cc;
+        padding: 9px 18px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 13px;
+        text-decoration: none;
+        white-space: nowrap;
+        align-items: center;
+        gap: 6px;
+    "></a>
+</div>
+
+
+<!--
+PATCH 2: Sponsored Card - Add prev/next icons
+Find the sponsored-card div and add arrows around the image area
+=======================================================
+
+Replace the sponsored card controls area with:
+-->
+<!-- Sponsored card nav arrows + dots (replace existing nav dots) -->
+<div style="display:flex; align-items:center; justify-content:center; gap:8px; margin-top:10px;" id="sponsoredNavArea">
+    <!-- Prev button -->
+    <button onclick="sponsoredPrev()" style="
+        background: rgba(0,170,255,0.15);
+        border: none;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-size: 11px;
+        transition: background 0.2s;
+    " id="sponsoredPrevBtn">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+
+    <!-- Nav dots container -->
+    <div id="sponsoredNavDots" style="display:flex; gap:6px; align-items:center;"></div>
+
+    <!-- Next button -->
+    <button onclick="sponsoredNext()" style="
+        background: rgba(0,170,255,0.15);
+        border: none;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-size: 11px;
+        transition: background 0.2s;
+    " id="sponsoredNextBtn">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+</div>
+
+
+<!--
+PATCH 3: Advertisement Modal (announcementModal2)
+Add label element + image container (if not already there)
+=======================================================
+
+In announcementModal2, add this label badge near the title:
+-->
+<!-- Label badge for advertisements -->
+<span id="announcement2Label" style="
+    display: none;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 10px;
+"></span>
+
+<!-- Image container for advertisement slider -->
+<div id="announcement2ImageContainer" style="display:none; margin-bottom:16px;"></div>
+
+
+<!--
+=======================================================
+SUMMARY OF CHANGES NEEDED IN dashboard.html:
+
+1. Add generalMessageBanner div after activationBanner
+2. Add announcement2Label span inside announcementModal2 header
+3. Replace sponsoredNavDots div with sponsoredNavArea (includes prev/next)
+4. Make sure announcement2ImageContainer exists in announcementModal2
+=======================================================
+-->

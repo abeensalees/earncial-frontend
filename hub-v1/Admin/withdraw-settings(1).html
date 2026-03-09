@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdrawal Settings | Earncial Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary:#00aaff; --primary-dark:#008ecc; --primary-light:#e0f2fe;
+            --bg-body:#f8faff; --bg-card:#ffffff; --text-main:#1e293b;
+            --text-muted:#64748b; --border-color:#e2e8f0;
+            --shadow:0 8px 20px rgba(0,0,0,0.08); --radius:16px;
+            --success:#10b981; --warning:#f59e0b; --danger:#ef4444;
+            --info:#3b82f6; --purple:#8b5cf6;
+            --sidebar-width:260px; --header-height:70px;
+        }
+        body.dark-mode {
+            --primary:#53d6ff; --primary-dark:#00aaff; --primary-light:#1e3a8a;
+            --bg-body:#0f172a; --bg-card:#1e293b; --text-main:#f1f5f9;
+            --text-muted:#94a3b8; --border-color:#334155;
+            --shadow:0 8px 20px rgba(0,0,0,0.4);
+        }
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;transition:background .3s,color .3s,border-color .3s;}
+        body{background:var(--bg-body);color:var(--text-main);min-height:100vh;overflow-x:hidden;display:flex;}
+        a{text-decoration:none;color:inherit;} ul{list-style:none;}
+
+        /* SIDEBAR */
+        .sidebar{width:var(--sidebar-width);height:100vh;background:var(--bg-card);position:fixed;top:0;left:0;z-index:1200;border-right:1px solid var(--border-color);display:flex;flex-direction:column;transition:transform .3s;}
+        @media(max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.active{transform:translateX(0);box-shadow:0 0 50px rgba(0,0,0,.5);}}
+        .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;backdrop-filter:blur(3px);}
+        .sidebar-overlay.active{display:block;}
+        .brand{height:var(--header-height);display:flex;align-items:center;padding:0 24px;border-bottom:1px solid var(--border-color);gap:12px;flex-shrink:0;}
+        .brand-logo{width:42px;height:42px;border-radius:10px;overflow:hidden;flex-shrink:0;}
+        .brand-logo img{width:100%;height:100%;object-fit:contain;}
+        .brand-text{font-size:20px;font-weight:700;color:var(--primary);}
+        .sidebar-menu{padding:20px 0;flex:1;overflow-y:auto;}
+        .sidebar-menu::-webkit-scrollbar{width:6px;}
+        .sidebar-menu::-webkit-scrollbar-thumb{background:var(--border-color);border-radius:3px;}
+        .menu-section{padding:8px 24px 4px;font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;}
+        .menu-item{padding:11px 24px;display:flex;align-items:center;color:var(--text-muted);font-weight:500;border-left:4px solid transparent;margin-bottom:1px;}
+        .menu-item i{width:22px;font-size:17px;margin-right:11px;text-align:center;}
+        .menu-item:hover,.menu-item.active{background:var(--primary-light);color:var(--primary);border-left-color:var(--primary);}
+        .sidebar-footer{padding:20px;border-top:1px solid var(--border-color);}
+        .logout-btn{width:100%;padding:11px;background:rgba(239,68,68,.1);color:#ef4444;border:none;border-radius:8px;cursor:pointer;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px;font-family:'Poppins',sans-serif;}
+        .logout-btn:hover{background:#ef4444;color:white;}
+
+        /* MAIN */
+        .main-content{margin-left:var(--sidebar-width);min-height:100vh;display:flex;flex-direction:column;width:calc(100% - var(--sidebar-width));}
+        @media(max-width:768px){.main-content{margin-left:0;width:100%;}}
+
+        /* HEADER */
+        .top-header{height:var(--header-height);background:var(--bg-card);display:flex;align-items:center;justify-content:space-between;padding:0 30px;position:sticky;top:0;z-index:900;border-bottom:1px solid var(--border-color);}
+        .header-left{display:flex;align-items:center;gap:15px;}
+        .menu-toggle{display:none;font-size:24px;cursor:pointer;}
+        @media(max-width:768px){.menu-toggle{display:block;}}
+        .header-logo{display:flex;align-items:center;gap:10px;}
+        .header-logo img{width:36px;height:36px;border-radius:8px;object-fit:contain;}
+        .header-logo span{font-size:20px;font-weight:700;color:var(--primary);}
+        .header-right{display:flex;align-items:center;gap:14px;}
+        .theme-btn{background:var(--primary-light);border:none;color:var(--text-main);width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px;}
+        .theme-btn:hover{background:var(--primary);color:white;}
+        .admin-badge{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;}
+
+        /* CONTAINER */
+        .container{padding:30px;max-width:1100px;margin:0 auto;width:100%;flex:1;}
+        @media(max-width:768px){.container{padding:20px 15px;}}
+
+        /* PAGE HEADER */
+        .page-header{display:flex;align-items:center;gap:15px;margin-bottom:28px;}
+        .page-icon{width:52px;height:52px;border-radius:14px;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+        .page-header h1{font-size:22px;font-weight:700;color:var(--primary);}
+        .page-header p{font-size:13px;color:var(--text-muted);margin-top:3px;}
+
+        /* CARDS */
+        .settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+        @media(max-width:780px){.settings-grid{grid-template-columns:1fr;}}
+
+        .card{background:var(--bg-card);border-radius:var(--radius);padding:0;box-shadow:var(--shadow);border:1px solid var(--border-color);overflow:hidden;}
+        .card-head{display:flex;align-items:center;gap:14px;padding:22px 26px;border-bottom:1px solid var(--border-color);background:var(--bg-body);}
+        .card-head-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
+        .icon-blue  {background:rgba(0,170,255,.12);  color:var(--primary);}
+        .icon-purple{background:rgba(139,92,246,.12);  color:var(--purple);}
+        .icon-green {background:rgba(16,185,129,.12);  color:var(--success);}
+        .card-head h2{font-size:15px;font-weight:700;}
+        .card-head p {font-size:12px;color:var(--text-muted);margin-top:2px;}
+        .card-body{padding:24px 26px;}
+
+        /* FORM */
+        .form-group{margin-bottom:18px;}
+        .form-group:last-child{margin-bottom:0;}
+        .form-group label{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-weight:600;font-size:13px;color:var(--text-main);}
+        .form-group label i{color:var(--primary);font-size:13px;}
+        .form-group label .lbl-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;background:var(--primary-light);color:var(--primary);}
+        input[type="number"],input[type="text"],input[type="datetime-local"],textarea,select{
+            width:100%;padding:11px 14px;border:2px solid var(--border-color);border-radius:10px;
+            background:var(--bg-body);color:var(--text-main);font-size:14px;font-family:'Poppins',sans-serif;
+            transition:all .3s;resize:none;
+        }
+        input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary);background:var(--bg-card);box-shadow:0 0 0 3px rgba(0,170,255,.1);}
+        .input-prefix-wrap{position:relative;}
+        .input-prefix{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:15px;font-weight:700;color:var(--primary);pointer-events:none;}
+        .input-prefix-wrap input{padding-left:30px;}
+        .input-suffix-wrap{position:relative;}
+        .input-suffix{position:absolute;right:13px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:600;color:var(--text-muted);}
+        .input-suffix-wrap input{padding-right:46px;}
+        .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+        @media(max-width:480px){.form-row{grid-template-columns:1fr;}}
+        .hint{font-size:11px;color:var(--text-muted);margin-top:5px;display:flex;align-items:center;gap:5px;}
+        .hint i{color:var(--primary);font-size:11px;}
+
+        /* DIVIDER */
+        .form-divider{display:flex;align-items:center;gap:12px;margin:20px 0;}
+        .form-divider span{font-size:11px;color:var(--text-muted);white-space:nowrap;font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+        .form-divider::before,.form-divider::after{content:'';flex:1;height:1px;background:var(--border-color);}
+
+        /* MSG TYPE */
+        .msg-type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:4px;}
+        @media(max-width:480px){.msg-type-grid{grid-template-columns:repeat(2,1fr);}}
+        .msg-type-btn{padding:9px 6px;border:2px solid var(--border-color);border-radius:10px;background:var(--bg-body);color:var(--text-muted);font-size:12px;font-weight:600;cursor:pointer;font-family:'Poppins',sans-serif;display:flex;flex-direction:column;align-items:center;gap:5px;transition:.2s;}
+        .msg-type-btn i{font-size:16px;}
+        .msg-type-btn:hover{border-color:var(--primary);color:var(--primary);}
+        .msg-type-btn.active{border-color:var(--primary);background:var(--primary-light);color:var(--primary);}
+        .msg-type-btn.t-info.active   {border-color:var(--info);   background:rgba(59,130,246,.08); color:var(--info);}
+        .msg-type-btn.t-success.active{border-color:var(--success);background:rgba(16,185,129,.08); color:var(--success);}
+        .msg-type-btn.t-warning.active{border-color:var(--warning);background:rgba(245,158,11,.08); color:var(--warning);}
+        .msg-type-btn.t-danger.active {border-color:var(--danger); background:rgba(239,68,68,.08);  color:var(--danger);}
+        .msg-type-btn.t-purple.active {border-color:var(--purple); background:rgba(139,92,246,.08); color:var(--purple);}
+
+        /* BANNER PREVIEW */
+        .banner-preview{border-radius:10px;padding:13px 16px;display:flex;align-items:flex-start;gap:12px;margin-top:14px;border-left:4px solid;animation:fadeIn .3s;}
+        .banner-preview.blue  {background:rgba(59,130,246,.07);  border-left-color:var(--info);}
+        .banner-preview.green {background:rgba(16,185,129,.07);  border-left-color:var(--success);}
+        .banner-preview.orange{background:rgba(245,158,11,.07);  border-left-color:var(--warning);}
+        .banner-preview.red   {background:rgba(239,68,68,.07);   border-left-color:var(--danger);}
+        .banner-preview.purple{background:rgba(139,92,246,.07);  border-left-color:var(--purple);}
+        .bp-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+        .banner-preview.blue   .bp-icon{background:rgba(59,130,246,.15);color:var(--info);}
+        .banner-preview.green  .bp-icon{background:rgba(16,185,129,.15);color:var(--success);}
+        .banner-preview.orange .bp-icon{background:rgba(245,158,11,.15);color:var(--warning);}
+        .banner-preview.red    .bp-icon{background:rgba(239,68,68,.15); color:var(--danger);}
+        .banner-preview.purple .bp-icon{background:rgba(139,92,246,.15);color:var(--purple);}
+        .bp-body h4{font-size:13px;font-weight:700;margin-bottom:2px;}
+        .banner-preview.blue   .bp-body h4{color:var(--info);}
+        .banner-preview.green  .bp-body h4{color:var(--success);}
+        .banner-preview.orange .bp-body h4{color:var(--warning);}
+        .banner-preview.red    .bp-body h4{color:var(--danger);}
+        .banner-preview.purple .bp-body h4{color:var(--purple);}
+        .bp-body p{font-size:11px;color:var(--text-muted);line-height:1.5;margin:0;}
+        .preview-label{font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-top:16px;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+        .preview-label::before{content:'';display:inline-block;width:14px;height:2px;background:var(--border-color);border-radius:1px;}
+
+        /* TARGET */
+        .target-tabs{display:flex;gap:8px;margin-bottom:4px;}
+        .target-tab{flex:1;padding:9px;border:2px solid var(--border-color);border-radius:9px;background:var(--bg-body);color:var(--text-muted);font-size:12px;font-weight:600;cursor:pointer;font-family:'Poppins',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px;transition:.2s;}
+        .target-tab:hover{border-color:var(--primary);color:var(--primary);}
+        .target-tab.active{background:var(--primary-light);border-color:var(--primary);color:var(--primary);}
+        .user-search-wrap{display:none;margin-top:10px;}
+        .user-search-wrap.visible{display:block;}
+
+        /* FOOTER */
+        .card-footer{padding:18px 26px;border-top:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--bg-body);}
+        .save-btn{padding:12px 28px;background:var(--primary);color:white;border:none;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Poppins',sans-serif;display:flex;align-items:center;gap:8px;box-shadow:0 4px 14px rgba(0,170,255,.3);transition:.3s;}
+        .save-btn:hover{background:var(--primary-dark);transform:translateY(-1px);}
+        .save-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+        .save-btn .btn-spinner{display:none;width:15px;height:15px;border:2px solid rgba(255,255,255,.4);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;}
+        .save-btn.loading .btn-spinner{display:inline-block;}
+        .save-btn.loading span{opacity:.7;}
+        .reset-btn{padding:11px 20px;background:transparent;color:var(--text-muted);border:2px solid var(--border-color);border-radius:10px;font-weight:600;font-size:13px;cursor:pointer;font-family:'Poppins',sans-serif;transition:.2s;}
+        .reset-btn:hover{border-color:var(--danger);color:var(--danger);}
+
+        /* ===== MESSAGE HISTORY TABLE ===== */
+        .history-section{margin-top:28px;}
+        .history-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+        .history-header h2{font-size:17px;font-weight:700;display:flex;align-items:center;gap:10px;}
+        .history-header h2 i{color:var(--primary);}
+        .history-count{font-size:12px;font-weight:600;background:var(--primary-light);color:var(--primary);padding:4px 12px;border-radius:20px;}
+        .table-wrap{background:var(--bg-card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border-color);overflow:hidden;}
+        .table-scroll{overflow-x:auto;}
+        table{width:100%;border-collapse:collapse;}
+        thead tr{background:var(--bg-body);}
+        th{padding:13px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--border-color);white-space:nowrap;}
+        td{padding:14px 16px;border-bottom:1px solid var(--border-color);font-size:13px;vertical-align:middle;}
+        tr:last-child td{border-bottom:none;}
+        tr:hover td{background:rgba(0,170,255,.03);}
+
+        .type-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+        .type-badge.info   {background:rgba(59,130,246,.1);  color:var(--info);}
+        .type-badge.success{background:rgba(16,185,129,.1);  color:var(--success);}
+        .type-badge.warning{background:rgba(245,158,11,.1);  color:var(--warning);}
+        .type-badge.danger {background:rgba(239,68,68,.1);   color:var(--danger);}
+        .type-badge.purple {background:rgba(139,92,246,.1);  color:var(--purple);}
+
+        .target-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+        .target-badge.general {background:rgba(0,170,255,.1); color:var(--primary);}
+        .target-badge.personal{background:rgba(139,92,246,.1);color:var(--purple);}
+
+        .expiry-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:4px 9px;border-radius:8px;}
+        .expiry-badge.active {background:rgba(16,185,129,.1); color:var(--success);}
+        .expiry-badge.expired{background:rgba(239,68,68,.1);  color:var(--danger);}
+        .expiry-badge.noexpiry{background:var(--bg-body);color:var(--text-muted);}
+
+        .msg-text-cell{max-width:200px;}
+        .msg-title-cell{font-weight:600;font-size:13px;margin-bottom:2px;}
+        .msg-body-cell{font-size:11px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px;}
+
+        .tbl-actions{display:flex;align-items:center;gap:6px;}
+        .btn-icon-sm{width:32px;height:32px;border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:.2s;font-family:'Poppins',sans-serif;}
+        .btn-copy{background:rgba(0,170,255,.1);color:var(--primary);}
+        .btn-copy:hover{background:var(--primary);color:white;}
+        .btn-delete{background:rgba(239,68,68,.1);color:var(--danger);}
+        .btn-delete:hover{background:var(--danger);color:white;}
+
+        .empty-state{padding:50px 20px;text-align:center;color:var(--text-muted);}
+        .empty-state i{font-size:40px;margin-bottom:12px;opacity:.3;}
+        .empty-state p{font-size:13px;}
+
+        .table-loading{padding:50px 20px;text-align:center;color:var(--text-muted);}
+        .spinner{width:32px;height:32px;border:3px solid var(--border-color);border-top-color:var(--primary);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px;}
+
+        /* ===== MODALS ===== */
+        .modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2000;backdrop-filter:blur(4px);align-items:center;justify-content:center;}
+        .modal-backdrop.active{display:flex;}
+        .modal-box{background:var(--bg-card);border-radius:20px;padding:32px;max-width:420px;width:90%;box-shadow:0 25px 60px rgba(0,0,0,.2);animation:modalIn .3s ease;border:1px solid var(--border-color);}
+        @keyframes modalIn{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
+        .modal-icon{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 18px;}
+        .modal-icon.danger{background:rgba(239,68,68,.1);color:var(--danger);}
+        .modal-icon.warning{background:rgba(245,158,11,.1);color:var(--warning);}
+        .modal-box h3{font-size:18px;font-weight:700;text-align:center;margin-bottom:8px;}
+        .modal-box p{font-size:13px;color:var(--text-muted);text-align:center;line-height:1.6;margin-bottom:24px;}
+        .modal-actions{display:flex;gap:10px;}
+        .modal-actions button{flex:1;padding:12px;border:none;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Poppins',sans-serif;transition:.2s;}
+        .btn-cancel{background:var(--bg-body);color:var(--text-muted);border:2px solid var(--border-color) !important;}
+        .btn-cancel:hover{border-color:var(--text-muted) !important;}
+        .btn-confirm-danger{background:var(--danger);color:white;}
+        .btn-confirm-danger:hover{background:#dc2626;}
+        .btn-confirm-warning{background:var(--warning);color:white;}
+        .btn-confirm-warning:hover{background:#d97706;}
+
+        /* TOAST */
+        .toast-container{position:fixed;top:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:10px;}
+        .toast{background:var(--bg-card);border-radius:12px;padding:13px 18px;min-width:270px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;animation:slideInRight .3s ease;border:1px solid var(--border-color);}
+        .toast.success{border-left:5px solid var(--success);}
+        .toast.error  {border-left:5px solid var(--danger);}
+        .toast.info   {border-left:5px solid var(--info);}
+        .toast-icon{font-size:18px;}
+        .toast.success .toast-icon{color:var(--success);}
+        .toast.error   .toast-icon{color:var(--danger);}
+        .toast.info    .toast-icon{color:var(--info);}
+        .toast-content strong{display:block;font-size:13px;}
+        .toast-content p{font-size:11px;color:var(--text-muted);margin:0;}
+
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        @keyframes slideInRight{from{transform:translateX(110%);opacity:0}to{transform:translateX(0);opacity:1}}
+    </style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+    <div class="brand">
+        <div class="brand-logo"><img src="logo.png" alt="Earncial" onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-weight:800;color:var(--primary);font-size:20px\'>E</span>'"></div>
+        <span class="brand-text">Earncial</span>
+    </div>
+    <ul class="sidebar-menu">
+        <li><span class="menu-section">Overview</span></li>
+        <li><a href="admin-dashboard.html"        class="menu-item"><i class="fas fa-th-large"></i> Dashboard</a></li>
+        <li><a href="admin-users.html"             class="menu-item"><i class="fas fa-users"></i> Users</a></li>
+        <li><a href="admin-tasks.html"             class="menu-item"><i class="fas fa-tasks"></i> Tasks</a></li>
+        <li><span class="menu-section">Finance</span></li>
+        <li><a href="admin-withdrawals.html"       class="menu-item"><i class="fas fa-money-bill-wave"></i> Manage Withdrawals</a></li>
+        <li><a href="admin-withdraw-settings.html" class="menu-item active"><i class="fas fa-sliders-h"></i> Withdrawal Settings</a></li>
+        <li><a href="admin-deposits.html"          class="menu-item"><i class="fas fa-wallet"></i> Deposits</a></li>
+        <li><span class="menu-section">Content</span></li>
+        <li><a href="admin-messages.html"          class="menu-item"><i class="fas fa-bullhorn"></i> Broadcast</a></li>
+        <li><a href="admin-settings.html"          class="menu-item"><i class="fas fa-cog"></i> General Settings</a></li>
+    </ul>
+    <div class="sidebar-footer">
+        <button class="logout-btn" onclick="showLogoutModal()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main-content">
+    <header class="top-header">
+        <div class="header-left">
+            <div class="menu-toggle" onclick="openSidebar()"><i class="fas fa-bars-staggered"></i></div>
+            <div class="header-logo">
+                <img src="logo.png" alt="Earncial" onerror="this.style.display='none'">
+                <span>Earncial</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <span class="admin-badge"><i class="fas fa-shield-alt"></i> Admin</span>
+            <button class="theme-btn" onclick="toggleTheme()"><i class="fas fa-moon" id="themeIcon"></i></button>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- PAGE HEADER -->
+        <div class="page-header">
+            <div class="page-icon"><i class="fas fa-sliders-h"></i></div>
+            <div>
+                <h1>Withdrawal Settings</h1>
+                <p>Configure limits, fees, security and message banners for the withdraw page</p>
+            </div>
+        </div>
+
+        <!-- TOP CARDS -->
+        <div class="settings-grid">
+
+            <!-- CARD 1: SETTINGS -->
+            <div class="card">
+                <div class="card-head">
+                    <div class="card-head-icon icon-blue"><i class="fas fa-cog"></i></div>
+                    <div>
+                        <h2>Withdrawal Rules</h2>
+                        <p>Limits, fees & security settings</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-arrow-down"></i> Minimum Amount</label>
+                            <div class="input-prefix-wrap">
+                                <span class="input-prefix">₦</span>
+                                <input type="number" id="minAmount" value="500" min="0" placeholder="500">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-arrow-up"></i> Maximum Amount</label>
+                            <div class="input-prefix-wrap">
+                                <span class="input-prefix">₦</span>
+                                <input type="number" id="maxAmount" value="50000" min="0" placeholder="50000">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-day"></i> Daily Withdrawal Limit <span class="lbl-badge">Per User</span></label>
+                        <div class="input-prefix-wrap">
+                            <span class="input-prefix">₦</span>
+                            <input type="number" id="dailyLimit" value="100000" min="0" placeholder="100000">
+                        </div>
+                        <div class="hint"><i class="fas fa-info-circle"></i> Maximum total a user can withdraw in 24 hours</div>
+                    </div>
+
+                    <div class="form-divider"><span>Fee</span></div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-percent"></i> Withdrawal Fee</label>
+                        <div class="input-suffix-wrap">
+                            <input type="number" id="feePercent" value="2" min="0" max="100" step="0.1" placeholder="2">
+                            <span class="input-suffix">%</span>
+                        </div>
+                        <div class="hint"><i class="fas fa-info-circle"></i> Fee is added on top of withdrawal amount</div>
+                    </div>
+
+                    <div class="form-divider"><span>Security</span></div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-key"></i> PIN Attempts</label>
+                            <div class="input-suffix-wrap">
+                                <input type="number" id="pinAttempts" value="3" min="1" max="10" placeholder="3">
+                                <span class="input-suffix">tries</span>
+                            </div>
+                            <div class="hint"><i class="fas fa-info-circle"></i> Wrong PIN limit before lock</div>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> Lock Duration</label>
+                            <div class="input-suffix-wrap">
+                                <input type="number" id="lockDuration" value="1" min="0.1" step="0.5" placeholder="1">
+                                <span class="input-suffix">hrs</span>
+                            </div>
+                            <div class="hint"><i class="fas fa-info-circle"></i> How long account stays locked</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="reset-btn" onclick="resetSettings()"><i class="fas fa-undo"></i> Reset</button>
+                    <button class="save-btn" id="saveSettingsBtn" onclick="saveSettings()">
+                        <div class="btn-spinner"></div>
+                        <i class="fas fa-save"></i>
+                        <span>Save Settings</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- CARD 2: MESSAGES -->
+            <div class="card">
+                <div class="card-head">
+                    <div class="card-head-icon icon-purple"><i class="fas fa-bullhorn"></i></div>
+                    <div>
+                        <h2>Withdrawal Messages</h2>
+                        <p>Banners shown on the withdraw page</p>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <!-- Target -->
+                    <div class="form-group">
+                        <label><i class="fas fa-users"></i> Message Target</label>
+                        <div class="target-tabs">
+                            <button class="target-tab active" id="tabGeneral" onclick="switchTarget('general')">
+                                <i class="fas fa-globe"></i> General
+                            </button>
+                            <button class="target-tab" id="tabPersonal" onclick="switchTarget('personal')">
+                                <i class="fas fa-user"></i> Personal
+                            </button>
+                        </div>
+                        <div class="user-search-wrap" id="userSearchWrap">
+                            <input type="text" id="userSearch" placeholder="e.g. abdullahi123" autocomplete="off">
+                            <div class="hint"><i class="fas fa-info-circle"></i> Enter exact username — message will only show to this user</div>
+                        </div>
+                    </div>
+
+                    <div class="form-divider"><span>Banner Type</span></div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-palette"></i> Banner Color / Type</label>
+                        <div class="msg-type-grid">
+                            <button class="msg-type-btn t-info active" onclick="selectType('info',this)"><i class="fas fa-info-circle"></i> Info</button>
+                            <button class="msg-type-btn t-success" onclick="selectType('success',this)"><i class="fas fa-check-circle"></i> Success</button>
+                            <button class="msg-type-btn t-warning" onclick="selectType('warning',this)"><i class="fas fa-exclamation-triangle"></i> Warning</button>
+                            <button class="msg-type-btn t-danger" onclick="selectType('danger',this)"><i class="fas fa-times-circle"></i> Danger</button>
+                            <button class="msg-type-btn t-purple" onclick="selectType('purple',this)"><i class="fas fa-star"></i> Purple</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-heading"></i> Banner Title</label>
+                        <input type="text" id="msgTitle" placeholder="e.g. Processing Hours" oninput="updatePreview()" maxlength="80">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-align-left"></i> Banner Message</label>
+                        <textarea id="msgBody" rows="3" placeholder="e.g. Withdrawals are processed within 1–5 minutes..." oninput="updatePreview()" maxlength="300"></textarea>
+                        <div class="hint"><i class="fas fa-info-circle"></i> <span id="charCount">0</span>/300 characters</div>
+                    </div>
+
+                    <!-- Expiry Date -->
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-times"></i> Expiry Date <span class="lbl-badge">Optional</span></label>
+                        <input type="datetime-local" id="msgExpiry">
+                        <div class="hint"><i class="fas fa-info-circle"></i> Leave empty for permanent message</div>
+                    </div>
+
+                    <!-- Live Preview -->
+                    <div class="preview-label"><i class="fas fa-eye" style="color:var(--primary)"></i> Live Preview</div>
+                    <div class="banner-preview blue" id="bannerPreview">
+                        <div class="bp-icon"><i class="fas fa-info-circle" id="previewIcon"></i></div>
+                        <div class="bp-body">
+                            <h4 id="previewTitle">Banner Title</h4>
+                            <p id="previewBody">Your message will appear here as you type...</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <button class="reset-btn" onclick="resetMessage()"><i class="fas fa-undo"></i> Clear</button>
+                    <button class="save-btn" id="saveMsgBtn" onclick="saveMessage()">
+                        <div class="btn-spinner"></div>
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Send Message</span>
+                    </button>
+                </div>
+            </div>
+
+        </div><!-- /settings-grid -->
+
+        <!-- ===== MESSAGE HISTORY ===== -->
+        <div class="history-section">
+            <div class="history-header">
+                <h2><i class="fas fa-history"></i> Message History
+                    <span class="history-count" id="historyCount">0 messages</span>
+                </h2>
+                <button class="reset-btn" onclick="loadMessageHistory()" style="font-size:12px;padding:8px 16px;">
+                    <i class="fas fa-sync"></i> Refresh
+                </button>
+            </div>
+            <div class="table-wrap">
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Message</th>
+                                <th>Type</th>
+                                <th>Target</th>
+                                <th>Expiry</th>
+                                <th>Sent</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="messageHistoryBody">
+                            <tr>
+                                <td colspan="6">
+                                    <div class="table-loading">
+                                        <div class="spinner"></div>
+                                        <p>Loading message history...</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /container -->
+</main>
+
+<!-- ===== LOGOUT MODAL ===== -->
+<div class="modal-backdrop" id="logoutModal">
+    <div class="modal-box">
+        <div class="modal-icon warning"><i class="fas fa-sign-out-alt"></i></div>
+        <h3>Confirm Logout</h3>
+        <p>Are you sure you want to logout from the admin panel?</p>
+        <div class="modal-actions">
+            <button class="btn-cancel" onclick="closeModal('logoutModal')">Cancel</button>
+            <button class="btn-confirm-warning" onclick="confirmLogout()">
+                <i class="fas fa-sign-out-alt"></i> Yes, Logout
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== DELETE MESSAGE MODAL ===== -->
+<div class="modal-backdrop" id="deleteMessageModal">
+    <div class="modal-box">
+        <div class="modal-icon danger"><i class="fas fa-trash-alt"></i></div>
+        <h3>Delete Message</h3>
+        <p>Are you sure you want to delete this message? This action cannot be undone.</p>
+        <div class="modal-actions">
+            <button class="btn-cancel" onclick="closeModal('deleteMessageModal')">Cancel</button>
+            <button class="btn-confirm-danger" onclick="confirmDeleteMessage()">
+                <i class="fas fa-trash"></i> Yes, Delete
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="withdraw-settings.js"></script>
+</body>
+</html>

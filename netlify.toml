@@ -1,0 +1,79 @@
+# ═══════════════════════════════════════════
+# Earncial — Netlify Configuration
+# ═══════════════════════════════════════════
+
+# Build settings (update if you add a build step later)
+[build]
+  publish = "."
+
+# ── Redirects ────────────────────────────────
+# Clean URLs — /app → /app/index.html
+[[redirects]]
+  from = "/app"
+  to = "/app/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/hub"
+  to = "/hub/index.html"
+  status = 200
+
+# 404 fallback
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+# ── Headers ──────────────────────────────────
+
+# Service Worker — must have full scope + no cache
+[[headers]]
+  for = "/service-worker.js"
+  [headers.values]
+    Service-Worker-Allowed = "/"
+    Cache-Control = "no-cache"
+
+# Manifest
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# All HTML pages — never cache, security headers
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+
+# /app/ — no store (private earner pages), block search engines
+[[headers]]
+  for = "/app/*"
+  [headers.values]
+    Cache-Control = "no-store"
+    X-Robots-Tag = "noindex, nofollow"
+
+# /hub/ — no store (private advertiser pages), block search engines
+[[headers]]
+  for = "/hub/*"
+  [headers.values]
+    Cache-Control = "no-store"
+    X-Robots-Tag = "noindex, nofollow"
+
+# Static assets — cache aggressively
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

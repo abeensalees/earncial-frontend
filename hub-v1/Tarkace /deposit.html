@@ -1,0 +1,1959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposit Funds | Earncial Advertiser</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Paystack Inline Script -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    
+    <style>
+        /* ================= VARIABLES & THEME SETUP ================= */
+        :root {
+            /* Light Mode - EXACTLY LIKE DASHBOARD */
+            --primary: #00aaff;
+            --primary-dark: #008ecc;
+            --primary-light: #e0f2fe;
+            --bg-body: #f8faff;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --sidebar-width: 260px;
+            --header-height: 70px;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+            --info: #3b82f6;
+        }
+
+        /* Dark Mode Override - EXACTLY LIKE DASHBOARD */
+        body.dark-mode {
+            --primary: #53d6ff;
+            --primary-dark: #00aaff;
+            --primary-light: #1e3a8a;
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            transition: background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ================= SIDEBAR - EXACT DASHBOARD STYLE ================= */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--bg-card);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+        
+        /* Mobile: Hidden by default */
+        @media (max-width: 768px) {
+            .sidebar { 
+                transform: translateX(-100%); 
+                width: 280px; 
+            }
+            .sidebar.active { 
+                transform: translateX(0); 
+                box-shadow: 0 0 50px rgba(0,0,0,0.5); 
+            }
+        }
+
+        /* Sidebar Overlay */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            backdrop-filter: blur(3px);
+        }
+        
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .brand {
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .brand-logo {
+            width: 40px; height: 40px; background: var(--primary); color: white; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold;
+            margin-right: 12px; box-shadow: 0 0 10px rgba(0, 170, 255, 0.3);
+        }
+
+        .brand-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sidebar-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar-menu::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar-menu::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 3px;
+        }
+
+        .sidebar-menu::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        .menu-item {
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            color: var(--text-muted);
+            font-weight: 500;
+            border-left: 4px solid transparent;
+            margin-bottom: 2px;
+        }
+
+        .menu-item i { 
+            width: 25px; 
+            font-size: 18px; 
+            margin-right: 12px; 
+            text-align: center;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .sidebar-footer { 
+            padding: 20px; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: auto; 
+            flex-shrink: 0;
+        }
+
+        .logout-btn {
+            width: 100%; padding: 12px; background: rgba(239, 68, 68, 0.1); color: #ef4444; border: none;
+            border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center;
+            gap: 10px; transition: 0.2s;
+        }
+        .logout-btn:hover { background: #ef4444; color: white; }
+
+        /* ================= MAIN CONTENT ================= */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            width: calc(100% - var(--sidebar-width));
+            flex-grow: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content { margin-left: 0; width: 100%; }
+        }
+
+        /* Top Header */
+        .top-header {
+            height: var(--header-height);
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .menu-toggle { display: none; font-size: 24px; cursor: pointer; color: var(--text-main); }
+        @media (max-width: 768px) { .menu-toggle { display: block; } }
+
+        .header-right { 
+            display: flex; 
+            align-items: center; 
+            gap: 20px; 
+        }
+        
+        /* Notification Icon - EXACTLY LIKE DASHBOARD */
+        .notif-btn {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notif-btn i {
+            font-size: 22px;
+            color: var(--text-main);
+        }
+
+        .notif-badge {
+            position: absolute; 
+            top: -8px; 
+            right: -8px; 
+            background: #ef4444; 
+            color: white; 
+            border-radius: 50%; 
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px; 
+            font-weight: 600;
+            border: 2px solid var(--bg-card);
+            z-index: 100;
+        }
+
+        /* Dark Mode Toggle - EXACTLY LIKE DASHBOARD */
+        .eye-toggle {
+            background: var(--primary-light); 
+            border: none; 
+            color: var(--text-main);
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            cursor: pointer;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        /* Container */
+        .container {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ================= BUTTON STYLES ================= */
+        .primary-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            font-size: 16px;
+            box-shadow: 0 4px 15px rgba(0, 170, 255, 0.2);
+            width: 100%;
+        }
+
+        .primary-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 170, 255, 0.3);
+        }
+
+        .secondary-btn {
+            background: var(--bg-body);
+            color: var(--text-main);
+            border: 2px solid var(--border-color);
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .secondary-btn:hover {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .paystack-btn {
+            background: linear-gradient(135deg, #0ABAB5 0%, #0A8F8B 100%);
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(10, 186, 181, 0.3);
+        }
+
+        .paystack-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(10, 186, 181, 0.4);
+            background: linear-gradient(135deg, #0A8F8B 0%, #0ABAB5 100%);
+        }
+
+        /* ================= PAGE HEADER ================= */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .page-title i {
+            font-size: 28px;
+            color: var(--primary);
+            background: var(--primary-light);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-title h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .page-title p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* ================= WALLET SUMMARY ================= */
+        .wallet-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .wallet-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .wallet-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .wallet-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin: 0 auto 20px;
+            color: white;
+        }
+
+        .balance-icon { background: var(--success); }
+        .spent-icon { background: var(--danger); }
+        .pending-icon { background: var(--warning); }
+
+        .wallet-card h3 {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .wallet-amount {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .wallet-note {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        /* ================= DEPOSIT FORM SECTION ================= */
+        .deposit-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 992px) {
+            .deposit-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .deposit-form-container {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 35px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .deposit-info-container {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 35px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-title i {
+            font-size: 22px;
+            color: var(--primary);
+            background: var(--primary-light);
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-title h2 {
+            font-size: 20px;
+            color: var(--text-main);
+        }
+
+        /* ================= DEPOSIT FORM ================= */
+        .deposit-form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .amount-input-container {
+            position: relative;
+        }
+
+        .currency-prefix {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 18px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px 16px 45px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.1);
+        }
+
+        .amount-presets {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .amount-preset-btn {
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .amount-preset-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .amount-preset-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: var(--bg-body);
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .payment-method.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .payment-method-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-right: 15px;
+            color: white;
+        }
+
+        .paystack-icon { background: #0ABAB5; }
+        .bank-icon { background: var(--info); }
+        .transfer-icon { background: var(--purple); }
+
+        .payment-method-info h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: var(--text-main);
+        }
+
+        .payment-method-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .paystack-disclaimer {
+            background: rgba(10, 186, 181, 0.1);
+            border-left: 4px solid #0ABAB5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .paystack-disclaimer p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        /* ================= DEPOSIT INFO ================= */
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px;
+            background: var(--bg-body);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .info-1 { background: var(--primary); }
+        .info-2 { background: var(--success); }
+        .info-3 { background: var(--warning); }
+        .info-4 { background: var(--purple); }
+
+        .info-content h4 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .info-content p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ================= RECENT TRANSACTIONS ================= */
+        .transactions-section {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 35px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        .transactions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .transactions-header h2 {
+            font-size: 20px;
+            color: var(--text-main);
+        }
+
+        .transactions-table {
+            overflow-x: auto;
+        }
+
+        .transactions-table table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .transactions-table th {
+            background: var(--primary);
+            color: white;
+            padding: 18px 20px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .transactions-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .status-failed {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .no-transactions {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-muted);
+        }
+
+        .no-transactions i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: var(--border-color);
+        }
+
+        /* ================= PAYSTACK PAYMENT MODAL ================= */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(3px);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .payment-modal {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 0;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            animation: slideUp 0.5s;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--primary);
+            color: white;
+        }
+
+        .modal-header h3 {
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-content {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .payment-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(10, 186, 181, 0.1);
+            color: #0ABAB5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 20px;
+        }
+
+        .payment-details {
+            background: var(--bg-body);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .payment-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .payment-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .payment-label {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .payment-value {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .payment-total {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        .payment-note {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 20px;
+            text-align: center;
+            padding: 12px;
+            background: rgba(10, 186, 181, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid #0ABAB5;
+        }
+
+        /* ================= TOAST NOTIFICATION ================= */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 15px 20px;
+            min-width: 300px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideInRight 0.3s ease;
+            border-left: 5px solid var(--primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .toast.success { border-left-color: #10b981; }
+        .toast.error { border-left-color: #ef4444; }
+        .toast.info { border-left-color: var(--primary); }
+        .toast.warning { border-left-color: #f59e0b; }
+
+        .toast-icon {
+            font-size: 20px;
+        }
+
+        .toast.success .toast-icon { color: #10b981; }
+        .toast.error .toast-icon { color: #ef4444; }
+        .toast.info .toast-icon { color: var(--primary); }
+        .toast.warning .toast-icon { color: #f59e0b; }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-content strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .toast-content p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .toast-close:hover {
+            background: rgba(0,0,0,0.1);
+            color: var(--text-main);
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* ================= FOOTER ================= */
+        .clean-footer {
+            text-align: center;
+            padding: 30px 20px; 
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            margin-top: 30px;
+            background-color: var(--bg-card); 
+            width: 100%;
+            flex-shrink: 0;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--text-muted);
+            transition: color 0.3s;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 18px;
+            transition: 0.3s;
+            flex-shrink: 0;
+        }
+        
+        .social-icon:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .wallet-summary {
+                grid-template-columns: 1fr;
+            }
+            
+            .amount-presets {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .payment-method {
+                padding: 15px;
+            }
+            
+            .payment-method-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+                margin-right: 10px;
+            }
+            
+            .info-item {
+                padding: 15px;
+            }
+            
+            .info-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            
+            .footer-links {
+                gap: 15px;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .deposit-form-container,
+            .deposit-info-container,
+            .transactions-section {
+                padding: 25px 20px;
+            }
+            
+            .amount-presets {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-method {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .payment-method-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            .wallet-amount {
+                font-size: 28px;
+            }
+            
+            .social-links {
+                gap: 10px;
+            }
+            
+            .social-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+            
+            .toast {
+                min-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- OVERLAY for mobile sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-logo">₦</div>
+            <span class="brand-text">Earncial Advertiser</span>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="advertiser-dashboard.html" class="menu-item"><i class="fas fa-th-large"></i> Dashboard</a></li>
+            <li><a href="advertiser-post-task.html" class="menu-item"><i class="fas fa-plus-circle"></i> Post Task</a></li>
+            <li><a href="advertiser-manage-tasks.html" class="menu-item"><i class="fas fa-tasks"></i> Manage Tasks</a></li>
+            <li><a href="advertiser-analytics.html" class="menu-item"><i class="fas fa-chart-line"></i> Analytics</a></li>
+            <li><a href="advertiser-wallet.html" class="menu-item"><i class="fas fa-wallet"></i> Wallet</a></li>
+            <li><a href="advertiser-deposit.html" class="menu-item active"><i class="fas fa-credit-card"></i> Deposit</a></li>
+            <li><a href="advertiser-withdraw.html" class="menu-item"><i class="fas fa-money-bill-wave"></i> Withdraw</a></li>
+            <li><a href="advertiser-referrals.html" class="menu-item"><i class="fas fa-users"></i> Referrals</a></li>
+            <li><a href="advertiser-transactions.html" class="menu-item"><i class="fas fa-history"></i> Transactions</a></li>
+            <li><a href="advertiser-notifications.html" class="menu-item"><i class="fas fa-bell"></i> Notifications</a></li>
+            <li><a href="advertiser-support.html" class="menu-item"><i class="fas fa-headset"></i> Support</a></li>
+            <li><a href="advertiser-profile.html" class="menu-item"><i class="fas fa-user-cog"></i> Profile</a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- HEADER -->
+        <header class="top-header">
+            <div class="menu-toggle" onclick="openSidebar()">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <h3 style="color: var(--primary); margin-left:15px; font-size:20px;">Earncial Advertiser</h3>
+
+            <div class="header-right">
+                <!-- Notification (EXACTLY LIKE DASHBOARD) -->
+                <div class="notif-btn" title="Notifications" onclick="window.location.href='advertiser-notifications.html'">
+                    <i class="far fa-bell"></i>
+                    <span class="notif-badge">2</span>
+                </div>
+                
+                <!-- Dark Mode Toggle (EXACTLY LIKE DASHBOARD) -->
+                <button class="eye-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+                     <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="container">
+            <!-- PAGE HEADER -->
+            <div class="page-header">
+                <div class="page-title">
+                    <i class="fas fa-credit-card"></i>
+                    <div>
+                        <h1>Deposit Funds</h1>
+                        <p>Add funds to your wallet to start posting tasks</p>
+                    </div>
+                </div>
+                
+                <button class="secondary-btn" onclick="window.location.href='advertiser-withdraw.html'">
+                    <i class="fas fa-money-bill-wave"></i> Withdraw Funds
+                </button>
+            </div>
+
+            <!-- WALLET SUMMARY -->
+            <div class="wallet-summary">
+                <div class="wallet-card">
+                    <div class="wallet-icon balance-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3>Available Balance</h3>
+                    <div class="wallet-amount">₦<span id="walletBalance">45,280</span></div>
+                    <p class="wallet-note">Amount ready to use for tasks</p>
+                </div>
+                
+                <div class="wallet-card">
+                    <div class="wallet-icon spent-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3>Total Spent</h3>
+                    <div class="wallet-amount">₦<span id="totalSpent">18,750</span></div>
+                    <p class="wallet-note">Total amount spent on tasks</p>
+                </div>
+                
+                <div class="wallet-card">
+                    <div class="wallet-icon pending-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Pending Deposits</h3>
+                    <div class="wallet-amount">₦<span id="pendingDeposits">5,000</span></div>
+                    <p class="wallet-note">Awaiting confirmation</p>
+                </div>
+            </div>
+
+            <!-- DEPOSIT FORM & INFO -->
+            <div class="deposit-section">
+                <!-- DEPOSIT FORM -->
+                <div class="deposit-form-container">
+                    <div class="section-title">
+                        <i class="fas fa-plus-circle"></i>
+                        <h2>Add Funds</h2>
+                    </div>
+                    
+                    <form class="deposit-form" id="depositForm">
+                        <div class="form-group">
+                            <label for="amount">Amount to Deposit (₦)</label>
+                            <div class="amount-input-container">
+                                <span class="currency-prefix">₦</span>
+                                <input type="number" id="amount" class="form-input" min="100" max="1000000" placeholder="Enter amount" value="5000" required>
+                            </div>
+                            
+                            <div class="amount-presets">
+                                <button type="button" class="amount-preset-btn" data-amount="1000">₦1,000</button>
+                                <button type="button" class="amount-preset-btn" data-amount="5000">₦5,000</button>
+                                <button type="button" class="amount-preset-btn active" data-amount="10000">₦10,000</button>
+                                <button type="button" class="amount-preset-btn" data-amount="20000">₦20,000</button>
+                                <button type="button" class="amount-preset-btn" data-amount="50000">₦50,000</button>
+                                <button type="button" class="amount-preset-btn" data-amount="100000">₦100,000</button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Payment Method</label>
+                            <div class="payment-methods">
+                                <div class="payment-method active" data-method="paystack">
+                                    <div class="payment-method-icon paystack-icon">
+                                        <i class="fas fa-credit-card"></i>
+                                    </div>
+                                    <div class="payment-method-info">
+                                        <h4>Paystack Payment</h4>
+                                        <p>Instant deposit with card, bank transfer, USSD</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-method" data-method="bank">
+                                    <div class="payment-method-icon bank-icon">
+                                        <i class="fas fa-university"></i>
+                                    </div>
+                                    <div class="payment-method-info">
+                                        <h4>Bank Deposit</h4>
+                                        <p>Manual deposit to our bank account</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-method" data-method="transfer">
+                                    <div class="payment-method-icon transfer-icon">
+                                        <i class="fas fa-exchange-alt"></i>
+                                    </div>
+                                    <div class="payment-method-info">
+                                        <h4>Bank Transfer</h4>
+                                        <p>Transfer from your bank app</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="paystack-disclaimer">
+                            <p><i class="fas fa-shield-alt"></i> Secure payment powered by Paystack</p>
+                            <p><i class="fas fa-bolt"></i> Instant credit to your wallet</p>
+                            <p><i class="fas fa-lock"></i> Your card details are never stored</p>
+                        </div>
+                        
+                        <button type="button" class="paystack-btn" id="paystackBtn" onclick="processPayment()">
+                            <i class="fas fa-lock"></i> Pay Securely with Paystack
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- DEPOSIT INFO -->
+                <div class="deposit-info-container">
+                    <div class="section-title">
+                        <i class="fas fa-info-circle"></i>
+                        <h2>Deposit Information</h2>
+                    </div>
+                    
+                    <div class="info-list">
+                        <div class="info-item">
+                            <div class="info-icon info-1">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Instant Funding</h4>
+                                <p>Paystack payments are credited to your wallet instantly after successful transaction. No waiting period.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon info-2">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>100% Secure</h4>
+                                <p>Your payment details are protected with bank-level security. We never store your card information.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon info-3">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Multiple Payment Options</h4>
+                                <p>Pay with card, bank transfer, USSD, or mobile money. Choose what works best for you.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon info-4">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Need Help?</h4>
+                                <p>Contact our support team if you encounter any issues during the deposit process.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RECENT TRANSACTIONS -->
+            <div class="transactions-section">
+                <div class="transactions-header">
+                    <h2>Recent Deposit Transactions</h2>
+                    <button class="secondary-btn" onclick="window.location.href='advertiser-transactions.html'">
+                        <i class="fas fa-history"></i> View All Transactions
+                    </button>
+                </div>
+                
+                <div class="transactions-table">
+                    <table id="transactionsTable">
+                        <thead>
+                            <tr>
+                                <th>Transaction ID</th>
+                                <th>Date & Time</th>
+                                <th>Amount</th>
+                                <th>Payment Method</th>
+                                <th>Status</th>
+                                <th>Reference</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionsBody">
+                            <!-- Transactions will be loaded here -->
+                        </tbody>
+                    </table>
+                    
+                    <!-- EMPTY STATE -->
+                    <div class="no-transactions" id="noTransactions" style="display: none;">
+                        <i class="fas fa-credit-card"></i>
+                        <h3>No Deposit Transactions</h3>
+                        <p>Your deposit history will appear here</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <footer class="clean-footer">
+                <div class="footer-links">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Use</a>
+                    <a href="support.html">Support</a>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://facebook.com/earncial" target="_blank" class="social-icon" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/earncial" target="_blank" class="social-icon" title="Twitter/X">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com/earncial" target="_blank" class="social-icon" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://linkedin.com/company/earncial" target="_blank" class="social-icon" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://t.me/earncial" target="_blank" class="social-icon" title="Telegram">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                    <a href="https://whatsapp.com/channel/earncial" target="_blank" class="social-icon" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+                
+                <p style="margin-top: 10px; font-size: 14px;">&copy; 2025 Earncial. All rights reserved.</p>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 5px;">Secure payments powered by <strong>Paystack</strong></p>
+            </footer>
+        </div>
+    </main>
+
+    <!-- PAYSTACK PAYMENT MODAL -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="payment-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-credit-card"></i> Confirm Payment</h3>
+                <button class="close-modal" onclick="closePaymentModal()">&times;</button>
+            </div>
+            
+            <div class="modal-content">
+                <div class="payment-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                
+                <h3 style="margin-bottom: 15px; color: var(--text-main);">Complete Your Payment</h3>
+                <p style="color: var(--text-muted); margin-bottom: 25px;">You'll be redirected to Paystack's secure payment page</p>
+                
+                <div class="payment-details">
+                    <div class="payment-row">
+                        <span class="payment-label">Amount to Deposit:</span>
+                        <span class="payment-value" id="modalAmount">₦5,000</span>
+                    </div>
+                    <div class="payment-row">
+                        <span class="payment-label">Payment Method:</span>
+                        <span class="payment-value">Paystack</span>
+                    </div>
+                    <div class="payment-row">
+                        <span class="payment-label">Transaction Fee:</span>
+                        <span class="payment-value" id="modalFee">₦125</span>
+                    </div>
+                    <div class="payment-row">
+                        <span class="payment-label">Total to Pay:</span>
+                        <span class="payment-value payment-total" id="modalTotal">₦5,125</span>
+                    </div>
+                </div>
+                
+                <p class="payment-note">
+                    <i class="fas fa-info-circle"></i> Transaction fee (2.5%) is charged by Paystack for processing
+                </p>
+                
+                <button class="paystack-btn" style="margin-top: 25px;" onclick="initiatePaystackPayment()">
+                    <i class="fas fa-external-link-alt"></i> Proceed to Paystack
+                </button>
+                
+                <button class="secondary-btn" style="margin-top: 15px; width: 100%;" onclick="closePaymentModal()">
+                    <i class="fas fa-times"></i> Cancel Payment
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // ============ DOM ELEMENTS ============
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const themeIcon = document.getElementById('themeIcon');
+        const toastContainer = document.getElementById('toastContainer');
+        const amountInput = document.getElementById('amount');
+        const amountPresetBtns = document.querySelectorAll('.amount-preset-btn');
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        const paymentModal = document.getElementById('paymentModal');
+        const transactionsBody = document.getElementById('transactionsBody');
+        const noTransactions = document.getElementById('noTransactions');
+
+        // Wallet elements
+        const walletBalance = document.getElementById('walletBalance');
+        const totalSpent = document.getElementById('totalSpent');
+        const pendingDeposits = document.getElementById('pendingDeposits');
+
+        // Modal elements
+        const modalAmount = document.getElementById('modalAmount');
+        const modalFee = document.getElementById('modalFee');
+        const modalTotal = document.getElementById('modalTotal');
+
+        // ============ STATE VARIABLES ============
+        let currentPaymentMethod = 'paystack';
+        let currentAmount = 5000;
+        let transactionFee = 0;
+        let totalToPay = 0;
+
+        // Sample transactions data
+        let transactions = [
+            {
+                id: 'TX-789456',
+                date: 'Today, 14:30',
+                amount: 10000,
+                method: 'Paystack',
+                status: 'success',
+                reference: 'PS-789456123'
+            },
+            {
+                id: 'TX-789455',
+                date: 'Yesterday, 09:15',
+                amount: 5000,
+                method: 'Bank Transfer',
+                status: 'success',
+                reference: 'BT-456789123'
+            },
+            {
+                id: 'TX-789454',
+                date: 'Dec 12, 16:45',
+                amount: 20000,
+                method: 'Paystack',
+                status: 'success',
+                reference: 'PS-321654987'
+            },
+            {
+                id: 'TX-789453',
+                date: 'Dec 10, 11:20',
+                amount: 15000,
+                method: 'Paystack',
+                status: 'pending',
+                reference: 'PS-987654321'
+            },
+            {
+                id: 'TX-789452',
+                date: 'Dec 8, 13:05',
+                amount: 8000,
+                method: 'Bank Deposit',
+                status: 'failed',
+                reference: 'BD-123456789'
+            }
+        ];
+
+        // ============ SIDEBAR FUNCTIONS ============
+        function openSidebar() {
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // ============ DARK MODE FUNCTIONS ============
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('themeIcon');
+            
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            
+            if (isDark) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+            
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+        
+        // Load Theme Preference on start
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const icon = document.getElementById('themeIcon');
+            
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                if (icon) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                }
+            } else if (icon) {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+            
+            // Initialize the rest
+            init();
+        });
+
+        // ============ TOAST NOTIFICATION FUNCTIONS ============
+        function showToast(message, type = 'info', title = '') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icons = {
+                'success': 'fas fa-check-circle',
+                'error': 'fas fa-exclamation-circle',
+                'warning': 'fas fa-exclamation-triangle',
+                'info': 'fas fa-info-circle'
+            };
+            
+            toast.innerHTML = `
+                <div class="toast-icon">
+                    <i class="${icons[type] || icons.info}"></i>
+                </div>
+                <div class="toast-content">
+                    ${title ? `<strong>${title}</strong>` : ''}
+                    <p>${message}</p>
+                </div>
+                <button class="toast-close" onclick="this.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.remove();
+                }
+            }, 5000);
+        }
+
+        // ============ AMOUNT & PAYMENT FUNCTIONS ============
+        function updateAmount(amount) {
+            currentAmount = parseInt(amount);
+            amountInput.value = currentAmount;
+            
+            // Update active preset button
+            amountPresetBtns.forEach(btn => {
+                if (parseInt(btn.dataset.amount) === currentAmount) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Update fee calculation
+            calculateFee();
+        }
+
+        function calculateFee() {
+            // Paystack charges 1.5% + ₦100 for Nigerian cards
+            // For demo, we'll use 2.5% flat
+            transactionFee = Math.round(currentAmount * 0.025);
+            totalToPay = currentAmount + transactionFee;
+            
+            // Update modal display
+            modalAmount.textContent = `₦${currentAmount.toLocaleString()}`;
+            modalFee.textContent = `₦${transactionFee.toLocaleString()}`;
+            modalTotal.textContent = `₦${totalToPay.toLocaleString()}`;
+        }
+
+        function selectPaymentMethod(method) {
+            currentPaymentMethod = method;
+            
+            // Update active payment method
+            paymentMethods.forEach(pm => {
+                if (pm.dataset.method === method) {
+                    pm.classList.add('active');
+                } else {
+                    pm.classList.remove('active');
+                }
+            });
+        }
+
+        // ============ PAYSTACK PAYMENT FUNCTIONS ============
+        function processPayment() {
+            // Validate amount
+            if (!amountInput.value || amountInput.value < 100) {
+                showToast('Minimum deposit amount is ₦100', 'error', 'Invalid Amount');
+                amountInput.focus();
+                return;
+            }
+            
+            // Update current amount from input
+            currentAmount = parseInt(amountInput.value);
+            calculateFee();
+            
+            // Show payment confirmation modal
+            paymentModal.classList.add('active');
+        }
+
+        function initiatePaystackPayment() {
+            // In production, you would get these from your backend
+            const email = "user@example.com"; // User's email
+            const amountInKobo = totalToPay * 100; // Paystack uses kobo
+            
+            // Generate unique reference
+            const reference = 'PS-' + Date.now() + Math.floor(Math.random() * 1000);
+            
+            // Paystack configuration
+            const handler = PaystackPop.setup({
+                key: 'pk_test_YOUR_PUBLIC_KEY', // Replace with your Paystack public key
+                email: email,
+                amount: amountInKobo,
+                currency: 'NGN',
+                ref: reference,
+                
+                callback: function(response) {
+                    // Payment successful
+                    handlePaymentSuccess(response.reference, response.transaction);
+                    closePaymentModal();
+                    
+                    showToast('Payment successful! Funds added to your wallet', 'success', 'Payment Complete');
+                    
+                    // Simulate wallet update
+                    const newBalance = parseInt(walletBalance.textContent.replace(/,/g, '')) + currentAmount;
+                    walletBalance.textContent = newBalance.toLocaleString();
+                    
+                    // Add transaction to history
+                    addTransaction(reference, 'success');
+                },
+                
+                onClose: function() {
+                    // User closed the payment modal
+                    showToast('Payment cancelled', 'warning', 'Payment Cancelled');
+                }
+            });
+            
+            handler.openIframe();
+        }
+
+        function handlePaymentSuccess(reference, transactionId) {
+            // In real app, you would send this to your backend
+            // Backend would verify the transaction with Paystack
+            // Then credit the user's wallet
+            
+            console.log('Payment successful:', { reference, transactionId });
+            
+            // Simulate backend processing
+            setTimeout(() => {
+                // Update pending deposits
+                const pending = parseInt(pendingDeposits.textContent.replace(/,/g, ''));
+                pendingDeposits.textContent = (pending - currentAmount).toLocaleString();
+            }, 1000);
+        }
+
+        function closePaymentModal() {
+            paymentModal.classList.remove('active');
+        }
+
+        // ============ TRANSACTIONS FUNCTIONS ============
+        function loadTransactions() {
+            if (transactions.length === 0) {
+                noTransactions.style.display = 'block';
+                return;
+            }
+            
+            noTransactions.style.display = 'none';
+            
+            let html = '';
+            transactions.forEach(transaction => {
+                let statusBadge = '';
+                switch(transaction.status) {
+                    case 'success':
+                        statusBadge = '<span class="status-badge status-success"><i class="fas fa-check-circle"></i> Successful</span>';
+                        break;
+                    case 'pending':
+                        statusBadge = '<span class="status-badge status-pending"><i class="fas fa-clock"></i> Pending</span>';
+                        break;
+                    case 'failed':
+                        statusBadge = '<span class="status-badge status-failed"><i class="fas fa-times-circle"></i> Failed</span>';
+                        break;
+                }
+                
+                html += `
+                    <tr>
+                        <td><strong>${transaction.id}</strong></td>
+                        <td>${transaction.date}</td>
+                        <td>₦${transaction.amount.toLocaleString()}</td>
+                        <td>${transaction.method}</td>
+                        <td>${statusBadge}</td>
+                        <td><code>${transaction.reference}</code></td>
+                    </tr>
+                `;
+            });
+            
+            transactionsBody.innerHTML = html;
+        }
+
+        function addTransaction(reference, status) {
+            const newTransaction = {
+                id: 'TX-' + Date.now().toString().substr(-6),
+                date: 'Just now',
+                amount: currentAmount,
+                method: 'Paystack',
+                status: status,
+                reference: reference
+            };
+            
+            transactions.unshift(newTransaction);
+            loadTransactions();
+        }
+
+        // ============ LOGOUT FUNCTION ============
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // Simulate logout
+                localStorage.removeItem('user');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // ============ EVENT LISTENERS ============
+        function setupEventListeners() {
+            // Amount preset buttons
+            amountPresetBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    updateAmount(btn.dataset.amount);
+                });
+            });
+            
+            // Payment method selection
+            paymentMethods.forEach(method => {
+                method.addEventListener('click', () => {
+                    selectPaymentMethod(method.dataset.method);
+                });
+            });
+            
+            // Amount input change
+            amountInput.addEventListener('input', () => {
+                calculateFee();
+                
+                // Remove active class from preset buttons when typing
+                amountPresetBtns.forEach(btn => {
+                    if (parseInt(btn.dataset.amount) === parseInt(amountInput.value)) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Close sidebar with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeSidebar();
+                    closePaymentModal();
+                }
+            });
+            
+            // Close modals when clicking outside
+            document.addEventListener('click', (e) => {
+                if (e.target === paymentModal) {
+                    closePaymentModal();
+                }
+            });
+        }
+
+        // ============ INITIALIZATION ============
+        function init() {
+            // Close sidebar on window resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    closeSidebar();
+                }
+            });
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Calculate initial fee
+            calculateFee();
+            
+            // Load transactions
+            loadTransactions();
+            
+            // Show welcome toast
+            setTimeout(() => {
+                showToast('Add funds to your wallet to start posting tasks', 'info', 'Deposit Funds');
+            }, 1000);
+        }
+
+        // Initialize when page loads
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

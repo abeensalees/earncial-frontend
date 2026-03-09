@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earncial - Earn Money Online with Social Tasks | Advertise & Grow Your Business</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <meta name="description" content="Earncial is a platform that connects advertisers with earners. Advertisers can post tasks while earners complete them and get paid instantly. Join Earncial today for free and start earning online.">
+    <meta name="keywords" content="earn money online, Nigeria, social media tasks, advertising platform, earn from home">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/color/96/000000/money-bag.png">
+    
+    <style>
+        /* ================================================= */
+        /* 1. Global Styles & Variables - EARNCIAL BLUE THEME */
+        /* ================================================= */
+        :root {
+            --primary-blue: #00aaff; 
+            --secondary-blue: #53d6ff; 
+            --dark-blue: #008ecc;
+            --white: #FFFFFF;
+            --light-bg: #F8FAFC;
+            --light-grey: #E2E8F0;
+            --dark-bg: #0F172A; 
+            --card-dark: #1E293B;
+            --text-color: #334155;
+            --text-light: #64748B;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --error-red: #EF4444;
+            --warning: #F59E0B;
+            --success: #10B981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: var(--white);
+            color: var(--text-color); 
+            transition: var(--transition);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ================================================= */
+        /* 2. Header & Navigation */
+        /* ================================================= */
+        .header {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            padding: 0 20px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--primary-blue); 
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .logo-image {
+            width: 42px;
+            height: 42px;
+            margin-right: 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(0, 170, 255, 0.3);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--text-color);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .menu-toggle:hover {
+            background: var(--light-grey);
+            color: var(--primary-blue);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--text-color);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--light-grey);
+            color: var(--primary-blue);
+        }
+
+        /* ================================================= */
+        /* 3. Sidebar */
+        /* ================================================= */
+        .sidebar {
+            width: 280px;
+            background: var(--white);
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            position: fixed;
+            height: 100vh;
+            z-index: 200;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            left: 0;
+            top: 0;
+            border-right: 3px solid var(--primary-blue);
+        }
+
+        .sidebar.open {
+            transform: translateX(0);
+        }
+
+        .sidebar-header {
+            padding: 24px 20px;
+            border-bottom: 1px solid var(--light-grey);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-logo .logo-image {
+            margin-right: 12px;
+        }
+
+        .close-sidebar {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-sidebar:hover {
+            color: var(--primary-blue);
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(0, 170, 255, 0.05);
+            color: var(--primary-blue);
+            padding-left: 25px;
+        }
+
+        .menu-item i {
+            margin-right: 12px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-auth {
+            padding: 20px;
+            border-top: 1px solid var(--light-grey);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .sidebar-btn {
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .sidebar-btn-primary {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .sidebar-btn-primary:hover {
+            background: var(--dark-blue);
+        }
+
+        .sidebar-btn-outline {
+            background: transparent;
+            border: 1px solid var(--light-grey);
+            color: var(--text-color);
+        }
+
+        .sidebar-btn-outline:hover {
+            background: var(--light-grey);
+        }
+
+        /* ================================================= */
+        /* 4. Mobile Overlay */
+        /* ================================================= */
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 150;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(3px);
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ================================================= */
+        /* 5. Hero Section */
+        /* ================================================= */
+        .hero {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%);
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary-blue);
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--primary-blue);
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+
+        .hero h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-color);
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.7;
+        }
+
+        .hero-button {
+            display: inline-block;
+            background: var(--primary-blue);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 170, 255, 0.3);
+            border: 2px solid var(--primary-blue);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-button:hover {
+            background: white;
+            color: var(--primary-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 170, 255, 0.4);
+        }
+
+        .hero-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: skewX(-20deg);
+            transition: left 0.5s;
+        }
+
+        .hero-button:hover:before {
+            left: 200%;
+        }
+
+        /* ================================================= */
+        /* 6. What is Earncial Section */
+        /* ================================================= */
+        .section {
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-blue);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .what-is-earncial {
+            background: var(--white);
+        }
+
+        .description-box {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--light-grey);
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .description-box:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue), var(--primary-blue));
+        }
+
+        .description-box p {
+            font-size: 16px;
+            color: var(--text-color);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .description-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        /* ================================================= */
+        /* 7. How It Works Section - Advertisers */
+        /* ================================================= */
+        .how-it-works {
+            background: linear-gradient(135deg, #00aaff 0%, #008ecc 100%);
+            color: white;
+        }
+
+        .section-title.white {
+            color: white;
+        }
+
+        .section-title.white:after {
+            background: white;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .step-icon {
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+            color: var(--primary-blue);
+            border: 3px solid var(--primary-blue);
+        }
+
+        .step-number {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-blue);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .step-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .step-card p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        /* ================================================= */
+        /* 8. How It Works Section - Earners */
+        /* ================================================= */
+        .how-it-works-earners {
+            background: var(--white);
+        }
+
+        .earner-step-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--light-grey);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .earner-step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 170, 255, 0.1);
+            border-color: var(--primary-blue);
+        }
+
+        .earner-step-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+            color: white;
+        }
+
+        .earner-step-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+        }
+
+        .earner-step-card p {
+            font-size: 15px;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* ================================================= */
+        /* 9. Statistics Section */
+        /* ================================================= */
+        .statistics {
+            background: linear-gradient(135deg, #0c1a2d 0%, #0f172a 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .statistics:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(0,170,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 40px 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .stat-box:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            font-size: 40px;
+            color: var(--secondary-blue);
+            margin-bottom: 20px;
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* ================================================= */
+        /* 10. Benefits Section */
+        /* ================================================= */
+        .benefits {
+            background: var(--white);
+        }
+
+        .benefits-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .benefit-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--light-grey);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-blue);
+        }
+
+        .benefit-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: white;
+        }
+
+        .benefit-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+        }
+
+        .benefit-card p {
+            font-size: 15px;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* ================================================= */
+        /* 11. Testimonials Section */
+        /* ================================================= */
+        .testimonials {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--light-grey);
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-blue);
+        }
+
+        .testimonial-content {
+            font-style: italic;
+            color: var(--text-color);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .testimonial-content:before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -10px;
+            font-size: 60px;
+            color: var(--primary-blue);
+            opacity: 0.2;
+            font-family: serif;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .author-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* ================================================= */
+        /* 12. FAQ Section */
+        /* ================================================= */
+        .faq {
+            background: var(--white);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            border: 1px solid var(--light-grey);
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            border-color: var(--primary-blue);
+        }
+
+        .faq-question {
+            padding: 20px;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-blue);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--white);
+        }
+
+        .faq-question i {
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s;
+            background: var(--white);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 1000px;
+        }
+
+        .faq-answer p {
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        /* ================================================= */
+        /* 13. CTA Section */
+        /* ================================================= */
+        .cta-section {
+            background: linear-gradient(135deg, #00aaff 0%, #008ecc 100%);
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .cta-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .cta-subtitle {
+            font-size: 18px;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: var(--primary-blue);
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 2px solid white;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button-secondary {
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+
+        .cta-button-secondary:hover {
+            background: white;
+            color: var(--primary-blue);
+        }
+
+        /* ================================================= */
+        /* 14. Footer */
+        /* ================================================= */
+        .footer {
+            background: var(--white);
+            padding: 60px 20px 30px;
+            border-top: 1px solid var(--light-grey);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .footer h3 {
+            font-size: 18px;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-blue);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--light-grey);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid var(--light-grey);
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* ================================================= */
+        /* 15. Dark Mode */
+        /* ================================================= */
+        .dark-mode {
+            background: var(--dark-bg);
+            color: #E2E8F0;
+        }
+
+        .dark-mode .header,
+        .dark-mode .sidebar,
+        .dark-mode .description-box,
+        .dark-mode .earner-step-card,
+        .dark-mode .benefit-card,
+        .dark-mode .testimonial-card,
+        .dark-mode .faq-item {
+            background: var(--card-dark);
+            color: #E2E8F0;
+        }
+
+        .dark-mode .hero {
+            background: linear-gradient(135deg, #0c1a2d 0%, #1e293b 100%);
+        }
+
+        .dark-mode .description-box p,
+        .dark-mode .earner-step-card p,
+        .dark-mode .benefit-card p,
+        .dark-mode .testimonial-content,
+        .dark-mode .faq-answer p,
+        .dark-mode .footer-links a {
+            color: #CBD5E1;
+        }
+
+        .dark-mode .footer {
+            background: var(--card-dark);
+            border-top-color: #334155;
+        }
+
+        .dark-mode .social-icon {
+            background: #334155;
+            color: #94A3B8;
+        }
+
+        .dark-mode .social-icon:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* ================================================= */
+        /* 16. Responsive Styles */
+        /* ================================================= */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero h2 {
+                font-size: 20px;
+            }
+            
+            .section {
+                padding: 60px 20px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .step-card,
+            .earner-step-card,
+            .benefit-card,
+            .testimonial-card {
+                padding: 20px;
+            }
+            
+            .stat-number {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body id="body">
+    <!-- Header -->
+    <header class="header">
+        <a href="index.html" class="logo">
+            <div class="logo-image">₦</div>
+            <span>Earncial</span>
+        </a>
+        
+        <div class="nav-right">
+            <button class="theme-toggle" id="darkModeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <div class="logo-image">₦</div>
+                <span>Earncial</span>
+            </div>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-menu">
+            <a href="#what-is-earncial" class="menu-item" onclick="closeSidebarFunc()">
+                <i class="fas fa-info-circle"></i>
+                <span>What is Earncial</span>
+            </a>
+            
+            <a href="#how-it-works-advertisers" class="menu-item" onclick="closeSidebarFunc()">
+                <i class="fas fa-bullhorn"></i>
+                <span>For Advertisers</span>
+            </a>
+            
+            <a href="#how-it-works-earners" class="menu-item" onclick="closeSidebarFunc()">
+                <i class="fas fa-user-tie"></i>
+                <span>For Earners</span>
+            </a>
+            
+            <a href="#statistics" class="menu-item" onclick="closeSidebarFunc()">
+                <i class="fas fa-chart-bar"></i>
+                <span>Statistics</span>
+            </a>
+            
+            <a href="#benefits" class="menu-item" onclick="closeSidebarFunc()">
+                <i class="fas fa-star"></i>
+                <span>Benefits</span>
+            </a>
+            
+            <a href="#testimonials" class="menu-item" onclick="closeSidebarFunc()">
+                <i class="fas fa-comments"></i>
+                <span>Testimonials</span>
+            </a>
+            
+            <a href="#faq" class="menu-item" onclick="closeSidebarFunc()">
+                <i class="fas fa-question-circle"></i>
+                <span>FAQ</span>
+            </a>
+            
+            <a href="top-earners.html" class="menu-item">
+                <i class="fas fa-trophy"></i>
+                <span>Top Earners</span>
+            </a>
+            
+            <a href="privacy.html" class="menu-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>Privacy Policy</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-auth">
+            <a href="sign-in.html" class="sidebar-btn sidebar-btn-outline">
+                <i class="fas fa-sign-in-alt"></i> Sign In
+            </a>
+            <a href="sign-up.html" class="sidebar-btn sidebar-btn-primary">
+                <i class="fas fa-user-plus"></i> Sign Up
+            </a>
+        </div>
+    </div>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>With Earncial<br>Your Effort = Your Money</h1>
+        <h2>Thousands of users are already earning money by doing simple tasks</h2>
+        <p>Join thousands of Nigerians who are expanding their reach and increasing their income from the comfort of their homes. Grow your social media and earn rewards!</p>
+        <a href="sign-up.html" class="hero-button">
+            <i class="fas fa-rocket"></i> Get Started Now
+        </a>
+    </section>
+
+    <!-- What is Earncial Section -->
+    <section class="section what-is-earncial" id="what-is-earncial">
+        <h2 class="section-title">What is Earncial?</h2>
+        <p class="section-subtitle">Connecting advertisers with earners for mutual benefit</p>
+        
+        <div class="description-box">
+            <p>At <span class="highlight">Earncial</span>, we understand the importance of connecting <span class="highlight">Advertisers</span> and <span class="highlight">Earners</span> in today's digital landscape. Our platform empowers advertisers to boost their social media visibility by creating tasks for earners to complete.</p>
+            
+            <p>In return, <span class="highlight">Earners</span> are compensated for completing these straightforward activities on social media platforms. Our intuitive interface and secure payment system streamline the process for advertisers to post jobs and for earners to fulfill them and receive payment.</p>
+            
+            <p>We offer progress analytics and prompt, helpful customer support to ensure our clients are pleased with their experience. Join the <span class="highlight">Earncial</span> community today and start growing your online presence or earning money through simple tasks.</p>
+        </div>
+    </section>
+
+    <!-- How It Works for Advertisers -->
+    <section class="section how-it-works" id="how-it-works-advertisers">
+        <h2 class="section-title white">How It Works for Advertisers</h2>
+        <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Reach thousands of engaged real and active users</p>
+        
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h3>Create Account</h3>
+                <p>Create your free account as an advertiser. It's quick, easy, and completely free to get started.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <h3>Fund Your Wallet</h3>
+                <p>Add funds to your wallet starting from ₦500 only. Payments are secure and processed instantly.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <h3>Post Tasks</h3>
+                <p>Create tasks for earners to complete. Provide clear instructions and requirements for each task.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <div class="step-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Track Results</h3>
+                <p>Monitor task completion in real-time. Get detailed analytics and performance reports.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">5</div>
+                <div class="step-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Grow Your Audience</h3>
+                <p>Watch your social media presence grow with genuine engagement from real users.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">6</div>
+                <div class="step-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <h3>Cost Effective</h3>
+                <p>Pay only for completed actions. Get the best value for your advertising budget.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works for Earners -->
+    <section class="section how-it-works-earners" id="how-it-works-earners">
+        <h2 class="section-title">How It Works for Earners</h2>
+        <p class="section-subtitle">Start earning in just 5 simple steps</p>
+        
+        <div class="steps-container">
+            <div class="earner-step-card">
+                <div class="earner-step-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h3>Register Free</h3>
+                <p>Create your free account as an earner. Get access to all features 100% free for life.</p>
+            </div>
+            
+            <div class="earner-step-card">
+                <div class="earner-step-icon">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <h3>Complete Tasks</h3>
+                <p>Perform simple online tasks daily such as follows, likes, and comments using just your phone.</p>
+            </div>
+            
+            <div class="earner-step-card">
+                <div class="earner-step-icon">
+                    <i class="fas fa-user-friends"></i>
+                </div>
+                <h3>Refer Friends</h3>
+                <p>Earn commissions through referrals. Both advertisers and earners can participate in our referral program.</p>
+            </div>
+            
+            <div class="earner-step-card">
+                <div class="earner-step-icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <h3>Withdraw Earnings</h3>
+                <p>Cash out every Friday from ₦1000 minimum withdrawal. Fast and secure payments directly to your bank.</p>
+            </div>
+            
+            <div class="earner-step-card">
+                <div class="earner-step-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Earn Daily</h3>
+                <p>With consistent focus, you can earn at least ₦2,000 daily. Earncial isn't for the lazy!</p>
+            </div>
+            
+            <div class="earner-step-card">
+                <div class="earner-step-icon">
+                    <i class="fas fa-unlock"></i>
+                </div>
+                <h3>Complete Transparency</h3>
+                <p>We show you everything: task prices, completed tasks, pending balance, and withdrawal amounts.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="section statistics" id="statistics">
+        <h2 class="section-title white">Our Impact in Numbers</h2>
+        <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Join our growing community of successful users</p>
+        
+        <div class="stats-container">
+            <div class="stat-box">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <span class="stat-number" data-target="25000">0</span>
+                <span class="stat-label">Total Users</span>
+            </div>
+            
+            <div class="stat-box">
+                <div class="stat-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <span class="stat-number" data-target="8000">0</span>
+                <span class="stat-label">Total Advertisers</span>
+            </div>
+            
+            <div class="stat-box">
+                <div class="stat-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <span class="stat-number" data-target="17000">0</span>
+                <span class="stat-label">Total Earners</span>
+            </div>
+            
+            <div class="stat-box">
+                <div class="stat-icon">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <span class="stat-number" data-target="750000">0</span>
+                <span class="stat-label">Tasks Completed</span>
+            </div>
+            
+            <div class="stat-box">
+                <div class="stat-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <span class="stat-number" data-target="50000000">₦0</span>
+                <span class="stat-label">Amount Paid</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="section benefits" id="benefits">
+        <h2 class="section-title">Why Choose Earncial?</h2>
+        <p class="section-subtitle">Discover the advantages of joining our platform</p>
+        
+        <div class="benefits-container">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Proven Platform</h3>
+                <p>Real-time transaction tracking and instant notifications keep you informed at every step.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>Mobile-Friendly</h3>
+                <p>Works perfectly on any smartphone (Android or iOS). Earn money anytime, anywhere.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <h3>Flexible Income</h3>
+                <p>Earn from completing tasks and get instant payment. Multiple income streams available.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h3>Daily Earnings</h3>
+                <p>New tasks are always available for you. Work daily and maximize your earnings.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>24/7 Support</h3>
+                <p>Get help whenever you need it. Our support team is always ready to assist you.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Secure Payments</h3>
+                <p>Fast, secure bank transfers with no hidden fees. Your earnings are always protected.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials" id="testimonials">
+        <h2 class="section-title">What Our Users Say</h2>
+        <p class="section-subtitle">Real stories from our community members</p>
+        
+        <div class="testimonials-container">
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    I don't usually write reviews, but I had to share my great experience with Earncial. If you're looking for a way to earn money through social media and tasks, I highly recommend Earncial.
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AS</div>
+                    <div class="author-info">
+                        <h4>Abdulmalik Salisu</h4>
+                        <p>Business Owner | Kano State</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    I absolutely love Earncial! Ever since I started using it, I've found a really easy way to earn some extra money. There are so many tasks to choose from, and the payments are always on time.
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">NN</div>
+                    <div class="author-info">
+                        <h4>Nkechi Nnaji</h4>
+                        <p>Vendor | Imo State</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    Earncial has been a game-changer for improving our social media engagement. With easy-to-create tasks, we quickly saw an increase in likes, shares, and followers.
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">OO</div>
+                    <div class="author-info">
+                        <h4>Olamide Ogunleye</h4>
+                        <p>Marketing Manager | Oyo State</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    As an advertiser, I'm always looking for ways to reach a highly targeted audience. Earncial provided us with a cost-effective way to tap into a niche group.
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">EN</div>
+                    <div class="author-info">
+                        <h4>Emeka Nwosu</h4>
+                        <p>Marketing Strategist | Kwara State</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section faq" id="faq">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Find answers to common questions about Earncial</p>
+        
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    What is Earncial?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Earncial is an online earning and advertising platform that connects advertisers with real people (earners). Advertisers post tasks (follows, likes, comments, joins, etc.), and earners complete them and get paid.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    How do I register?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Click the "Sign Up" button anywhere on the website, fill in your details (full name, username, email, phone, password), and choose your role (Advertiser or Earner). Choose carefully as you can't switch roles later.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    How do withdrawals work?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Withdrawals are processed every Friday, from 8:00 AM – 6:00 PM (WAT). Submit your request anytime, and it will be handled during the next Friday payout window. Minimum withdrawal is ₦1,000.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Can I refer someone?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! Earncial has a referral program. Invite friends using your referral link. When they register as earners, you get 2% lifetime reward from every withdrawal they make. If they register as advertisers, you get 3% lifetime reward from every deposit they make.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    How do I post a task as an advertiser?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Go to your dashboard → Post New Task → Choose a Category → Choose the task type → Paste a valid link → Enter participants amount → Review the automatic calculation. Prices per task are pre-set by Earncial for fairness.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    How do I contact support?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Use the Support Page or official channels listed in the footer. Always include your full name, email (if relevant), and a clear description for faster help.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2 class="cta-title">Ready to Get Started?</h2>
+        <p class="cta-subtitle">Join thousands of users who are already earning money or growing their business with Earncial</p>
+        
+        <div class="cta-buttons">
+            <a href="sign-up.html" class="cta-button">
+                <i class="fas fa-user-plus"></i> Create Free Account
+            </a>
+            <a href="sign-in.html" class="cta-button cta-button-secondary">
+                <i class="fas fa-sign-in-alt"></i> Sign In
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="logo-image">₦</div>
+                    <span style="font-size: 24px; font-weight: 700; color: var(--primary-blue);">Earncial</span>
+                </div>
+                <p>Your gateway to financial freedom. Start earning money online with simple tasks.</p>
+                <div class="social-links">
+                    <a href="https://facebook.com/earncial" target="_blank" class="social-icon" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/earncial" target="_blank" class="social-icon" title="Twitter/X">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com/earncial" target="_blank" class="social-icon" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://t.me/earncial" target="_blank" class="social-icon" title="Telegram">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                    <a href="https://whatsapp.com/channel/earncial" target="_blank" class="social-icon" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div>
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#what-is-earncial"><i class="fas fa-info-circle"></i> What is Earncial</a></li>
+                    <li><a href="#how-it-works-advertisers"><i class="fas fa-bullhorn"></i> For Advertisers</a></li>
+                    <li><a href="#how-it-works-earners"><i class="fas fa-user-tie"></i> For Earners</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="top-earners.html"><i class="fas fa-trophy"></i> Top Earners</a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                    <li><a href="terms.html"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+                    <li><a href="support.html"><i class="fas fa-headset"></i> Support</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3>Contact Us</h3>
+                <ul class="footer-links">
+                    <li><a href="mailto:support@earncial.com"><i class="fas fa-envelope"></i> support@earncial.com</a></li>
+                    <li><a href="tel:+2348012345678"><i class="fas fa-phone"></i> +234 801 234 5678</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Earncial. All rights reserved. | <a href="privacy.html" style="color: var(--primary-blue);">Privacy Policy</a> | <a href="terms.html" style="color: var(--primary-blue);">Terms of Service</a></p>
+            <p style="margin-top: 10px; font-size: 12px;">Powered by Earncial - Making online earnings accessible to everyone</p>
+        </div>
+    </footer>
+
+    <script>
+        // ============ DOM ELEMENTS ============
+        const body = document.getElementById('body');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const themeIcon = darkModeToggle.querySelector('i');
+        const menuToggle = document.getElementById('menuToggle');
+        const closeSidebar = document.getElementById('closeSidebar');
+        const sidebar = document.getElementById('sidebar');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        // ============ SIDEBAR TOGGLE ============
+        function openSidebar() {
+            sidebar.classList.add('open');
+            mobileOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebarFunc() {
+            sidebar.classList.remove('open');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        menuToggle.addEventListener('click', openSidebar);
+        closeSidebar.addEventListener('click', closeSidebarFunc);
+        mobileOverlay.addEventListener('click', closeSidebarFunc);
+
+        // ============ DARK MODE TOGGLE ============
+        function toggleDarkMode() {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            
+            if (isDark) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Load saved theme
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.add('dark-mode');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+            
+            darkModeToggle.addEventListener('click', toggleDarkMode);
+            
+            // Initialize counter animation
+            initCounters();
+            
+            // Initialize FAQ functionality
+            initFAQ();
+        });
+
+        // ============ COUNTER ANIMATION ============
+        function initCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+            
+            const isElementInViewport = (el) => {
+                const rect = el.getBoundingClientRect();
+                return (
+                    rect.top >= 0 &&
+                    rect.left >= 0 &&
+                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                );
+            };
+            
+            const startCounter = (counter) => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const isCurrency = counter.textContent.includes('₦');
+                let current = 0;
+                
+                const updateCounter = () => {
+                    const increment = target / speed;
+                    
+                    if (current < target) {
+                        current += increment;
+                        if (isCurrency) {
+                            counter.textContent = '₦' + Math.ceil(current).toLocaleString();
+                        } else {
+                            counter.textContent = Math.ceil(current).toLocaleString();
+                        }
+                        setTimeout(updateCounter, 20);
+                    } else {
+                        if (isCurrency) {
+                            counter.textContent = '₦' + target.toLocaleString();
+                        } else {
+                            counter.textContent = target.toLocaleString();
+                        }
+                    }
+                };
+                
+                updateCounter();
+            };
+            
+            let countersStarted = false;
+            
+            const checkCounters = () => {
+                if (!countersStarted && isElementInViewport(document.querySelector('.statistics'))) {
+                    counters.forEach(counter => {
+                        startCounter(counter);
+                    });
+                    countersStarted = true;
+                }
+            };
+            
+            window.addEventListener('scroll', checkCounters);
+            checkCounters(); // Check on load
+        }
+
+        // ============ FAQ FUNCTIONALITY ============
+        function initFAQ() {
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    // Close other open FAQ items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+        }
+
+        // ============ SMOOTH SCROLLING ============
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close sidebar if open
+                    if (sidebar.classList.contains('open')) {
+                        closeSidebarFunc();
+                    }
+                }
+            });
+        });
+
+        // Close sidebar on window resize if it's desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeSidebarFunc();
+            }
+        });
+    </script>
+</body>
+</html>

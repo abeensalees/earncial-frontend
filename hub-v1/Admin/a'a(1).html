@@ -1,0 +1,158 @@
+<!--
+=======================================================
+PATCH 1: ADD to announcement form (after newAnnouncementImage section, before submit button)
+=======================================================
+-->
+<!-- ✅ Button/Link fields for Announcement -->
+<div style="background:var(--bg-body);border-radius:10px;padding:15px;margin-bottom:20px;border:1px solid var(--border-color);">
+    <p style="font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:15px;">
+        <i class="fas fa-link"></i> Optional: Action Button
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+        <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label">Button Text</label>
+            <input type="text" class="form-input" id="newAnnouncementButtonText" placeholder="e.g., Learn More, Join Now">
+            <small style="color:var(--text-muted);">Leave empty = no button</small>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label">Button URL</label>
+            <input type="text" class="form-input" id="newAnnouncementButtonUrl" placeholder="https://... or /page.html">
+        </div>
+    </div>
+</div>
+
+
+<!--
+=======================================================
+PATCH 2: AD MODAL SECTION - Add to admin sidebar menu + add section div
+=======================================================
+
+ADD to sidebar menu:
+<a class="menu-item" onclick="showSection('adModal')">
+    <i class="fas fa-ad"></i> Ad Modal
+</a>
+=======================================================
+-->
+
+<!-- ✅ AD MODAL SECTION -->
+<div id="adModal-section" class="content-section" style="display:none;">
+    <h2>Ad Modal</h2>
+    <p style="color:var(--text-muted);margin-bottom:25px;">
+        Popup ad shown to users periodically — like sponsored network ads
+    </p>
+
+    <div class="success-message" id="adModalSuccess">
+        <i class="fas fa-check-circle"></i>
+        <span>Ad modal saved successfully!</span>
+    </div>
+
+    <!-- Create/Edit Form -->
+    <div class="admin-card">
+        <div class="card-header">
+            <h3><i class="fas fa-plus-circle"></i> Create Ad Modal</h3>
+        </div>
+
+        <!-- Title -->
+        <div class="form-group">
+            <label class="form-label">Title <span style="color:var(--danger)">*</span></label>
+            <input type="text" class="form-input" id="adModalTitle" placeholder="e.g., Unlock More Tasks">
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea class="form-textarea" id="adModalDescription"
+                      placeholder="Take action to continue accessing the content on this site..."
+                      style="min-height:90px;"></textarea>
+        </div>
+
+        <!-- Logo Upload -->
+        <div class="form-group">
+            <label class="form-label">Logo Image (optional)</label>
+            <div class="file-upload-area" onclick="document.getElementById('adModalLogo').click()">
+                <i class="fas fa-image" style="font-size:24px;margin-bottom:6px;"></i>
+                <p>Click to upload logo</p>
+                <small style="color:var(--text-muted);">PNG/JPG recommended, transparent background</small>
+                <input type="file" id="adModalLogo" accept="image/*"
+                       onchange="previewImage(this, 'adModalLogoPreview')">
+            </div>
+            <img id="adModalLogoPreview" class="preview-image" alt="Logo Preview">
+        </div>
+
+        <!-- Button Text + URL side by side -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+            <div class="form-group">
+                <label class="form-label">Button Text</label>
+                <input type="text" class="form-input" id="adModalButtonText"
+                       placeholder="e.g., View a short ad">
+                <small style="color:var(--text-muted);">Leave empty = no button</small>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Button URL</label>
+                <input type="url" class="form-input" id="adModalButtonUrl"
+                       placeholder="https://...">
+            </div>
+        </div>
+
+        <!-- Show interval + auto-close side by side -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+            <div class="form-group">
+                <label class="form-label">Show Interval (hours)</label>
+                <input type="number" class="form-input" id="adModalInterval"
+                       value="24" min="0" max="720">
+                <small style="color:var(--text-muted);">0 = show every visit. 24 = once per day</small>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Auto-Close (seconds)</label>
+                <input type="number" class="form-input" id="adModalAutoClose"
+                       value="0" min="0" max="120">
+                <small style="color:var(--text-muted);">0 = user must close manually</small>
+            </div>
+        </div>
+
+        <!-- Active toggle -->
+        <div class="form-group">
+            <label class="toggle-switch">
+                <input type="checkbox" id="adModalActive" checked>
+                <span class="toggle-slider"></span>
+            </label>
+            <span style="margin-left:10px;">Active (show to users)</span>
+        </div>
+
+        <div style="display:flex;gap:10px;">
+            <button class="btn btn-primary" id="adModalSaveBtn" onclick="createAdModal()">
+                <i class="fas fa-save"></i> Create Ad Modal
+            </button>
+            <button class="btn" style="background:var(--border-color);" onclick="resetAdModalForm()">
+                <i class="fas fa-undo"></i> Reset
+            </button>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="admin-card">
+        <div class="card-header">
+            <h3><i class="fas fa-list"></i> All Ad Modals</h3>
+            <button class="btn btn-sm" onclick="loadAdModals()">
+                <i class="fas fa-refresh"></i>
+            </button>
+        </div>
+        <div style="overflow-x:auto;">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Button</th>
+                        <th>Timing</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="adModalTableBody">
+                    <tr><td colspan="6" style="text-align:center;padding:40px;">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

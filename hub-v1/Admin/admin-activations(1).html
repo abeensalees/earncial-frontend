@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Earncial Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --primary: #00aaff;
+            --primary-dark: #008ecc;
+            --primary-light: #e0f2fe;
+            --bg-body: #f8faff;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --sidebar-width: 260px;
+            --header-height: 70px;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+            --info: #06b6d4;
+            --dark-grey: #475569;
+        }
+
+        body.dark-mode {
+            --primary: #53d6ff;
+            --primary-dark: #00aaff;
+            --primary-light: #1e3a8a;
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            background: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            backdrop-filter: blur(3px);
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--bg-card);
+            position: fixed;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .brand {
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--danger), var(--primary));
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+
+        .brand-text {
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--danger), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .menu-item {
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            color: var(--text-muted);
+            font-weight: 500;
+            border-left: 4px solid transparent;
+            margin-bottom: 2px;
+            cursor: pointer;
+        }
+
+        .menu-item i {
+            width: 25px;
+            font-size: 18px;
+            margin-right: 12px;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-header {
+            height: var(--header-height);
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 900;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        .header-left h2 {
+            color: var(--primary);
+            font-size: 22px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .notif-btn {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notif-btn i {
+            font-size: 22px;
+            color: var(--text-main);
+        }
+
+        .notif-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle {
+            background: var(--primary-light);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--text-main);
+        }
+
+        .container {
+            padding: 30px;
+            flex: 1;
+            max-width: 100%;
+            width: 100%;
+        }
+
+        /* STATS CARDS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .stat-icon.users { background: var(--primary); }
+        .stat-icon.activated { background: var(--success); }
+        .stat-icon.pending { background: var(--warning); }
+        .stat-icon.earners { background: var(--info); }
+        .stat-icon.advertisers { background: var(--purple); }
+        .stat-icon.revenue { background: linear-gradient(135deg, #8b5cf6, #ec4899); }
+        .stat-icon.profit { background: linear-gradient(135deg, #10b981, #06b6d4); }
+        .stat-icon.referrals { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+
+        .stat-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .stat-info h4 {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        .stat-amount {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        /* CHARTS SECTION */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .chart-header h3 {
+            font-size: 16px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        /* RECENT ACTIVATIONS TABLE */
+        .table-section {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-header h3 {
+            font-size: 18px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .refresh-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .refresh-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 13px;
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+
+        tbody tr:hover {
+            background: var(--primary-light);
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        .status-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .user-cell {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .username {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .email {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .amount-cell {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 14px;
+        }
+
+        .referral-info {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+        }
+
+        .referral-yes {
+            color: var(--success);
+        }
+
+        .referral-no {
+            color: var(--text-muted);
+        }
+
+        /* LOADING SPINNER */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
+
+        .spinner {
+            border: 3px solid var(--border-color);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* TOAST */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: var(--bg-card);
+            padding: 15px 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            min-width: 300px;
+            animation: slideIn 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .toast.success { border-left: 5px solid var(--success); }
+        .toast.error { border-left: 5px solid var(--danger); }
+        .toast.info { border-left: 5px solid var(--info); }
+
+        .toast i {
+            font-size: 20px;
+        }
+
+        .toast.success i { color: var(--success); }
+        .toast.error i { color: var(--danger); }
+        .toast.info i { color: var(--info); }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+                box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SIDEBAR OVERLAY -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-logo">E</div>
+            <span class="brand-text">Earncial Admin</span>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li class="menu-item active"><i class="fas fa-th-large"></i> Dashboard</li>
+            <li class="menu-item"><i class="fas fa-tasks"></i> Tasks</li>
+            <li class="menu-item"><i class="fas fa-share-alt"></i> Social Handles</li>
+            <li class="menu-item"><i class="fas fa-wallet"></i> Deposits</li>
+            <li class="menu-item"><i class="fas fa-money-bill-wave"></i> Withdrawals</li>
+            <li class="menu-item"><i class="fas fa-users"></i> Users</li>
+            <li class="menu-item"><i class="fas fa-chart-bar"></i> Analytics</li>
+            <li class="menu-item"><i class="fas fa-cog"></i> Settings</li>
+        </ul>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <header class="top-header">
+            <div class="header-left">
+                <div class="menu-toggle" onclick="openSidebar()">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <h2>📊 Admin Dashboard</h2>
+            </div>
+            <div class="header-right">
+                <div class="notif-btn">
+                    <i class="far fa-bell"></i>
+                    <span class="notif-badge" id="notifCount">0</span>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="container">
+            <!-- LOADING STATE -->
+            <div class="loading" id="loadingState">
+                <div class="spinner"></div>
+                <p>Loading dashboard data...</p>
+            </div>
+
+            <!-- MAIN CONTENT (Hidden initially) -->
+            <div id="mainContent" style="display: none;">
+                <!-- STATS GRID -->
+                <div class="stats-grid">
+                    <!-- Total Users -->
+                    <div class="stat-card">
+                        <div class="stat-icon users">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Total Users</h4>
+                            <div class="stat-value" id="totalUsers">0</div>
+                            <div class="stat-amount"><span id="todayUsers">0</span> registered today</div>
+                        </div>
+                    </div>
+
+                    <!-- Activated Users -->
+                    <div class="stat-card">
+                        <div class="stat-icon activated">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Activated Users</h4>
+                            <div class="stat-value" id="activatedUsers">0</div>
+                            <div class="stat-amount"><span id="todayActivations">0</span> today</div>
+                        </div>
+                    </div>
+
+                    <!-- Pending Activations -->
+                    <div class="stat-card">
+                        <div class="stat-icon pending">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Pending Activation</h4>
+                            <div class="stat-value" id="pendingActivations">0</div>
+                            <div class="stat-amount">Non-activated users</div>
+                        </div>
+                    </div>
+
+                    <!-- Earners -->
+                    <div class="stat-card">
+                        <div class="stat-icon earners">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Earners</h4>
+                            <div class="stat-value" id="earnersCount">0</div>
+                            <div class="stat-amount">Account type: Earner</div>
+                        </div>
+                    </div>
+
+                    <!-- Advertisers -->
+                    <div class="stat-card">
+                        <div class="stat-icon advertisers">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Advertisers</h4>
+                            <div class="stat-value" id="advertisersCount">0</div>
+                            <div class="stat-amount">Account type: Advertiser</div>
+                        </div>
+                    </div>
+
+                    <!-- Total Activations -->
+                    <div class="stat-card">
+                        <div class="stat-icon activated">
+                            <i class="fas fa-check-double"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Total Activations</h4>
+                            <div class="stat-value" id="totalActivationsCount">0</div>
+                            <div class="stat-amount">All successful</div>
+                        </div>
+                    </div>
+
+                    <!-- Activation Revenue -->
+                    <div class="stat-card">
+                        <div class="stat-icon revenue">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Activation Revenue</h4>
+                            <div class="stat-value">₦<span id="activationRevenue">0</span></div>
+                            <div class="stat-amount">Total collected</div>
+                        </div>
+                    </div>
+
+                    <!-- Platform Profit -->
+                    <div class="stat-card">
+                        <div class="stat-icon profit">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Platform Profit</h4>
+                            <div class="stat-value">₦<span id="platformProfit">0</span></div>
+                            <div class="stat-amount">After referral rewards</div>
+                        </div>
+                    </div>
+
+                    <!-- Referral Rewards Paid -->
+                    <div class="stat-card">
+                        <div class="stat-icon referrals">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Referral Rewards</h4>
+                            <div class="stat-value">₦<span id="referralRewards">0</span></div>
+                            <div class="stat-amount">Total paid out</div>
+                        </div>
+                    </div>
+
+                    <!-- Total Deposits -->
+                    <div class="stat-card">
+                        <div class="stat-icon users">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Total Deposits</h4>
+                            <div class="stat-value" id="totalDepositsCount">0</div>
+                            <div class="stat-amount">₦<span id="depositRevenue">0</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHARTS -->
+                <div class="charts-grid">
+                    <!-- Activation Trends -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-chart-line"></i> Activation Trends (7 Days)</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="activationTrendsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- User Registrations -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-user-plus"></i> User Registrations (7 Days)</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="userRegistrationsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RECENT ACTIVATIONS TABLE -->
+                <div class="table-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-list"></i> Recent Activations</h3>
+                        <button class="refresh-btn" onclick="loadDashboard()">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>S/N</th>
+                                    <th>User</th>
+                                    <th>Account Type</th>
+                                    <th>Amount</th>
+                                    <th>Gateway</th>
+                                    <th>Referral</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="activationsTableBody">
+                                <!-- Will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="admin-activations.js"></script>
+</body>
+</html>

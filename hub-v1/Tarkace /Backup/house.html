@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earncial — Earn Money From Social Media Tasks | CAC Registered</title>
+    <meta name="description" content="Earncial connects earners and advertisers worldwide. Complete social media tasks and earn real money — or grow your brand with verified human engagement. CAC RC 9374009.">
+    <meta name="keywords" content="earn money online, social media tasks, get paid online, task marketplace, Earncial, make money social media, advertise with real people">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://earncial.com">
+    <link rel="icon" type="image/png" href="logo.png">
+    <meta property="og:title" content="Earncial — Earn Money From Social Media Tasks">
+    <meta property="og:description" content="Turn your social media activity into real income. Complete tasks, get paid. Grow your brand with real engagement.">
+    <meta property="og:url" content="https://earncial.com">
+    <meta property="og:type" content="website">
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@graph":[
+      {"@type":"WebSite","name":"Earncial","url":"https://earncial.com","description":"Earncial connects earners and advertisers for mutual growth through social media tasks."},
+      {"@type":"Organization","name":"Earncial Global","url":"https://earncial.com","foundingDate":"2025",
+       "identifier":{"@type":"PropertyValue","name":"CAC RC Number","value":"9374009"},
+       "contactPoint":{"@type":"ContactPoint","email":"support@earncial.com","contactType":"customer support"}}
+    ]}
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root {
+    --primary-blue: #00aaff;
+    --secondary-blue: #53d6ff;
+    --dark-blue: #008ecc;
+    --deep-blue: #005a8c;
+    --white: #FFFFFF;
+    --light-bg: #F8FAFC;
+    --light-grey: #E2E8F0;
+    --dark-bg: #0F172A;
+    --card-dark: #1E293B;
+    --text-color: #334155;
+    --text-light: #64748B;
+    --success: #10B981;
+    --warning: #F59E0B;
+    --shadow: 0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -2px rgba(0,0,0,0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1),0 10px 10px -5px rgba(0,0,0,0.04);
+    --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    --radius: 12px; --radius-lg: 20px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:80px;}
+body{font-family:'Poppins',sans-serif;background:var(--white);color:var(--text-color);line-height:1.6;overflow-x:hidden;display:flex;flex-direction:column;min-height:100vh;}
+a{text-decoration:none;color:inherit;}
+img{max-width:100%;}
+
+/* ── HEADER ── */
+.header{background:var(--white);box-shadow:var(--shadow);padding:0 20px;height:70px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--primary-blue);}
+.logo{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:800;color:var(--primary-blue);}
+.logo-image{width:42px;height:42px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(0,170,255,0.3);}
+.logo-image img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.menu-toggle,.theme-toggle{background:none;border:none;font-size:20px;color:var(--text-color);cursor:pointer;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;transition:var(--transition);}
+.menu-toggle:hover,.theme-toggle:hover{background:var(--light-bg);color:var(--primary-blue);}
+
+/* ── SIDEBAR ── */
+.sidebar{width:260px;background:var(--white);box-shadow:var(--shadow-lg);position:fixed;height:100vh;z-index:200;overflow-y:auto;transform:translateX(-100%);left:0;top:0;border-right:3px solid var(--primary-blue);transition:var(--transition);}
+.sidebar.open{transform:translateX(0);}
+@media(min-width:769px){
+    .sidebar{transform:translateX(0)!important;top:70px;height:calc(100vh - 70px);z-index:50;}
+    .main-wrap{margin-left:260px;}
+    .footer{margin-left:260px;}
+    .mobile-overlay{display:none!important;}
+    #closeSidebar{display:none;}
+}
+.sidebar-header{padding:20px;border-bottom:1px solid var(--light-grey);display:flex;align-items:center;justify-content:space-between;}
+.sb-logo{display:flex;align-items:center;gap:8px;}
+.close-sidebar{background:none;border:none;font-size:20px;color:var(--text-light);cursor:pointer;}
+.close-sidebar:hover{color:var(--primary-blue);}
+.sb-group{padding:10px 20px 4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-light);}
+.sidebar-menu{padding:8px 0;}
+.menu-item{padding:11px 20px;display:flex;align-items:center;color:var(--text-color);font-size:13.5px;font-weight:500;transition:var(--transition);border-left:3px solid transparent;}
+.menu-item:hover,.menu-item.active{background:rgba(0,170,255,0.07);color:var(--primary-blue);border-left-color:var(--primary-blue);padding-left:24px;}
+.menu-item i{margin-right:12px;font-size:16px;width:20px;text-align:center;}
+.sidebar-divider{border:none;border-top:1px solid var(--light-grey);margin:6px 0;}
+.sidebar-auth{padding:16px 20px;border-top:1px solid var(--light-grey);display:flex;flex-direction:column;gap:10px;}
+.sidebar-btn{padding:11px 16px;border-radius:8px;text-align:center;font-weight:600;font-size:13px;transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:8px;}
+.sb-primary{background:var(--primary-blue);color:white;}
+.sb-primary:hover{background:var(--dark-blue);}
+.sb-outline{border:1px solid var(--light-grey);color:var(--text-color);}
+.sb-outline:hover{background:var(--light-bg);}
+
+/* ── OVERLAY ── */
+.mobile-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:150;opacity:0;visibility:hidden;transition:var(--transition);backdrop-filter:blur(3px);}
+.mobile-overlay.active{opacity:1;visibility:visible;}
+
+.main-wrap{flex:1;display:flex;flex-direction:column;}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 50%,#bae6fd 100%);padding:80px 20px 70px;position:relative;overflow:hidden;border-bottom:3px solid var(--primary-blue);}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,170,255,0.12),transparent 70%);}
+.hero::after{content:'';position:absolute;bottom:-60px;left:-60px;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(0,142,204,0.08),transparent 70%);}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,170,255,0.12);border:2px solid rgba(0,170,255,0.2);border-radius:50px;padding:9px 20px;font-size:13px;font-weight:600;color:var(--primary-blue);margin-bottom:22px;}
+.hero-badge i{color:var(--success);}
+.hero-h1{font-size:clamp(30px,3.8vw,48px);font-weight:800;line-height:1.15;color:var(--dark-bg);margin-bottom:18px;}
+.hero-h1 .blue{background:linear-gradient(90deg,var(--primary-blue),var(--dark-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:16px;color:var(--text-light);line-height:1.8;margin-bottom:30px;max-width:480px;}
+.hero-sub strong{color:var(--text-color);}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:32px;}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--primary-blue);color:white;padding:15px 32px;border-radius:50px;font-size:15px;font-weight:600;transition:var(--transition);border:2px solid var(--primary-blue);box-shadow:0 6px 20px rgba(0,170,255,0.3);}
+.btn-primary:hover{background:white;color:var(--primary-blue);transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,170,255,0.4);}
+.btn-secondary{display:inline-flex;align-items:center;gap:10px;background:transparent;color:var(--primary-blue);padding:15px 28px;border-radius:50px;font-size:15px;font-weight:600;transition:var(--transition);border:2px solid var(--primary-blue);}
+.btn-secondary:hover{background:var(--primary-blue);color:white;transform:translateY(-3px);}
+.hero-trust{display:flex;gap:16px;flex-wrap:wrap;}
+.trust-item{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-light);}
+.trust-item i{color:var(--success);}
+@media(max-width:900px){
+    .hero-inner{grid-template-columns:1fr;text-align:center;}
+    .hero-h1{font-size:clamp(28px,7vw,40px);}
+    .hero-sub,.hero-btns,.hero-trust{justify-content:center;}
+    .hero-sub{max-width:100%;}
+    .phone-right{margin-top:20px;}
+}
+
+/* ── PHONE MOCKUP ── */
+.phone-right{display:flex;justify-content:center;align-items:center;position:relative;}
+.phone-wrap{position:relative;width:290px;}
+.phone-frame{width:290px;height:560px;background:linear-gradient(145deg,#1a2744,#0d1628);border-radius:40px;border:2.5px solid rgba(255,255,255,0.15);box-shadow:0 40px 80px rgba(0,0,0,0.25),0 0 0 1px rgba(255,255,255,0.05);overflow:hidden;position:relative;animation:float 5s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:110px;height:25px;background:#0d1628;border-radius:0 0 16px 16px;z-index:10;}
+.phone-screen{position:absolute;inset:0;border-radius:38px;overflow:hidden;}
+.slide{position:absolute;inset:0;transition:opacity 0.7s ease,transform 0.7s ease;border-radius:38px;overflow:hidden;}
+.slide.active{opacity:1;transform:translateX(0);z-index:2;}
+.slide.prev{opacity:0;transform:translateX(-100%);z-index:1;}
+.slide.next{opacity:0;transform:translateX(100%);z-index:1;}
+/* Each slide = real screenshot image */
+.slide img{width:100%;height:100%;object-fit:cover;object-position:top;}
+.slide-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(0,0,0,0.4));border-radius:38px;}
+.slide-caption{position:absolute;bottom:16px;left:0;right:0;text-align:center;color:white;font-size:11px;font-weight:600;z-index:3;text-shadow:0 1px 3px rgba(0,0,0,0.5);}
+.phone-glow{position:absolute;inset:-30px;border-radius:70px;background:radial-gradient(ellipse,rgba(0,170,255,0.18),transparent 65%);z-index:-1;}
+/* Slider controls below phone */
+.slider-ctrl{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:18px;}
+.s-dot{width:9px;height:9px;border-radius:50%;background:rgba(0,120,200,0.2);border:1.5px solid rgba(0,170,255,0.3);cursor:pointer;transition:var(--transition);}
+.s-dot.active{background:var(--primary-blue);border-color:var(--primary-blue);width:24px;border-radius:5px;}
+.s-arr{width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(0,170,255,0.3);background:white;color:var(--primary-blue);font-size:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--transition);}
+.s-arr:hover{background:var(--primary-blue);color:white;border-color:var(--primary-blue);}
+
+/* ── PARTNERS MARQUEE ── */
+.partners{padding:32px 0;background:var(--white);border-top:1px solid var(--light-grey);border-bottom:1px solid var(--light-grey);overflow:hidden;}
+.partners-label{text-align:center;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-light);margin-bottom:20px;}
+.marquee-wrap{overflow:hidden;}
+.marquee-track{display:flex;gap:24px;animation:marquee 22s linear infinite;width:max-content;}
+.marquee-track:hover{animation-play-state:paused;}
+.plat-chip{display:flex;align-items:center;gap:10px;background:var(--light-bg);border:1px solid var(--light-grey);border-radius:50px;padding:10px 20px;white-space:nowrap;transition:var(--transition);}
+.plat-chip:hover{border-color:var(--primary-blue);background:rgba(0,170,255,0.05);}
+.plat-chip i{font-size:18px;}
+.plat-chip span{font-size:13px;font-weight:600;color:var(--text-color);}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* ── STATS ── */
+.statistics{background:linear-gradient(135deg,var(--dark-blue) 0%,#005a8c 40%,var(--primary-blue) 100%);color:white;padding:80px 20px;position:relative;overflow:hidden;}
+.statistics::before{content:'';position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.04)"/></svg>') cover;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1000px;margin:0 auto;position:relative;z-index:1;}
+.stat-box{background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:var(--radius-lg);padding:36px 20px;text-align:center;border:1px solid rgba(255,255,255,0.2);transition:var(--transition);}
+.stat-box:hover{background:rgba(255,255,255,0.15);transform:translateY(-5px);}
+.stat-icon{font-size:36px;color:var(--secondary-blue);margin-bottom:16px;}
+.stat-number{font-size:42px;font-weight:800;display:block;margin-bottom:8px;color:white;}
+.stat-label{font-size:14px;color:rgba(255,255,255,0.85);font-weight:500;}
+.stats-note{text-align:center;margin-top:28px;color:rgba(255,255,255,0.75);font-size:13px;font-style:italic;position:relative;z-index:1;}
+@media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* ── SECTION COMMONS ── */
+.section{padding:80px 20px;}
+.section-alt{background:linear-gradient(135deg,#f8fafc,#f1f5f9);}
+.section-blue{background:linear-gradient(135deg,var(--primary-blue),var(--dark-blue));color:white;}
+.section-title{text-align:center;font-size:clamp(26px,3.5vw,36px);font-weight:800;color:var(--dark-bg);margin-bottom:12px;}
+.section-title span{color:var(--primary-blue);}
+.section-title.white{color:white;}
+.section-title.white span{color:var(--secondary-blue);}
+.section-sub{text-align:center;color:var(--text-light);font-size:16px;max-width:640px;margin:0 auto 50px;line-height:1.7;}
+.section-sub.white{color:rgba(255,255,255,0.85);}
+.sec-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.2);border-radius:50px;padding:6px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--primary-blue);margin-bottom:12px;}
+.sec-tag.white{background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.3);color:white;}
+.container{max-width:1100px;margin:0 auto;}
+
+/* ── HOW IT WORKS ── */
+.hiw-tabs{display:flex;background:var(--light-bg);border-radius:50px;padding:5px;max-width:340px;margin:0 auto 50px;border:1px solid var(--light-grey);}
+.hiw-tab{flex:1;padding:11px 18px;border-radius:45px;font-size:13px;font-weight:600;text-align:center;cursor:pointer;transition:var(--transition);color:var(--text-light);}
+.hiw-tab.active{background:var(--primary-blue);color:white;box-shadow:0 4px 14px rgba(0,170,255,0.35);}
+.hiw-panel{display:none;}
+.hiw-panel.active{display:block;}
+.steps-list{display:flex;flex-direction:column;gap:0;max-width:700px;margin:0 auto;}
+.step-row{display:flex;gap:20px;align-items:stretch;}
+.step-left{display:flex;flex-direction:column;align-items:center;width:48px;flex-shrink:0;}
+.step-num{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:white;flex-shrink:0;z-index:1;}
+.step-line{width:2px;flex:1;min-height:24px;margin:4px 0;}
+.step-row:last-child .step-line{display:none;}
+.step-body{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius);padding:20px;flex:1;margin-bottom:14px;transition:var(--transition);box-shadow:var(--shadow);}
+.step-body:hover{border-color:var(--primary-blue);box-shadow:var(--shadow-lg);transform:translateX(4px);}
+.step-head{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+.step-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.step-title{font-size:15px;font-weight:700;color:var(--dark-bg);}
+.step-desc{font-size:13px;color:var(--text-light);line-height:1.7;}
+.step-tip{display:inline-flex;align-items:center;gap:5px;background:rgba(0,170,255,0.07);border-radius:6px;padding:4px 10px;font-size:11px;color:var(--primary-blue);margin-top:8px;font-weight:600;}
+/* Video box in each step */
+.step-video{background:var(--light-bg);border:1px solid var(--light-grey);border-radius:10px;padding:14px;margin-top:12px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:var(--transition);}
+.step-video:hover{border-color:var(--primary-blue);background:rgba(0,170,255,0.04);}
+.svp-play{width:38px;height:38px;border-radius:50%;background:var(--primary-blue);display:flex;align-items:center;justify-content:center;font-size:13px;color:white;flex-shrink:0;box-shadow:0 4px 12px rgba(0,170,255,0.3);}
+.svp-info{}
+.svp-label{font-size:10px;color:var(--text-light);margin-bottom:2px;}
+.svp-title{font-size:12.5px;font-weight:700;color:var(--text-color);}
+
+/* ── WHY EARNCIAL ── */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto;}
+.feat-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:28px;transition:var(--transition);box-shadow:var(--shadow);}
+.feat-card:hover{border-color:var(--primary-blue);transform:translateY(-4px);box-shadow:var(--shadow-xl);}
+.feat-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px;}
+.feat-title{font-size:16px;font-weight:700;color:var(--dark-bg);margin-bottom:8px;}
+.feat-desc{font-size:13px;color:var(--text-light);line-height:1.7;}
+@media(max-width:900px){.features-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.features-grid{grid-template-columns:1fr;}}
+
+/* ── CAC CERTIFICATE SECTION ── */
+.cac-section{background:linear-gradient(135deg,#f0f9ff,#e0f2fe);padding:80px 20px;border-top:3px solid var(--primary-blue);border-bottom:3px solid var(--primary-blue);}
+.cac-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.cac-left{}
+.cac-verified-badge{display:inline-flex;align-items:center;gap:8px;background:var(--success);color:white;padding:8px 20px;border-radius:50px;font-size:13px;font-weight:700;margin-bottom:20px;}
+.cac-title{font-size:clamp(24px,3vw,34px);font-weight:800;color:var(--dark-bg);margin-bottom:14px;line-height:1.2;}
+.cac-title span{color:var(--primary-blue);}
+.cac-desc{font-size:15px;color:var(--text-light);line-height:1.8;margin-bottom:24px;}
+.cac-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px;}
+.cac-info-item{background:var(--white);border:1px solid var(--light-grey);border-radius:10px;padding:14px;box-shadow:var(--shadow);}
+.cac-info-label{font-size:10px;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-light);font-weight:700;margin-bottom:4px;}
+.cac-info-val{font-size:14px;font-weight:700;color:var(--dark-bg);}
+.cac-verify-btn{display:inline-flex;align-items:center;gap:10px;background:var(--primary-blue);color:white;padding:13px 26px;border-radius:50px;font-size:14px;font-weight:600;transition:var(--transition);border:2px solid var(--primary-blue);box-shadow:0 4px 16px rgba(0,170,255,0.3);}
+.cac-verify-btn:hover{background:white;color:var(--primary-blue);transform:translateY(-2px);}
+.cac-right{display:flex;justify-content:center;align-items:center;}
+/* Certificate display frame */
+.cert-frame{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-xl);border:2px solid var(--light-grey);overflow:hidden;width:100%;max-width:380px;position:relative;}
+.cert-frame::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--primary-blue),var(--secondary-blue),var(--primary-blue));}
+.cert-top-bar{padding:16px 20px;border-bottom:1px solid var(--light-grey);display:flex;align-items:center;gap:10px;}
+.cert-top-bar i{color:var(--success);font-size:20px;}
+.cert-top-title{font-size:14px;font-weight:700;color:var(--dark-bg);}
+.cert-top-sub{font-size:11px;color:var(--text-light);}
+.cert-img-area{width:100%;aspect-ratio:3/4;background:linear-gradient(135deg,#f8fafc,#f1f5f9);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.cert-img-area img{width:100%;height:100%;object-fit:contain;}
+/* Placeholder shown when no real cert image */
+.cert-placeholder{text-align:center;padding:40px 20px;}
+.cert-placeholder i{font-size:56px;color:var(--primary-blue);opacity:0.3;margin-bottom:14px;display:block;}
+.cert-placeholder p{font-size:13px;color:var(--text-light);line-height:1.6;}
+.cert-placeholder strong{color:var(--primary-blue);}
+.cert-footer{padding:14px 20px;background:rgba(16,185,129,0.06);border-top:1px solid rgba(16,185,129,0.15);display:flex;align-items:center;gap:8px;}
+.cert-footer i{color:var(--success);}
+.cert-footer span{font-size:12px;color:var(--text-color);font-weight:600;}
+@media(max-width:800px){.cac-inner{grid-template-columns:1fr;}.cac-info-grid{grid-template-columns:1fr 1fr;}}
+
+/* ── TESTIMONIALS ── */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto;}
+.testi-card{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:26px;box-shadow:var(--shadow);transition:var(--transition);}
+.testi-card:hover{border-color:var(--primary-blue);transform:translateY(-3px);box-shadow:var(--shadow-xl);}
+.testi-stars{display:flex;gap:3px;margin-bottom:14px;}
+.testi-stars i{color:var(--warning);font-size:14px;}
+.testi-text{font-size:14px;color:var(--text-color);line-height:1.75;margin-bottom:18px;font-style:italic;}
+.testi-author{display:flex;align-items:center;gap:12px;}
+.testi-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:white;flex-shrink:0;}
+.testi-name{font-size:13px;font-weight:700;color:var(--dark-bg);}
+.testi-role{font-size:11.5px;color:var(--text-light);}
+@media(max-width:900px){.testi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.testi-grid{grid-template-columns:1fr;}}
+
+/* ── SIGNUP STEPS ── */
+.signup-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1100px;margin:0 auto;}
+.signup-step{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius-lg);padding:24px 20px;text-align:center;box-shadow:var(--shadow);transition:var(--transition);position:relative;}
+.signup-step:hover{border-color:var(--primary-blue);transform:translateY(-4px);box-shadow:var(--shadow-xl);}
+.ss-num{position:absolute;top:-14px;left:50%;transform:translateX(-50%);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:white;}
+.ss-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;margin:10px auto 16px;}
+.ss-title{font-size:14px;font-weight:700;color:var(--dark-bg);margin-bottom:8px;}
+.ss-desc{font-size:12.5px;color:var(--text-light);line-height:1.65;}
+.ss-video{background:var(--light-bg);border:1px solid var(--light-grey);border-radius:10px;padding:12px;margin-top:14px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:var(--transition);text-align:left;}
+.ss-video:hover{border-color:var(--primary-blue);background:rgba(0,170,255,0.04);}
+.ss-play{width:32px;height:32px;border-radius:50%;background:var(--primary-blue);display:flex;align-items:center;justify-content:center;font-size:11px;color:white;flex-shrink:0;box-shadow:0 3px 10px rgba(0,170,255,0.3);}
+.ss-vtxt{font-size:10px;color:var(--text-light);}
+.ss-vtitle{font-size:12px;font-weight:600;color:var(--text-color);}
+@media(max-width:900px){.signup-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:500px){.signup-grid{grid-template-columns:1fr;}}
+
+/* ── MINI FAQ ── */
+.faq-wrap{max-width:700px;margin:0 auto;}
+.faq-item{background:var(--white);border:1px solid var(--light-grey);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;transition:border-color 0.2s;box-shadow:var(--shadow);}
+.faq-item.open{border-color:var(--primary-blue);}
+.faq-question{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;cursor:pointer;gap:14px;user-select:none;}
+.faq-q-text{font-size:14px;font-weight:600;color:var(--dark-bg);}
+.faq-chevron{font-size:13px;color:var(--text-light);transition:transform 0.25s;flex-shrink:0;}
+.faq-item.open .faq-chevron{transform:rotate(180deg);color:var(--primary-blue);}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height 0.32s ease;}
+.faq-item.open .faq-answer{max-height:300px;}
+.faq-answer-inner{padding:0 22px 18px;font-size:13.5px;color:var(--text-light);line-height:1.75;}
+.faq-answer-inner a{color:var(--primary-blue);font-weight:600;}
+.faq-more{text-align:center;margin-top:28px;}
+.faq-more-link{display:inline-flex;align-items:center;gap:8px;color:var(--primary-blue);font-size:14px;font-weight:700;transition:var(--transition);}
+.faq-more-link:hover{gap:12px;}
+
+/* ── FINAL CTA ── */
+.cta-section{background:linear-gradient(135deg,var(--primary-blue),var(--deep-blue));color:white;padding:80px 20px;text-align:center;position:relative;overflow:hidden;}
+.cta-section::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,0.06);}
+.cta-section::after{content:'';position:absolute;bottom:-60px;left:-60px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,0.04);}
+.cta-inner{max-width:700px;margin:0 auto;position:relative;z-index:1;}
+.cta-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:50px;padding:6px 18px;font-size:12px;font-weight:700;color:white;margin-bottom:20px;}
+.cta-h2{font-size:clamp(28px,4vw,44px);font-weight:800;color:white;margin-bottom:14px;line-height:1.2;}
+.cta-sub{font-size:16px;color:rgba(255,255,255,0.85);margin-bottom:36px;line-height:1.7;}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.cta-btn-white{display:inline-flex;align-items:center;gap:10px;background:white;color:var(--primary-blue);padding:16px 34px;border-radius:50px;font-size:15px;font-weight:700;transition:var(--transition);box-shadow:0 8px 24px rgba(0,0,0,0.15);}
+.cta-btn-white:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(0,0,0,0.2);}
+.cta-btn-out{display:inline-flex;align-items:center;gap:10px;background:transparent;color:white;padding:16px 28px;border-radius:50px;font-size:15px;font-weight:600;border:2px solid rgba(255,255,255,0.5);transition:var(--transition);}
+.cta-btn-out:hover{background:rgba(255,255,255,0.12);border-color:white;}
+.cta-trust{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:28px;}
+.cta-trust-item{display:flex;align-items:center;gap:6px;font-size:12.5px;color:rgba(255,255,255,0.8);}
+.cta-trust-item i{color:rgba(255,255,255,0.9);}
+
+/* ── FOOTER ── */
+.footer{background:var(--white);border-top:1px solid var(--light-grey);padding:48px 20px 20px;}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;max-width:1100px;margin:0 auto;padding-bottom:40px;}
+.footer-logo{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:800;color:var(--primary-blue);margin-bottom:12px;}
+.footer-logo-img{width:38px;height:38px;border-radius:50%;overflow:hidden;}
+.footer-logo-img img{width:100%;height:100%;object-fit:cover;}
+.footer-desc{font-size:13.5px;color:var(--text-light);line-height:1.75;margin-bottom:14px;max-width:270px;}
+.footer-cac{display:flex;align-items:flex-start;gap:8px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.2);border-radius:10px;padding:10px 12px;margin-bottom:14px;}
+.footer-cac i{color:var(--success);flex-shrink:0;margin-top:2px;}
+.footer-cac-text{font-size:11px;color:var(--text-light);line-height:1.6;}
+.footer-cac-text strong{color:var(--text-color);}
+.footer-socials{display:flex;gap:8px;}
+.footer-social{width:34px;height:34px;border-radius:50%;background:var(--light-bg);border:1px solid var(--light-grey);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--text-light);transition:var(--transition);}
+.footer-social:hover{background:var(--primary-blue);border-color:var(--primary-blue);color:white;transform:translateY(-2px);}
+.footer-col-title{font-size:14px;font-weight:700;color:var(--dark-bg);margin-bottom:16px;}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.footer-links a{font-size:13px;color:var(--text-light);transition:var(--transition);display:flex;align-items:center;gap:7px;}
+.footer-links a:hover{color:var(--primary-blue);padding-left:4px;}
+.footer-links a i{width:14px;text-align:center;font-size:12px;}
+.footer-bottom{border-top:1px solid var(--light-grey);padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;max-width:1100px;margin:0 auto;}
+.footer-bottom-left{font-size:13px;color:var(--text-light);}
+.footer-bottom-links{display:flex;gap:18px;}
+.footer-bottom-links a{font-size:13px;color:var(--text-light);transition:var(--transition);}
+.footer-bottom-links a:hover{color:var(--primary-blue);}
+.footer-cac-tag{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--success);font-weight:700;}
+@media(max-width:900px){.footer-inner{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.footer-inner{grid-template-columns:1fr;}.footer-bottom{flex-direction:column;text-align:center;}.footer-bottom-links{justify-content:center;}}
+
+/* ── BACK TO TOP ── */
+.back-top{position:fixed;bottom:24px;right:24px;background:var(--primary-blue);color:white;width:44px;height:44px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;box-shadow:0 4px 16px rgba(0,170,255,0.4);opacity:0;transition:opacity 0.3s,transform 0.2s;z-index:50;}
+.back-top.visible{opacity:1;}
+.back-top:hover{transform:translateY(-3px);}
+
+/* ── DARK MODE ── */
+.dark-mode{background:#0f172a;color:#e2eaff;}
+.dark-mode .header,.dark-mode .sidebar{background:var(--card-dark);}
+.dark-mode .header{border-bottom-color:#334155;}
+.dark-mode .menu-item{color:#cbd5e1;}
+.dark-mode .menu-item:hover,.dark-mode .menu-item.active{background:rgba(0,170,255,0.08);color:var(--primary-blue);}
+.dark-mode .sb-group{color:#475569;}
+.dark-mode .sidebar-header,.dark-mode .sidebar-auth{border-color:#334155;}
+.dark-mode .sidebar-divider{border-top-color:#334155;}
+.dark-mode .hero{background:linear-gradient(135deg,#0a1628,#0d1f3c);}
+.dark-mode .hero-h1{color:#e2eaff;}
+.dark-mode .section-alt{background:linear-gradient(135deg,#0d1628,#0f1e38);}
+.dark-mode .section-title{color:#e2eaff;}
+.dark-mode .section-sub{color:#7a96c4;}
+.dark-mode .feat-card,.dark-mode .testi-card,.dark-mode .signup-step,.dark-mode .step-body,.dark-mode .faq-item,.dark-mode .cac-info-item{background:#1e293b;border-color:#334155;}
+.dark-mode .feat-title,.dark-mode .testi-name,.dark-mode .ss-title,.dark-mode .step-title,.dark-mode .faq-q-text{color:#e2eaff;}
+.dark-mode .feat-desc,.dark-mode .testi-role,.dark-mode .ss-desc,.dark-mode .step-desc,.dark-mode .faq-answer-inner{color:#7a96c4;}
+.dark-mode .plat-chip{background:#1e293b;border-color:#334155;color:#cbd5e1;}
+.dark-mode .plat-chip span{color:#cbd5e1;}
+.dark-mode .step-video,.dark-mode .ss-video{background:#0d1628;border-color:#334155;}
+.dark-mode .svp-title,.dark-mode .ss-vtitle{color:#cbd5e1;}
+.dark-mode .svp-label,.dark-mode .ss-vtxt{color:#475569;}
+.dark-mode .partners{background:var(--card-dark);border-color:#334155;}
+.dark-mode .cac-section{background:linear-gradient(135deg,#0a1628,#0d1f3c);}
+.dark-mode .cac-title{color:#e2eaff;}
+.dark-mode .cert-frame{background:#1e293b;border-color:#334155;}
+.dark-mode .cert-top-bar{border-color:#334155;}
+.dark-mode .cert-top-title{color:#e2eaff;}
+.dark-mode .cert-img-area{background:linear-gradient(135deg,#0d1628,#1e293b);}
+.dark-mode .cert-footer{background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.15);}
+.dark-mode .cac-info-label{color:#7a96c4;}
+.dark-mode .cac-info-val{color:#e2eaff;}
+.dark-mode .cac-desc{color:#7a96c4;}
+.dark-mode .footer{background:var(--card-dark);border-top-color:#334155;}
+.dark-mode .footer-bottom{border-color:#334155;}
+.dark-mode .footer-col-title{color:#e2eaff;}
+.dark-mode .footer-links a,.dark-mode .footer-bottom-left,.dark-mode .footer-bottom-links a,.dark-mode .footer-desc,.dark-mode .footer-cac-text{color:#7a96c4;}
+.dark-mode .footer-social{background:#334155;border-color:#475569;color:#94a3b8;}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.reveal.on{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body id="body">
+
+<!-- HEADER -->
+<header class="header">
+    <a href="index.html" class="logo">
+        <div class="logo-image">
+            <img src="logo.png" alt="Earncial Logo" onerror="this.parentElement.style.background='var(--primary-blue)';this.parentElement.innerHTML='<span style=color:white;font-weight:800;font-size:20px>E</span>';">
+        </div>
+        <span>Earncial</span>
+    </a>
+    <div class="nav-right">
+        <button class="theme-toggle" id="darkModeToggle"><i class="fas fa-moon" id="themeIcon"></i></button>
+        <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+    </div>
+</header>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <div class="sb-logo">
+            <div class="logo-image" style="width:34px;height:34px;margin-right:8px;">
+                <img src="logo.png" alt="Earncial" onerror="this.parentElement.style.background='var(--primary-blue)';this.parentElement.innerHTML='<span style=color:white;font-weight:800>E</span>';">
+            </div>
+            <span style="font-weight:800;color:var(--primary-blue);font-size:16px;">Earncial</span>
+        </div>
+        <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="sidebar-menu">
+        <div class="sb-group">Platform</div>
+        <a href="index.html"        class="menu-item active"><i class="fas fa-home"></i> Home</a>
+        <a href="#how-it-works"     class="menu-item"><i class="fas fa-cogs"></i> How It Works</a>
+        <a href="#features"         class="menu-item"><i class="fas fa-star"></i> Why Earncial</a>
+        <a href="#cac"              class="menu-item"><i class="fas fa-certificate"></i> Verification</a>
+        <a href="about.html"        class="menu-item"><i class="fas fa-info-circle"></i> About Us</a>
+        <a href="faq.html"          class="menu-item"><i class="fas fa-question-circle"></i> FAQ</a>
+        <a href="support.html"      class="menu-item"><i class="fas fa-headset"></i> Support</a>
+        <hr class="sidebar-divider">
+        <div class="sb-group">Legal</div>
+        <a href="privacy.html"  class="menu-item"><i class="fas fa-lock"></i> Privacy Policy</a>
+        <a href="terms.html"    class="menu-item"><i class="fas fa-file-alt"></i> Terms of Service</a>
+        <a href="cookies.html"  class="menu-item"><i class="fas fa-cookie-bite"></i> Cookie Policy</a>
+    </div>
+    <div class="sidebar-auth">
+        <a href="sign-in.html"  class="sidebar-btn sb-outline"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+        <a href="sign-up.html"  class="sidebar-btn sb-primary"><i class="fas fa-user-plus"></i> Create Account</a>
+    </div>
+</div>
+
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<div class="main-wrap">
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+    <div class="hero-inner">
+        <div class="hero-left">
+            <div class="hero-badge"><i class="fas fa-circle" style="font-size:8px;"></i> CAC Verified · RC 9374009 · Live &amp; Paying</div>
+            <h1 class="hero-h1">Turn Every Like,<br><span class="blue">Follow &amp; Subscribe</span><br>Into Real Money.</h1>
+            <p class="hero-sub">Earncial connects <strong>earners</strong> who get paid for simple social media tasks and <strong>advertisers</strong> who grow with real, verified human engagement. No bots. No hidden fees. Just results.</p>
+            <div class="hero-btns">
+                <a href="sign-up.html" class="btn-primary"><i class="fas fa-rocket"></i> Start Earning Free</a>
+                <a href="how-it-works.html" class="btn-secondary"><i class="fas fa-play-circle"></i> See How It Works</a>
+            </div>
+            <div class="hero-trust">
+                <div class="trust-item"><i class="fas fa-check-circle"></i> Free to join</div>
+                <div class="trust-item"><i class="fas fa-check-circle"></i> ₦1,000 activation once</div>
+                <div class="trust-item"><i class="fas fa-check-circle"></i> Fast bank payouts</div>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="phone-wrap">
+                <div class="phone-glow"></div>
+                <div class="phone-frame">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen">
+                        <!-- SLIDE 1 -->
+                        <div class="slide active" id="sl-0">
+                            <img src="screenshots/dashboard.png" alt="Earncial Dashboard — balance and available tasks" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                            <div style="display:none;width:100%;height:100%;background:linear-gradient(160deg,#0a1628,#0d2040);flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:30px;">
+                                <i class="fas fa-mobile-alt" style="font-size:40px;color:var(--primary-blue);opacity:0.4;"></i>
+                                <p style="font-size:11px;color:rgba(255,255,255,0.4);text-align:center;">Dashboard Screenshot<br><span style="font-size:10px;">Replace with: screenshots/dashboard.png</span></p>
+                            </div>
+                            <div class="slide-overlay"></div>
+                            <div class="slide-caption"><i class="fas fa-tachometer-alt"></i> Dashboard — Track your balance</div>
+                        </div>
+                        <!-- SLIDE 2 -->
+                        <div class="slide next" id="sl-1">
+                            <img src="screenshots/tasks.png" alt="Earncial Browse Tasks screen" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                            <div style="display:none;width:100%;height:100%;background:linear-gradient(160deg,#0d1f3c,#0a2040);flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:30px;">
+                                <i class="fas fa-tasks" style="font-size:40px;color:var(--primary-blue);opacity:0.4;"></i>
+                                <p style="font-size:11px;color:rgba(255,255,255,0.4);text-align:center;">Tasks Screen<br><span style="font-size:10px;">Replace with: screenshots/tasks.png</span></p>
+                            </div>
+                            <div class="slide-overlay"></div>
+                            <div class="slide-caption"><i class="fas fa-tasks"></i> Browse tasks and earn</div>
+                        </div>
+                        <!-- SLIDE 3 -->
+                        <div class="slide next" id="sl-2">
+                            <img src="screenshots/earnings.png" alt="Earncial Earnings screen" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                            <div style="display:none;width:100%;height:100%;background:linear-gradient(160deg,#0a1a30,#0d2240);flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:30px;">
+                                <i class="fas fa-chart-line" style="font-size:40px;color:#10B981;opacity:0.4;"></i>
+                                <p style="font-size:11px;color:rgba(255,255,255,0.4);text-align:center;">Earnings Screen<br><span style="font-size:10px;">Replace with: screenshots/earnings.png</span></p>
+                            </div>
+                            <div class="slide-overlay"></div>
+                            <div class="slide-caption"><i class="fas fa-chart-line"></i> Track your earnings</div>
+                        </div>
+                        <!-- SLIDE 4 -->
+                        <div class="slide next" id="sl-3">
+                            <img src="screenshots/withdraw.png" alt="Earncial Withdraw screen" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                            <div style="display:none;width:100%;height:100%;background:linear-gradient(160deg,#0d1628,#0a1e38);flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:30px;">
+                                <i class="fas fa-money-bill-wave" style="font-size:40px;color:#F59E0B;opacity:0.4;"></i>
+                                <p style="font-size:11px;color:rgba(255,255,255,0.4);text-align:center;">Withdrawal Screen<br><span style="font-size:10px;">Replace with: screenshots/withdraw.png</span></p>
+                            </div>
+                            <div class="slide-overlay"></div>
+                            <div class="slide-caption"><i class="fas fa-money-bill-wave"></i> Withdraw directly to your bank</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-ctrl">
+                    <div class="s-arr" id="prevSl"><i class="fas fa-chevron-left"></i></div>
+                    <div class="s-dot active" onclick="goSl(0)"></div>
+                    <div class="s-dot" onclick="goSl(1)"></div>
+                    <div class="s-dot" onclick="goSl(2)"></div>
+                    <div class="s-dot" onclick="goSl(3)"></div>
+                    <div class="s-arr" id="nextSl"><i class="fas fa-chevron-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ PLATFORM MARQUEE ── -->
+<div class="partners reveal">
+    <div class="partners-label">Earn money on every platform you already use</div>
+    <div class="marquee-wrap">
+        <div class="marquee-track">
+            <div class="plat-chip"><i class="fab fa-instagram" style="color:#e1306c;"></i><span>Instagram</span></div>
+            <div class="plat-chip"><i class="fab fa-tiktok" style="color:#010101;"></i><span>TikTok</span></div>
+            <div class="plat-chip"><i class="fab fa-youtube" style="color:#ff0000;"></i><span>YouTube</span></div>
+            <div class="plat-chip"><i class="fab fa-facebook-f" style="color:#1877f2;"></i><span>Facebook</span></div>
+            <div class="plat-chip"><i class="fab fa-x-twitter" style="color:#010101;"></i><span>Twitter / X</span></div>
+            <div class="plat-chip"><i class="fab fa-telegram-plane" style="color:#0088cc;"></i><span>Telegram</span></div>
+            <div class="plat-chip"><i class="fab fa-linkedin-in" style="color:#0a66c2;"></i><span>LinkedIn</span></div>
+            <div class="plat-chip"><i class="fab fa-pinterest" style="color:#e60023;"></i><span>Pinterest</span></div>
+            <div class="plat-chip"><i class="fab fa-discord" style="color:#5865f2;"></i><span>Discord</span></div>
+            <div class="plat-chip"><i class="fab fa-reddit-alien" style="color:#ff4500;"></i><span>Reddit</span></div>
+            <div class="plat-chip"><i class="fab fa-spotify" style="color:#1db954;"></i><span>Spotify</span></div>
+            <div class="plat-chip"><i class="fab fa-twitch" style="color:#9146ff;"></i><span>Twitch</span></div>
+            <!-- duplicate for seamless loop -->
+            <div class="plat-chip"><i class="fab fa-instagram" style="color:#e1306c;"></i><span>Instagram</span></div>
+            <div class="plat-chip"><i class="fab fa-tiktok" style="color:#010101;"></i><span>TikTok</span></div>
+            <div class="plat-chip"><i class="fab fa-youtube" style="color:#ff0000;"></i><span>YouTube</span></div>
+            <div class="plat-chip"><i class="fab fa-facebook-f" style="color:#1877f2;"></i><span>Facebook</span></div>
+            <div class="plat-chip"><i class="fab fa-x-twitter" style="color:#010101;"></i><span>Twitter / X</span></div>
+            <div class="plat-chip"><i class="fab fa-telegram-plane" style="color:#0088cc;"></i><span>Telegram</span></div>
+            <div class="plat-chip"><i class="fab fa-linkedin-in" style="color:#0a66c2;"></i><span>LinkedIn</span></div>
+            <div class="plat-chip"><i class="fab fa-pinterest" style="color:#e60023;"></i><span>Pinterest</span></div>
+            <div class="plat-chip"><i class="fab fa-discord" style="color:#5865f2;"></i><span>Discord</span></div>
+            <div class="plat-chip"><i class="fab fa-reddit-alien" style="color:#ff4500;"></i><span>Reddit</span></div>
+            <div class="plat-chip"><i class="fab fa-spotify" style="color:#1db954;"></i><span>Spotify</span></div>
+            <div class="plat-chip"><i class="fab fa-twitch" style="color:#9146ff;"></i><span>Twitch</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ STATS ═══ -->
+<section class="statistics reveal">
+    <div class="stats-grid">
+        <div class="stat-box">
+            <div class="stat-icon"><i class="fas fa-users"></i></div>
+            <span class="stat-number" data-target="12500">0</span>
+            <span class="stat-label">Earners Joined</span>
+        </div>
+        <div class="stat-box">
+            <div class="stat-icon"><i class="fas fa-check-double"></i></div>
+            <span class="stat-number" data-target="85000">0</span>
+            <span class="stat-label">Tasks Completed</span>
+        </div>
+        <div class="stat-box">
+            <div class="stat-icon"><i class="fas fa-naira-sign"></i></div>
+            <span class="stat-number" data-target="4200000" data-prefix="₦">₦0</span>
+            <span class="stat-label">Total Paid Out</span>
+        </div>
+        <div class="stat-box">
+            <div class="stat-icon"><i class="fas fa-globe"></i></div>
+            <span class="stat-number" data-target="12">0</span>
+            <span class="stat-label">Platforms Supported</span>
+        </div>
+    </div>
+    <p class="stats-note">* Figures reflect platform activity since launch in 2025</p>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="section section-alt" id="how-it-works">
+    <div class="text-center reveal">
+        <div class="sec-tag"><i class="fas fa-cogs"></i> Step by Step</div>
+        <h2 class="section-title">How <span>Earncial</span> Works</h2>
+        <p class="section-sub">Simple steps, real results — whether you want to earn money or grow your social media audience.</p>
+    </div>
+    <div class="hiw-tabs">
+        <div class="hiw-tab active" onclick="switchTab('earner',this)"><i class="fas fa-coins"></i> I'm an Earner</div>
+        <div class="hiw-tab" onclick="switchTab('adv',this)"><i class="fas fa-bullhorn"></i> I'm an Advertiser</div>
+    </div>
+
+    <!-- Earner Steps -->
+    <div class="hiw-panel active" id="tab-earner">
+        <div class="steps-list">
+            <div class="step-row reveal">
+                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,#10B981,#059669);">1</div><div class="step-line" style="background:linear-gradient(180deg,#10B981,#3b82f6);"></div></div>
+                <div class="step-body">
+                    <div class="step-head"><div class="step-icon" style="background:rgba(16,185,129,0.1);color:#10B981;"><i class="fas fa-user-plus"></i></div><div class="step-title">Create Free Account</div></div>
+                    <div class="step-desc">Sign up in under 2 minutes. Choose Earner as your account type. Registration is completely free — no upfront cost.</div>
+                    <div class="step-tip"><i class="fas fa-lightbulb"></i> Account type is permanent — choose carefully</div>
+                    <div class="step-video"><div class="svp-play"><i class="fas fa-play"></i></div><div class="svp-info"><div class="svp-label">Watch tutorial</div><div class="svp-title">How to register on Earncial</div></div></div>
+                </div>
+            </div>
+            <div class="step-row reveal">
+                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,#3b82f6,#2563eb);">2</div><div class="step-line" style="background:linear-gradient(180deg,#3b82f6,#8b5cf6);"></div></div>
+                <div class="step-body">
+                    <div class="step-head"><div class="step-icon" style="background:rgba(59,130,246,0.1);color:#3b82f6;"><i class="fas fa-unlock-alt"></i></div><div class="step-title">Activate — ₦1,000 Once Only</div></div>
+                    <div class="step-desc">Pay the one-time activation fee of ₦1,000 via bank transfer. Upload your receipt. Account unlocks instantly after confirmation. You <strong>never pay this again.</strong></div>
+                    <div class="step-tip"><i class="fas fa-lightbulb"></i> One-time forever — not monthly, not yearly</div>
+                    <div class="step-video"><div class="svp-play"><i class="fas fa-play"></i></div><div class="svp-info"><div class="svp-label">Watch tutorial</div><div class="svp-title">How to activate your account</div></div></div>
+                </div>
+            </div>
+            <div class="step-row reveal">
+                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">3</div><div class="step-line" style="background:linear-gradient(180deg,#8b5cf6,#f97316);"></div></div>
+                <div class="step-body">
+                    <div class="step-head"><div class="step-icon" style="background:rgba(139,92,246,0.1);color:#8b5cf6;"><i class="fas fa-link"></i></div><div class="step-title">Verify Your Social Handles</div></div>
+                    <div class="step-desc">Link and verify your Instagram, TikTok, YouTube, Facebook, Twitter, Telegram, and more. Each handle is manually verified — paste a short code in your bio. More handles = more earning opportunities.</div>
+                    <div class="step-tip"><i class="fas fa-lightbulb"></i> Verify as many platforms as possible</div>
+                    <div class="step-video"><div class="svp-play"><i class="fas fa-play"></i></div><div class="svp-info"><div class="svp-label">Watch tutorial</div><div class="svp-title">How to verify your social handles</div></div></div>
+                </div>
+            </div>
+            <div class="step-row reveal">
+                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,#f97316,#ea580c);">4</div><div class="step-line" style="background:linear-gradient(180deg,#f97316,#00aaff);"></div></div>
+                <div class="step-body">
+                    <div class="step-head"><div class="step-icon" style="background:rgba(249,115,22,0.1);color:#f97316;"><i class="fas fa-tasks"></i></div><div class="step-title">Complete Tasks &amp; Submit Proof</div></div>
+                    <div class="step-desc">Browse tasks, complete the action (follow, like, subscribe, join, comment), take a clear screenshot showing your username, and submit. Admin reviews within 1–6 hours.</div>
+                    <div class="step-tip"><i class="fas fa-lightbulb"></i> Never undo a task after submitting — permanent ban</div>
+                    <div class="step-video"><div class="svp-play"><i class="fas fa-play"></i></div><div class="svp-info"><div class="svp-label">Watch tutorial</div><div class="svp-title">How to complete and submit tasks</div></div></div>
+                </div>
+            </div>
+            <div class="step-row reveal">
+                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,#00aaff,#005a8c);">5</div></div>
+                <div class="step-body">
+                    <div class="step-head"><div class="step-icon" style="background:rgba(0,170,255,0.1);color:var(--primary-blue);"><i class="fas fa-money-bill-wave"></i></div><div class="step-title">Get Paid to Your Bank 🎉</div></div>
+                    <div class="step-desc">Approved earnings go directly to your balance. Withdraw from ₦1,000 directly to your bank account. Transparent 10% fee shown before you confirm — no surprises.</div>
+                    <div class="step-tip"><i class="fas fa-lightbulb"></i> Min withdraw ₦1,000 · Fee 10% — shown upfront</div>
+                    <div class="step-video"><div class="svp-play"><i class="fas fa-play"></i></div><div class="svp-info"><div class="svp-label">Watch tutorial</div><div class="svp-title">How to withdraw your earnings</div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Advertiser Steps -->
+    <div class="hiw-panel" id="tab-adv">
+        <div class="steps-list">
+            <div class="step-row reveal">
+                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,#F59E0B,#d97706);">1</div><div class="step-line" style="background:linear-gradient(180deg,#F59E0B,#f97316);"></div></div>
+                <div class="step-body">
+                    <div class="step-head"><div class="step-icon" style="background:rgba(245,158,11,0.1);color:#F59E0B;"><i class="fas fa-building"></i></div><div class="step-title">Create Advertiser Account Free</div></div>
+                    <div class="step-desc">Register in minutes. Choose Advertiser as your account type. No activation fee — advertisers join free and only pay when they fund tasks.</div>
+                    <div class="step-video"><div class="svp-play"><i class="fas fa-play"></i></div><div class="svp-info"><div class="svp-label">Watch tutorial</div><div class="svp-title">How to create an advertiser account</div></div></div>
+                </div>
+            </div>
+            <div class="step-row reveal">
+                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,#f97316,#ea580c);">2</div><div class="step-line" style="background:linear-gradient(180deg,#f97316,#8b5cf6);"></div></div>
+                <div class="step-body">
+                    <div class="step-head"><div class="step-icon" style="background:rgba(249,115,22,0.1);color:#f97316;"><i class="fas fa-wallet"></i></div><div class="step-title">Fund Your Wallet (Min ₦1,000)</div></div>
+                    <div class="step-desc">Deposit funds to your Earncial wallet via Flutterwave. Minimum ₦1,000. Wallet funds never expire. Your balance is always ready to spend on tasks.</div>
+                    <div class="step-video"><div class="svp-play"><i class="fas fa-play"></i></div><div class="svp-info"><div class="svp-label">Watch tutorial</div><div class="svp-title">How to fund your advertiser wallet</div></div></div>
+                </div>
+            </div>
+            <div class="step-row reveal">
+                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">3</div><div class="step-line" style="background:linear-gradient(180deg,#8b5cf6,#3b82f6);"></div></div>
+                <div class="step-body">
+                    <div class="step-head"><div class="step-icon" style="background:rgba(139,92,246,0.1);color:#8b5cf6;"><i class="fas fa-plus-circle"></i></div><div class="step-title">Post Your Task</div></div>
+                    <div class="step-desc">Choose your platform, task type (follow, like, subscribe, join), number of participants, and paste your URL. Admin reviews your task, then it goes live for verified earners immediately.</div>
+                    <div class="step-video"><div class="svp-play"><i class="fas fa-play"></i></div><div class="svp-info"><div class="svp-label">Watch tutorial</div><div class="svp-title">How to post your first task</div></div></div>
+                </div>
+            </div>
+            <div class="step-row reveal">
+                <div class="step-left"><div class="step-num" style="background:linear-gradient(135deg,#00aaff,#005a8c);">4</div></div>
+                <div class="step-body">
+                    <div class="step-head"><div class="step-icon" style="background:rgba(0,170,255,0.1);color:var(--primary-blue);"><i class="fas fa-chart-line"></i></div><div class="step-title">Watch Your Audience Grow 🚀</div></div>
+                    <div class="step-desc">Real, verified people complete your task. Every submission is screenshot-verified by our admin team. You get genuine human engagement — no bots, no fake numbers. Track progress live.</div>
+                    <div class="step-video"><div class="svp-play"><i class="fas fa-play"></i></div><div class="svp-info"><div class="svp-label">Watch tutorial</div><div class="svp-title">How to track and manage your tasks</div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ WHY EARNCIAL ═══ -->
+<section class="section" id="features">
+    <div class="text-center reveal">
+        <div class="sec-tag"><i class="fas fa-star"></i> Why Earncial</div>
+        <h2 class="section-title">Built Different. <span>Built Better.</span></h2>
+        <p class="section-sub">What makes Earncial the platform that earners trust and advertisers rely on.</p>
+    </div>
+    <div class="features-grid reveal">
+        <div class="feat-card">
+            <div class="feat-icon" style="background:rgba(16,185,129,0.1);color:#10B981;"><i class="fas fa-certificate"></i></div>
+            <div class="feat-title">Government Registered</div>
+            <div class="feat-desc">Earncial Global is officially registered with Nigeria's Corporate Affairs Commission, RC No. 9374009. Fully legal and fully accountable — verifiable at search.cac.gov.ng.</div>
+        </div>
+        <div class="feat-card">
+            <div class="feat-icon" style="background:rgba(0,170,255,0.1);color:var(--primary-blue);"><i class="fas fa-shield-alt"></i></div>
+            <div class="feat-title">Zero Bots — Real People Only</div>
+            <div class="feat-desc">Every earner's social media handle is manually verified before they can complete a single task. Advertisers get genuine, human engagement — guaranteed.</div>
+        </div>
+        <div class="feat-card">
+            <div class="feat-icon" style="background:rgba(245,158,11,0.1);color:#F59E0B;"><i class="fas fa-bolt"></i></div>
+            <div class="feat-title">Fast Bank Withdrawals</div>
+            <div class="feat-desc">Withdrawals go straight to your registered bank account — no complex payout systems. Transparent 10% fee shown before you confirm. No surprises, ever.</div>
+        </div>
+        <div class="feat-card">
+            <div class="feat-icon" style="background:rgba(139,92,246,0.1);color:#8b5cf6;"><i class="fas fa-layer-group"></i></div>
+            <div class="feat-title">12+ Platforms Supported</div>
+            <div class="feat-desc">Instagram, TikTok, YouTube, Twitter, Facebook, Telegram, LinkedIn, Pinterest, Discord, Reddit, Spotify, Twitch and more. New platforms added regularly.</div>
+        </div>
+        <div class="feat-card">
+            <div class="feat-icon" style="background:rgba(249,115,22,0.1);color:#f97316;"><i class="fas fa-eye"></i></div>
+            <div class="feat-title">100% Transparent Fees</div>
+            <div class="feat-desc">Every fee shown before you confirm. Every transaction has a receipt. Every withdrawal has a full breakdown. No hidden charges — ever.</div>
+        </div>
+        <div class="feat-card">
+            <div class="feat-icon" style="background:rgba(16,185,129,0.1);color:#10B981;"><i class="fas fa-store"></i></div>
+            <div class="feat-title">More Coming — Marketplace</div>
+            <div class="feat-desc">Earncial is building a full product marketplace for physical goods, digital products, and services. Your earning opportunities are only growing.</div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ CAC CERTIFICATE ═══ -->
+<section class="cac-section" id="cac">
+    <div class="cac-inner">
+        <div class="cac-left reveal">
+            <div class="cac-verified-badge"><i class="fas fa-check-circle"></i> Officially CAC Verified</div>
+            <h2 class="cac-title">We Are a <span>Legally Registered</span> Business — Not a Scam</h2>
+            <p class="cac-desc">Earncial Global is registered with Nigeria's Corporate Affairs Commission under the Companies and Allied Matters Act. Our registration certificate is publicly verifiable. Your trust and your money are protected.</p>
+            <div class="cac-info-grid">
+                <div class="cac-info-item"><div class="cac-info-label">Business Name</div><div class="cac-info-val">Earncial Global</div></div>
+                <div class="cac-info-item"><div class="cac-info-label">CAC RC Number</div><div class="cac-info-val">RC 9374009</div></div>
+                <div class="cac-info-item"><div class="cac-info-label">Registration Body</div><div class="cac-info-val">Corporate Affairs Commission</div></div>
+                <div class="cac-info-item"><div class="cac-info-label">Year Founded</div><div class="cac-info-val">2025</div></div>
+            </div>
+            <a href="https://search.cac.gov.ng" target="_blank" class="cac-verify-btn"><i class="fas fa-external-link-alt"></i> Verify on CAC Website</a>
+        </div>
+        <div class="cac-right reveal">
+            <div class="cert-frame">
+                <div class="cert-top-bar">
+                    <i class="fas fa-certificate"></i>
+                    <div>
+                        <div class="cert-top-title">CAC Certificate of Registration</div>
+                        <div class="cert-top-sub">Earncial Global · RC 9374009</div>
+                    </div>
+                </div>
+                <div class="cert-img-area">
+                    <!-- ⬇️ Replace cac-certificate.png with your real CAC certificate image -->
+                    <img src="cac-certificate.png" alt="Earncial Global CAC Certificate of Registration RC 9374009"
+                         onerror="this.style.display='none';document.getElementById('certPlaceholder').style.display='block';">
+                    <div id="certPlaceholder" class="cert-placeholder" style="display:none;">
+                        <i class="fas fa-file-certificate"></i>
+                        <p>Your CAC certificate will appear here.<br>Upload your certificate image and name it:<br><strong>cac-certificate.png</strong></p>
+                    </div>
+                </div>
+                <div class="cert-footer">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Registered under CAMA · Nigeria</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section class="section section-alt">
+    <div class="text-center reveal">
+        <div class="sec-tag"><i class="fas fa-quote-left"></i> Real People, Real Results</div>
+        <h2 class="section-title">What Our Users Are <span>Saying</span></h2>
+        <p class="section-sub">Thousands of earners and advertisers are already growing with Earncial.</p>
+    </div>
+    <div class="testi-grid reveal">
+        <div class="testi-card">
+            <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <div class="testi-text">"I was skeptical at first but after my first withdrawal hit my account within hours, I was convinced. Earncial is the real deal. I now earn consistently every week."</div>
+            <div class="testi-author"><div class="testi-avatar" style="background:linear-gradient(135deg,#00aaff,#005a8c);">A</div><div><div class="testi-name">Aisha M.</div><div class="testi-role">Earner · Lagos</div></div></div>
+        </div>
+        <div class="testi-card">
+            <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <div class="testi-text">"As an advertiser, Earncial gave us real followers — not bots. Our TikTok grew by 2,000 genuine followers in one week. The screenshot verification system is brilliant."</div>
+            <div class="testi-author"><div class="testi-avatar" style="background:linear-gradient(135deg,#F59E0B,#d97706);">K</div><div><div class="testi-name">Kola O.</div><div class="testi-role">Advertiser · Abuja</div></div></div>
+        </div>
+        <div class="testi-card">
+            <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <div class="testi-text">"The ₦1,000 activation was worth it many times over. I've earned over ₦40,000 in 3 months just from tasks during my free time. The CAC registration gave me trust."</div>
+            <div class="testi-author"><div class="testi-avatar" style="background:linear-gradient(135deg,#10B981,#059669);">F</div><div><div class="testi-name">Fatima B.</div><div class="testi-role">Earner · Kano</div></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ SIGN UP 4 STEPS ═══ -->
+<section class="section">
+    <div class="text-center reveal">
+        <div class="sec-tag"><i class="fas fa-rocket"></i> Get Started</div>
+        <h2 class="section-title">Ready in <span>4 Simple Steps</span></h2>
+        <p class="section-sub">Join thousands already earning on Earncial — takes less than 5 minutes to get started.</p>
+    </div>
+    <div class="signup-grid reveal">
+        <div class="signup-step">
+            <div class="ss-num" style="background:linear-gradient(135deg,#10B981,#059669);">1</div>
+            <div class="ss-icon" style="background:rgba(16,185,129,0.1);color:#10B981;"><i class="fas fa-user-plus"></i></div>
+            <div class="ss-title">Create Account</div>
+            <div class="ss-desc">Sign up free with your email. Choose Earner or Advertiser. 2-minute registration — no cost to join.</div>
+            <div class="ss-video"><div class="ss-play"><i class="fas fa-play"></i></div><div><div class="ss-vtxt">Watch guide</div><div class="ss-vtitle">Sign Up Tutorial</div></div></div>
+        </div>
+        <div class="signup-step">
+            <div class="ss-num" style="background:linear-gradient(135deg,#3b82f6,#2563eb);">2</div>
+            <div class="ss-icon" style="background:rgba(59,130,246,0.1);color:#3b82f6;"><i class="fas fa-unlock-alt"></i></div>
+            <div class="ss-title">Activate Account</div>
+            <div class="ss-desc">Earners pay ₦1,000 once to activate. Advertisers deposit ₦1,000 minimum to start posting tasks.</div>
+            <div class="ss-video"><div class="ss-play"><i class="fas fa-play"></i></div><div><div class="ss-vtxt">Watch guide</div><div class="ss-vtitle">Activation Tutorial</div></div></div>
+        </div>
+        <div class="signup-step">
+            <div class="ss-num" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">3</div>
+            <div class="ss-icon" style="background:rgba(139,92,246,0.1);color:#8b5cf6;"><i class="fas fa-link"></i></div>
+            <div class="ss-title">Link &amp; Verify</div>
+            <div class="ss-desc">Earners verify social handles. Advertisers set up their first task with a link, platform, and description.</div>
+            <div class="ss-video"><div class="ss-play"><i class="fas fa-play"></i></div><div><div class="ss-vtxt">Watch guide</div><div class="ss-vtitle">Setup Tutorial</div></div></div>
+        </div>
+        <div class="signup-step">
+            <div class="ss-num" style="background:linear-gradient(135deg,#00aaff,#005a8c);">4</div>
+            <div class="ss-icon" style="background:rgba(0,170,255,0.1);color:var(--primary-blue);"><i class="fas fa-money-bill-wave"></i></div>
+            <div class="ss-title">Earn or Grow 🎉</div>
+            <div class="ss-desc">Earners complete tasks and withdraw to bank. Advertisers post tasks and gain real social media growth.</div>
+            <div class="ss-video"><div class="ss-play"><i class="fas fa-play"></i></div><div><div class="ss-vtxt">Watch guide</div><div class="ss-vtitle">First Task Tutorial</div></div></div>
+        </div>
+    </div>
+    <div class="text-center reveal" style="margin-top:44px;">
+        <a href="sign-up.html" class="btn-primary" style="font-size:16px;padding:17px 40px;"><i class="fas fa-rocket"></i> Create Your Account Now — It's Free</a>
+    </div>
+</section>
+
+<!-- ═══ MINI FAQ ═══ -->
+<section class="section section-alt">
+    <div class="text-center reveal">
+        <div class="sec-tag"><i class="fas fa-question-circle"></i> Quick Answers</div>
+        <h2 class="section-title">Frequently Asked <span>Questions</span></h2>
+        <p class="section-sub">Everything you need to know before joining Earncial.</p>
+    </div>
+    <div class="faq-wrap reveal">
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span class="faq-q-text">Is Earncial legitimate? Can I really get paid?</span><i class="fas fa-chevron-down faq-chevron"></i></div><div class="faq-answer"><div class="faq-answer-inner">Yes — Earncial Global is officially registered with the Corporate Affairs Commission, RC No. 9374009. You can verify this yourself at <a href="https://search.cac.gov.ng" target="_blank">search.cac.gov.ng</a>. Thousands of earners have been paid directly to their bank accounts since we launched in 2025.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span class="faq-q-text">How much does it cost to join as an earner?</span><i class="fas fa-chevron-down faq-chevron"></i></div><div class="faq-answer"><div class="faq-answer-inner">Registration is free. There is a one-time activation fee of ₦1,000 — paid only once, never again. After activation, there is a 10% fee on each withdrawal and a minimum withdrawal of ₦1,000.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span class="faq-q-text">How fast do I receive my withdrawal?</span><i class="fas fa-chevron-down faq-chevron"></i></div><div class="faq-answer"><div class="faq-answer-inner">Withdrawals typically arrive in your bank account within minutes to a few hours. Your bank account name must match the name on your Earncial profile.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span class="faq-q-text">Are the followers and likes advertisers get real people?</span><i class="fas fa-chevron-down faq-chevron"></i></div><div class="faq-answer"><div class="faq-answer-inner">Yes. Every earner's social media handle is manually verified before they can complete any task. Each submission requires screenshot proof reviewed by our admin. Advertisers receive genuine human engagement — no bots.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span class="faq-q-text">Which countries can use Earncial?</span><i class="fas fa-chevron-down faq-chevron"></i></div><div class="faq-answer"><div class="faq-answer-inner">Earncial is accessible globally. However, bank withdrawals currently process to Nigerian bank accounts. International payout options are part of our roadmap. Anyone worldwide can advertise on the platform.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span class="faq-q-text">What happens if my task is rejected?</span><i class="fas fa-chevron-down faq-chevron"></i></div><div class="faq-answer"><div class="faq-answer-inner">If a task submission is rejected by admin (e.g. unclear screenshot), you can re-submit with corrected proof. Repeated violations of task rules (fake screenshots, undoing tasks) result in permanent account termination per our Terms of Service.</div></div></div>
+    </div>
+    <div class="faq-more reveal"><a href="faq.html" class="faq-more-link">See all FAQ questions <i class="fas fa-arrow-right"></i></a></div>
+</section>
+
+<!-- ═══ FINAL CTA ═══ -->
+<section class="cta-section">
+    <div class="cta-inner reveal">
+        <div class="cta-badge"><i class="fas fa-certificate"></i> CAC Registered · RC 9374009 · Trusted Platform</div>
+        <h2 class="cta-h2">The World Scrolls.<br>You Should Get Paid For It.</h2>
+        <p class="cta-sub">Join thousands of earners already making money from social media tasks — or grow your brand with real, verified human engagement. Start today.</p>
+        <div class="cta-btns">
+            <a href="sign-up.html" class="cta-btn-white"><i class="fas fa-rocket"></i> Create Account — It's Free</a>
+            <a href="how-it-works.html" class="cta-btn-out"><i class="fas fa-play-circle"></i> How It Works</a>
+        </div>
+        <div class="cta-trust">
+            <div class="cta-trust-item"><i class="fas fa-check-circle"></i> Free to join</div>
+            <div class="cta-trust-item"><i class="fas fa-check-circle"></i> ₦1,000 one-time activation</div>
+            <div class="cta-trust-item"><i class="fas fa-check-circle"></i> No monthly fees</div>
+            <div class="cta-trust-item"><i class="fas fa-check-circle"></i> CAC registered</div>
+            <div class="cta-trust-item"><i class="fas fa-check-circle"></i> Fast bank payouts</div>
+        </div>
+    </div>
+</section>
+
+</div><!-- /main-wrap -->
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div>
+            <div class="footer-logo">
+                <div class="footer-logo-img"><img src="logo.png" alt="Earncial" onerror="this.parentElement.style.background='var(--primary-blue)';this.parentElement.innerHTML='<span style=color:white;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;height:100%>E</span>';"></div>
+                Earncial
+            </div>
+            <div class="footer-desc">The world's most rewarding platform for earning money from social media tasks — or growing your brand with real, verified human engagement.</div>
+            <div class="footer-cac"><i class="fas fa-certificate"></i><div class="footer-cac-text">✅ <strong>CAC Verified Business</strong><br>Earncial Global · RC No. <strong>9374009</strong><br>Corporate Affairs Commission, Nigeria</div></div>
+            <div class="footer-socials">
+                <a href="https://facebook.com/earncial" target="_blank" class="footer-social"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com/earncial" target="_blank" class="footer-social"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://instagram.com/earncial" target="_blank" class="footer-social"><i class="fab fa-instagram"></i></a>
+                <a href="https://t.me/earncial" target="_blank" class="footer-social"><i class="fab fa-telegram-plane"></i></a>
+                <a href="#" class="footer-social"><i class="fab fa-tiktok"></i></a>
+                <a href="#" class="footer-social"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="footer-social"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+        <div>
+            <div class="footer-col-title">Platform</div>
+            <ul class="footer-links">
+                <li><a href="how-it-works.html"><i class="fas fa-cogs"></i> How It Works</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+                <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                <li><a href="support.html"><i class="fas fa-headset"></i> Support</a></li>
+            </ul>
+        </div>
+        <div>
+            <div class="footer-col-title">Join</div>
+            <ul class="footer-links">
+                <li><a href="sign-up.html"><i class="fas fa-user-plus"></i> Create Account</a></li>
+                <li><a href="sign-in.html"><i class="fas fa-sign-in-alt"></i> Sign In</a></li>
+                <li><a href="faq.html#earner"><i class="fas fa-coins"></i> Earner Guide</a></li>
+                <li><a href="faq.html#advertiser"><i class="fas fa-bullhorn"></i> Advertiser Guide</a></li>
+            </ul>
+        </div>
+        <div>
+            <div class="footer-col-title">Legal</div>
+            <ul class="footer-links">
+                <li><a href="privacy.html"><i class="fas fa-lock"></i> Privacy Policy</a></li>
+                <li><a href="terms.html"><i class="fas fa-file-alt"></i> Terms of Service</a></li>
+                <li><a href="cookies.html"><i class="fas fa-cookie-bite"></i> Cookie Policy</a></li>
+                <li><a href="mailto:support@earncial.com"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="footer-bottom-left">&copy; 2026 Earncial Global. All rights reserved.</div>
+        <div class="footer-cac-tag"><i class="fas fa-check-circle"></i> CAC Registered · RC 9374009</div>
+        <div class="footer-bottom-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="cookies.html">Cookies</a></div>
+    </div>
+</footer>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-chevron-up"></i></button>
+
+<script>
+// DARK MODE
+var body=document.getElementById('body'),ti=document.getElementById('themeIcon');
+document.getElementById('darkModeToggle').addEventListener('click',function(){
+    var d=body.classList.toggle('dark-mode');
+    ti.className=d?'fas fa-sun':'fas fa-moon';
+    localStorage.setItem('earncial-theme',d?'dark':'light');
+});
+if(localStorage.getItem('earncial-theme')==='dark'){body.classList.add('dark-mode');ti.className='fas fa-sun';}
+
+// SIDEBAR
+var sb=document.getElementById('sidebar'),ov=document.getElementById('mobileOverlay');
+function openSB(){sb.classList.add('open');ov.classList.add('active');document.body.style.overflow='hidden';}
+function closeSB(){sb.classList.remove('open');ov.classList.remove('active');document.body.style.overflow='';}
+document.getElementById('menuToggle').addEventListener('click',openSB);
+document.getElementById('closeSidebar').addEventListener('click',closeSB);
+ov.addEventListener('click',closeSB);
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSB();});
+
+// SLIDER
+var cur=0,tot=4,auto;
+function goSl(n){
+    document.querySelectorAll('.slide').forEach(function(s,i){s.className='slide '+(i===n?'active':i<n?'prev':'next');});
+    document.querySelectorAll('.s-dot').forEach(function(d,i){d.classList.toggle('active',i===n);});
+    cur=n;
+}
+document.getElementById('nextSl').addEventListener('click',function(){goSl((cur+1)%tot);resetA();});
+document.getElementById('prevSl').addEventListener('click',function(){goSl((cur-1+tot)%tot);resetA();});
+function resetA(){clearInterval(auto);auto=setInterval(function(){goSl((cur+1)%tot);},4000);}
+auto=setInterval(function(){goSl((cur+1)%tot);},4000);
+
+// HIW TABS
+function switchTab(t,el){
+    document.querySelectorAll('.hiw-tab').forEach(function(x){x.classList.remove('active');});
+    el.classList.add('active');
+    document.querySelectorAll('.hiw-panel').forEach(function(x){x.classList.remove('active');});
+    document.getElementById('tab-'+t).classList.add('active');
+    revealNow();
+}
+
+// FAQ
+function toggleFaq(btn){
+    var item=btn.closest('.faq-item'),open=item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(function(i){i.classList.remove('open');});
+    if(!open)item.classList.add('open');
+}
+
+// REVEAL
+function revealNow(){
+    document.querySelectorAll('.reveal').forEach(function(el){
+        if(el.getBoundingClientRect().top<window.innerHeight-50)el.classList.add('on');
+    });
+}
+window.addEventListener('scroll',revealNow);
+window.addEventListener('load',revealNow);
+
+// SCROLL BTN
+window.addEventListener('scroll',function(){
+    document.getElementById('backTop').classList.toggle('visible',window.scrollY>400);
+});
+
+// COUNTERS
+var counted=false;
+var statsObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+        if(e.isIntersecting&&!counted){
+            counted=true;
+            document.querySelectorAll('.stat-number').forEach(function(el){
+                var target=parseInt(el.getAttribute('data-target'));
+                var prefix=el.getAttribute('data-prefix')||'';
+                var start=0,dur=2000,step=target/(dur/16);
+                var t=setInterval(function(){
+                    start+=step;
+                    if(start>=target){start=target;clearInterval(t);}
+                    el.textContent=prefix+Math.floor(start).toLocaleString();
+                },16);
+            });
+        }
+    });
+},{threshold:0.3});
+var statsEl=document.querySelector('.statistics');
+if(statsEl)statsObs.observe(statsEl);
+</script>
+</body>
+</html>

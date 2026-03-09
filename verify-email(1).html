@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email - Earncial | Confirm Your Account</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <meta name="description" content="Verify your Earncial email address to activate your account and start earning money online in Nigeria.">
+    <meta name="keywords" content="Earncial verify email, email verification, activate account">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/color/96/000000/money-bag.png">
+    
+    <style>
+        /* ================================================= */
+        /* 1. Global Styles & Variables - EARNCIAL BLUE THEME */
+        /* ================================================= */
+        :root {
+            --primary-blue: #00aaff; 
+            --secondary-blue: #53d6ff; 
+            --dark-blue: #008ecc;
+            --white: #FFFFFF;
+            --light-bg: #F8FAFC;
+            --light-grey: #E2E8F0;
+            --dark-bg: #0F172A; 
+            --card-dark: #1E293B;
+            --text-color: #334155;
+            --text-light: #64748B;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --error-red: #EF4444;
+            --warning: #F59E0B;
+            --success: #10B981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%);
+            color: var(--text-color); 
+            transition: var(--transition);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ================================================= */
+        /* 2. Header Styles - EARNCIAL */
+        /* ================================================= */
+        .header {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            padding: 0 20px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--primary-blue); 
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .logo-image {
+            width: 42px;
+            height: 42px;
+            margin-right: 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(0, 170, 255, 0.3);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--text-color);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .menu-toggle:hover {
+            background: var(--light-grey);
+            color: var(--primary-blue);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--text-color);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--light-grey);
+            color: var(--primary-blue);
+        }
+
+        /* ================================================= */
+        /* 3. Sidebar Styles */
+        /* ================================================= */
+        .sidebar {
+            width: 280px;
+            background: var(--white);
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            position: fixed;
+            height: 100vh;
+            z-index: 200;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            left: 0;
+            top: 0;
+            border-right: 3px solid var(--primary-blue);
+        }
+
+        .sidebar.open {
+            transform: translateX(0);
+        }
+
+        .sidebar-header {
+            padding: 24px 20px;
+            border-bottom: 1px solid var(--light-grey);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-logo .logo-image {
+            margin-right: 12px;
+        }
+
+        .close-sidebar {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-sidebar:hover {
+            color: var(--primary-blue);
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(0, 170, 255, 0.05);
+            color: var(--primary-blue);
+            padding-left: 25px;
+        }
+
+        .menu-item i {
+            margin-right: 12px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-auth {
+            padding: 20px;
+            border-top: 1px solid var(--light-grey);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .sidebar-btn {
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .sidebar-btn-primary {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .sidebar-btn-primary:hover {
+            background: var(--dark-blue);
+        }
+
+        .sidebar-btn-outline {
+            background: transparent;
+            border: 1px solid var(--light-grey);
+            color: var(--text-color);
+        }
+
+        .sidebar-btn-outline:hover {
+            background: var(--light-grey);
+        }
+
+        /* ================================================= */
+        /* 4. Mobile Overlay */
+        /* ================================================= */
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 150;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(3px);
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ================================================= */
+        /* 5. Main Content Area */
+        /* ================================================= */
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .verify-container {
+            width: 100%;
+            max-width: 550px;
+        }
+
+        .verify-card {
+            background: var(--white);
+            border-radius: 19px;
+            padding: 35px;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            animation: fadeInUp 0.6s ease-out;
+            border-bottom: 5px solid var(--primary-blue); 
+            position: relative;
+            overflow: hidden;
+        }
+
+        .verify-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue), var(--primary-blue));
+        }
+
+        .verify-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 170, 255, 0.1), 0 10px 10px -5px rgba(0, 170, 255, 0.04);
+            transform: translateY(-5px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .verify-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .verify-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 36px;
+            box-shadow: 0 8px 20px rgba(0, 170, 255, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 8px 20px rgba(0, 170, 255, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 10px 25px rgba(0, 170, 255, 0.5);
+            }
+        }
+
+        .verify-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+        }
+
+        .verify-subtitle {
+            color: var(--text-light);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .verify-email {
+            background: rgba(0, 170, 255, 0.1);
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: 500;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .verify-email i {
+            font-size: 20px;
+        }
+
+        /* ================================================= */
+        /* 6. Info Box & Instructions */
+        /* ================================================= */
+        .info-box {
+            background: rgba(0, 170, 255, 0.05);
+            border-left: 4px solid var(--primary-blue);
+            padding: 16px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info-box p {
+            color: var(--text-color);
+            font-size: 14px;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .info-box i {
+            color: var(--primary-blue);
+            margin-right: 8px;
+        }
+
+        .instruction-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .instruction-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            color: var(--text-color);
+            font-size: 14px;
+        }
+
+        .instruction-list li i {
+            color: var(--primary-blue);
+            margin-top: 3px;
+            font-size: 16px;
+        }
+
+        /* ================================================= */
+        /* 7. Button Styles - EARNCIAL */
+        /* ================================================= */
+        .btn {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 170, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 170, 255, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--light-grey);
+            color: var(--text-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--light-grey);
+        }
+
+        /* ================================================= */
+        /* 8. Resend Section */
+        /* ================================================= */
+        .resend-section {
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--light-grey);
+        }
+
+        .resend-text {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .resend-btn {
+            background: none;
+            border: none;
+            color: var(--primary-blue);
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: underline;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .resend-btn:hover {
+            color: var(--dark-blue);
+        }
+
+        /* ================================================= */
+        /* 9. Verification Status */
+        /* ================================================= */
+        .verification-status {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .verification-status.verifying {
+            display: block;
+            background: rgba(0, 170, 255, 0.1);
+            color: var(--primary-blue);
+        }
+
+        .verification-status.success {
+            display: block;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .verification-status.error {
+            display: block;
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error-red);
+        }
+
+        .verification-status i {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .verification-status h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .verification-status p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .spinner {
+            border: 3px solid rgba(0, 170, 255, 0.3);
+            border-top: 3px solid var(--primary-blue);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ================================================= */
+        /* 10. Dark Mode Styles - EARNCIAL */
+        /* ================================================= */
+        .dark-mode {
+            background: linear-gradient(135deg, #0c1a2d 0%, #0f172a 50%, #1e293b 100%);
+            color: #E2E8F0;
+        }
+
+        .dark-mode .header,
+        .dark-mode .verify-card,
+        .dark-mode .sidebar {
+            background: var(--card-dark);
+            color: #E2E8F0;
+        }
+
+        .dark-mode .verify-email {
+            background: rgba(0, 170, 255, 0.2);
+        }
+
+        .dark-mode .info-box {
+            background: rgba(0, 170, 255, 0.1);
+        }
+
+        .dark-mode .btn-secondary {
+            border-color: #475569;
+            color: #CBD5E1;
+        }
+
+        .dark-mode .btn-secondary:hover {
+            background: #334155;
+        }
+
+        .dark-mode .resend-section {
+            border-top-color: #334155;
+        }
+
+        .dark-mode .mobile-overlay {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .dark-mode .instruction-list li {
+            color: #CBD5E1;
+        }
+
+        /* ================================================= */
+        /* 11. Success Modal */
+        /* ================================================= */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 40px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-20px) scale(0.9);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--primary-blue);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0) scale(1);
+            animation: modalPop 0.5s ease-out;
+        }
+
+        @keyframes modalPop {
+            0% {
+                transform: translateY(-20px) scale(0.9);
+                opacity: 0;
+            }
+            70% {
+                transform: translateY(10px) scale(1.02);
+            }
+            100% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-icon {
+            font-size: 60px;
+            color: var(--success);
+            margin-bottom: 20px;
+            animation: bounce 1s ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--success);
+            margin-bottom: 10px;
+        }
+
+        .modal-message {
+            color: var(--text-light);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+        }
+
+        /* ================================================= */
+        /* 12. Footer Styles */
+        /* ================================================= */
+        .footer {
+            background: var(--white);
+            padding: 40px 20px 20px;
+            border-top: 1px solid var(--light-grey);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-section h3 i {
+            font-size: 20px;
+        }
+
+        .footer-section p {
+            color: var(--text-light);
+            margin-bottom: 16px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-blue);
+            padding-left: 5px;
+        }
+
+        .footer-links i {
+            width: 16px;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--light-grey);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 30px;
+            border-top: 1px solid var(--light-grey);
+            color: var(--text-light);
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-bottom-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 13px;
+            transition: var(--transition);
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .dark-mode .footer {
+            background: var(--card-dark);
+            border-top-color: #334155;
+        }
+
+        .dark-mode .footer-section p,
+        .dark-mode .footer-links a,
+        .dark-mode .social-link {
+            color: #94A3B8;
+        }
+
+        .dark-mode .footer-links a:hover {
+            color: var(--secondary-blue);
+        }
+
+        .dark-mode .social-link {
+            background: #334155;
+        }
+
+        .dark-mode .social-link:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* ================================================= */
+        /* 13. Responsive Styles */
+        /* ================================================= */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 280px;
+            }
+            
+            .verify-card {
+                padding: 25px;
+            }
+            
+            .header {
+                padding: 0 16px;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-bottom-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .verify-title {
+                font-size: 24px;
+            }
+            
+            .main-content {
+                padding: 20px 16px;
+            }
+        }
+    </style>
+</head>
+<body id="body">
+    <!-- Header -->
+    <header class="header">
+        <a href="index.html" class="logo">
+            <div class="logo-image">₦</div>
+            <span>Earncial</span>
+        </a>
+        
+        <div class="nav-right">
+            <button class="theme-toggle" id="darkModeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <div class="logo-image">₦</div>
+                <span>Earncial</span>
+            </div>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-menu">
+            <a href="index.html" class="menu-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            
+            <a href="how-it-works.html" class="menu-item">
+                <i class="fas fa-cogs"></i>
+                <span>How It Works</span>
+            </a>
+            
+            <a href="about.html" class="menu-item">
+                <i class="fas fa-info-circle"></i>
+                <span>About Us</span>
+            </a>
+            
+            <a href="features.html" class="menu-item">
+                <i class="fas fa-star"></i>
+                <span>Features</span>
+            </a>
+            
+            <a href="top-earners.html" class="menu-item">
+                <i class="fas fa-trophy"></i>
+                <span>Top Earners</span>
+            </a>
+            
+            <a href="privacy.html" class="menu-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>Privacy Policy</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-auth">
+            <a href="sign-in.html" class="sidebar-btn sidebar-btn-outline">
+                <i class="fas fa-sign-in-alt"></i> Sign In
+            </a>
+            <a href="sign-up.html" class="sidebar-btn sidebar-btn-primary">
+                <i class="fas fa-user-plus"></i> Sign Up
+            </a>
+        </div>
+    </div>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="verify-container">
+            <div class="verify-card">               
+                <div class="verify-header">
+                    <div class="verify-icon">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <h1 class="verify-title">Check Your Email</h1>
+                    <p class="verify-subtitle">We've sent a verification link to your email address</p>
+                    <div class="verify-email">
+                        <i class="fas fa-envelope"></i>
+                        <span id="userEmail">user@example.com</span>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <p><i class="fas fa-info-circle"></i> Click the verification link in your email to activate your Earncial account and start earning.</p>
+                </div>
+
+                <!-- Verification Status (Hidden by default) -->
+                <div class="verification-status" id="verificationStatus">
+                    <div class="spinner"></div>
+                    <h3>Verifying...</h3>
+                    <p>Please wait while we verify your email address.</p>
+                </div>
+                
+                <!-- Instructions -->
+                <ul class="instruction-list">
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Check your inbox for an email from Earncial</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-mouse-pointer"></i>
+                        <span>Click the verification link in the email</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-folder-open"></i>
+                        <span>If you don't see it, check your spam/junk folder</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-rocket"></i>
+                        <span>Once verified, you can login immediately</span>
+                    </li>
+                </ul>
+                
+                <!-- Open Email Button -->
+                <button type="button" class="btn btn-primary" id="openEmailBtn">
+                    <i class="fas fa-envelope-open"></i> Open Email App
+                </button>
+                
+                <!-- Resend Section -->
+                <div class="resend-section">
+                    <p class="resend-text">Didn't receive the email?</p>
+                    <button type="button" class="resend-btn" id="resendBtn">
+                        Resend verification email
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="logo">
+                    <div class="logo-image">₦</div>
+                    <span>Earncial</span>
+                </div>
+                <p>Start earning money online with simple tasks. Join thousands of Nigerians who are earning daily with Earncial's proven system.</p>
+                <div class="social-links">
+                    <a href="https://facebook.com/earncial" target="_blank" class="social-link" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/earncial" target="_blank" class="social-link" title="Twitter/X">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com/earncial" target="_blank" class="social-link" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://linkedin.com/company/earncial" target="_blank" class="social-link" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://t.me/earncial" target="_blank" class="social-link" title="Telegram">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                    <a href="https://whatsapp.com/channel/earncial" target="_blank" class="social-link" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3><i class="fas fa-link"></i> Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="how-it-works.html"><i class="fas fa-cogs"></i> How It Works</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+                    <li><a href="features.html"><i class="fas fa-star"></i> Features</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3><i class="fas fa-key"></i> Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="top-earners.html"><i class="fas fa-trophy"></i> Top Earners</a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                    <li><a href="terms.html"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+                    <li><a href="support.html"><i class="fas fa-headset"></i> Support</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3><i class="fas fa-envelope"></i> Contact Us</h3>
+                <p>Have questions? We're here to help you start earning.</p>
+                <ul class="footer-links">
+                    <li><a href="mailto:support@earncial.com"><i class="fas fa-envelope"></i> support@earncial.com</a></li>
+                    <li><a href="tel:+2348012345678"><i class="fas fa-phone"></i> +234 801 234 5678</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-bottom-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="cookies.html">Cookie Policy</a>
+            </div>
+            <div>&copy; 2025 Earncial. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 class="modal-title">Email Verified Successfully!</h2>
+            <p class="modal-message">Your email has been verified. Your Earncial account is now active and ready to use. Welcome aboard!</p>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="goToDashboard">
+                    <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal" id="errorModal">
+        <div class="modal-content">
+            <div class="modal-icon" style="color: var(--error-red);">
+                <i class="fas fa-times-circle"></i>
+            </div>
+            <h2 class="modal-title" style="color: var(--error-red);">Verification Failed</h2>
+            <p class="modal-message" id="errorMessage">The verification link is invalid or has expired. Please request a new verification email.</p>
+            <div class="modal-actions">
+                <button class="btn btn-primary" style="background: var(--error-red);" id="closeErrorModal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resend Success Modal -->
+    <div class="modal" id="resendModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-paper-plane"></i>
+            </div>
+            <h2 class="modal-title">Email Sent!</h2>
+            <p class="modal-message">We've sent a new verification email to your address. Please check your inbox.</p>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="closeResendModal">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!--  <script>
+        // ================================================
+        // 1. Dark Mode Toggle
+        // ================================================
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.getElementById('body');
+        
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        });
+
+        // ================================================
+        // 2. Sidebar Toggle
+        // ================================================
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const closeSidebar = document.getElementById('closeSidebar');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.add('open');
+            mobileOverlay.classList.add('active');
+        });
+        
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            mobileOverlay.classList.remove('active');
+        });
+        
+        mobileOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            mobileOverlay.classList.remove('active');
+        });
+
+        // ================================================
+        // 3. Get Email from URL or localStorage
+        // ================================================
+        const urlParams = new URLSearchParams(window.location.search);
+        const emailParam = urlParams.get('email');
+        const tokenParam = urlParams.get('token');
+        const userEmailElement = document.getElementById('userEmail');
+        
+        // Display user's email
+        if (emailParam) {
+            userEmailElement.textContent = emailParam;
+            localStorage.setItem('verificationEmail', emailParam);
+        } else if (localStorage.getItem('verificationEmail')) {
+            userEmailElement.textContent = localStorage.getItem('verificationEmail');
+        }
+
+        // ================================================
+        // 4. Auto-verify if token is present
+        // ================================================
+        if (tokenParam) {
+            verifyEmail(tokenParam);
+        }
+
+        function verifyEmail(token) {
+            const verificationStatus = document.getElementById('verificationStatus');
+            verificationStatus.classList.add('verifying');
+            
+            // Simulate API call to verify email
+            setTimeout(() => {
+                // Simulate successful verification
+                verificationStatus.classList.remove('verifying');
+                verificationStatus.classList.add('success');
+                verificationStatus.innerHTML = `
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Verified Successfully!</h3>
+                    <p>Your email has been verified. Redirecting to dashboard...</p>
+                `;
+                
+                // Show success modal
+                setTimeout(() => {
+                    document.getElementById('successModal').classList.add('active');
+                }, 1000);
+                
+                // In real implementation, this would be an actual API call:
+                /*
+                fetch('/api/verify-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ token: token })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        verificationStatus.classList.remove('verifying');
+                        verificationStatus.classList.add('success');
+                        verificationStatus.innerHTML = `
+                            <i class="fas fa-check-circle"></i>
+                            <h3>Verified Successfully!</h3>
+                            <p>Your email has been verified. Redirecting...</p>
+                        `;
+                        document.getElementById('successModal').classList.add('active');
+                    } else {
+                        verificationStatus.classList.remove('verifying');
+                        verificationStatus.classList.add('error');
+                        verificationStatus.innerHTML = `
+                            <i class="fas fa-times-circle"></i>
+                            <h3>Verification Failed</h3>
+                            <p>${data.message}</p>
+                        `;
+                        document.getElementById('errorModal').classList.add('active');
+                    }
+                })
+                .catch(error => {
+                    verificationStatus.classList.remove('verifying');
+                    verificationStatus.classList.add('error');
+                    document.getElementById('errorModal').classList.add('active');
+                });
+                */
+            }, 2000);
+        }
+
+        // ================================================
+        // 5. Open Email App Button
+        // ================================================
+        document.getElementById('openEmailBtn').addEventListener('click', () => {
+            // Try to open default email client
+            window.location.href = 'mailto:';
+        });
+
+        // ================================================
+        // 6. Resend Verification Email
+        // ================================================
+        document.getElementById('resendBtn').addEventListener('click', function() {
+            const email = userEmailElement.textContent;
+            
+            // Disable button temporarily
+            this.disabled = true;
+            this.textContent = 'Sending...';
+            
+            // Simulate API call
+            setTimeout(() => {
+                this.disabled = false;
+                this.textContent = 'Resend verification email';
+                
+                // Show resend success modal
+                document.getElementById('resendModal').classList.add('active');
+                
+                // In real implementation:
+                /*
+                fetch('/api/resend-verification', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: email })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('resendModal').classList.add('active');
+                    }
+                    this.disabled = false;
+                    this.textContent = 'Resend verification email';
+                })
+                .catch(error => {
+                    alert('Failed to resend email. Please try again.');
+                    this.disabled = false;
+                    this.textContent = 'Resend verification email';
+                });
+                */
+            }, 1500);
+        });
+
+        // ================================================
+        // 7. Modal Actions
+        // ================================================
+        document.getElementById('goToDashboard').addEventListener('click', () => {
+            // Redirect to dashboard
+            window.location.href = 'dashboard.html';
+        });
+
+        document.getElementById('closeErrorModal').addEventListener('click', () => {
+            document.getElementById('errorModal').classList.remove('active');
+        });
+
+        document.getElementById('closeResendModal').addEventListener('click', () => {
+            document.getElementById('resendModal').classList.remove('active');
+        });
+    </script>-->
+    <script src="verify-email.js"></script>
+</body>
+</html>

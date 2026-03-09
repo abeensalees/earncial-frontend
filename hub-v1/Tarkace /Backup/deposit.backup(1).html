@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fund Wallet | Earncial Advertiser</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+     <style>
+        /* ================= VARIABLES & THEME SETUP ================= */
+        :root {
+            --primary: #00aaff;
+            --primary-dark: #008ecc;
+            --primary-light: #e0f2fe;
+            --bg-body: #f8faff;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --sidebar-width: 260px;
+            --header-height: 70px;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+            --info: #3b82f6;
+        }
+
+        body.dark-mode {
+            --primary: #53d6ff;
+            --primary-dark: #00aaff;
+            --primary-light: #1e3a8a;
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            transition: background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ================= SIDEBAR ================= */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--bg-card);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar { 
+                transform: translateX(-100%); 
+                width: 280px; 
+            }
+            .sidebar.active { 
+                transform: translateX(0); 
+                box-shadow: 0 0 50px rgba(0,0,0,0.5); 
+            }
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            backdrop-filter: blur(3px);
+        }
+        
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .brand {
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .brand-logo {
+            width: 40px; height: 40px; background: var(--primary); color: white; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold;
+            margin-right: 12px; box-shadow: 0 0 10px rgba(0, 170, 255, 0.3);
+        }
+
+        .brand-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sidebar-menu::-webkit-scrollbar { width: 6px; }
+        .sidebar-menu::-webkit-scrollbar-track { background: transparent; }
+        .sidebar-menu::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+        .sidebar-menu::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        .menu-item {
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            color: var(--text-muted);
+            font-weight: 500;
+            border-left: 4px solid transparent;
+            margin-bottom: 2px;
+        }
+
+        .menu-item i { 
+            width: 25px; 
+            font-size: 18px; 
+            margin-right: 12px; 
+            text-align: center;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .sidebar-footer { 
+            padding: 20px; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: auto; 
+            flex-shrink: 0;
+        }
+
+        .logout-btn {
+            width: 100%; padding: 12px; background: rgba(239, 68, 68, 0.1); color: #ef4444; border: none;
+            border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center;
+            gap: 10px; transition: 0.2s;
+        }
+        .logout-btn:hover { background: #ef4444; color: white; }
+
+        /* ================= MAIN CONTENT ================= */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            width: calc(100% - var(--sidebar-width));
+            flex-grow: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content { margin-left: 0; width: 100%; }
+        }
+
+        .top-header {
+            height: var(--header-height);
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .menu-toggle { display: none; font-size: 24px; cursor: pointer; color: var(--text-main); }
+        @media (max-width: 768px) { .menu-toggle { display: block; } }
+
+        .header-right { display: flex; align-items: center; gap: 20px; }
+        
+        .notif-btn {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notif-btn i {
+            font-size: 22px;
+            color: var(--text-main);
+        }
+
+        .notif-badge {
+            position: absolute; 
+            top: -8px; 
+            right: -8px; 
+            background: #ef4444; 
+            color: white; 
+            border-radius: 50%; 
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px; 
+            font-weight: 600;
+            border: 2px solid var(--bg-card);
+            z-index: 100;
+        }
+
+        .eye-toggle {
+            background: var(--primary-light); 
+            border: none; 
+            color: var(--text-main);
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            cursor: pointer;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        .container {
+            padding: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ================= PAGE HEADER ================= */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .page-title i {
+            font-size: 28px;
+            color: var(--primary);
+            background: var(--primary-light);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-title h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .page-title p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* ================= DEPOSIT FORM CARD ================= */
+        .deposit-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-header i {
+            font-size: 28px;
+            color: var(--primary);
+            background: var(--primary-light);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-header h2 {
+            font-size: 20px;
+            color: var(--text-main);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group label i {
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: var(--bg-card);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            padding-right: 40px;
+        }
+
+        .quick-amounts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .quick-amount-btn {
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .quick-amount-btn:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .quick-amount-btn.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+
+        .info-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+
+        .info-box p {
+            font-size: 13px;
+            color: var(--text-main);
+            margin: 8px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .info-box i {
+            color: var(--primary);
+            margin-top: 2px;
+        }
+
+        .deposit-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 170, 255, 0.3);
+        }
+
+        .deposit-btn:hover:not(:disabled) {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 170, 255, 0.4);
+        }
+
+        .deposit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ================= DEPOSIT HISTORY TABLE (EXACTLY LIKE TASK MANAGER) ================= */
+        .history-container {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        .history-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .history-header i {
+            font-size: 24px;
+            color: var(--primary);
+            background: var(--primary-light);
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .history-header h2 {
+            font-size: 18px;
+            color: var(--text-main);
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .table-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        th, td {
+            padding: 18px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        tbody tr:hover {
+            background: var(--bg-body);
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .status-failed {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .payment-method-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .amount-success {
+            color: var(--success);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .amount-failed {
+            color: var(--danger);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-state i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: var(--border-color);
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+    .btn-resume:hover {
+    background: var(--primary-dark) !important;
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+        /* ================= FOOTER ================= */
+        .clean-footer {
+            text-align: center;
+            padding: 30px 20px; 
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            margin-top: 30px;
+            background-color: var(--bg-card); 
+            width: 100%;
+            flex-shrink: 0;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--text-muted);
+            transition: color 0.3s;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 18px;
+            transition: 0.3s;
+            flex-shrink: 0;
+        }
+        
+        .social-icon:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Toast Notification */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 15px 20px;
+            min-width: 300px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideInRight 0.3s ease;
+            border-left: 5px solid var(--primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .toast.success { border-left-color: #10b981; }
+        .toast.error { border-left-color: #ef4444; }
+        .toast.warning { border-left-color: #f59e0b; }
+
+        .toast-icon {
+            font-size: 20px;
+        }
+
+        .toast.success .toast-icon { color: #10b981; }
+        .toast.error .toast-icon { color: #ef4444; }
+        .toast.warning .toast-icon { color: #f59e0b; }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-content strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .toast-content p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+      /* ============ FILTER & ANIMATION STYLES ============ */
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUpBounce {
+    0% {
+        transform: translateY(100px) scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(-10px) scale(1.02);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Filter select styling */
+#userHistoryFilter {
+    transition: all 0.3s ease;
+}
+
+#userHistoryFilter:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+}
+
+/* Custom Scrollbar for Modal */
+.success-modal-overlay > div::-webkit-scrollbar {
+    width: 8px;
+}
+
+.success-modal-overlay > div::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.success-modal-overlay > div::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+}
+
+.success-modal-overlay > div::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/* Table row hover effect */
+tbody tr {
+    transition: all 0.3s ease;
+}
+
+tbody tr:hover {
+    background: rgba(var(--primary-rgb), 0.05);
+    transform: translateX(5px);
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+    .success-modal-overlay > div {
+        max-width: 95%;
+        padding: 20px;
+        max-height: 85vh;
+    }
+}
+    
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            .quick-amounts {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .quick-amounts {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-logo">₦</div>
+            <span class="brand-text">Earncial </span>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="advertiser-dashboard.html" class="menu-item"><i class="fas fa-th-large"></i> Dashboard</a></li>
+            <li><a href="advertiser-post-task.html" class="menu-item"><i class="fas fa-plus-circle"></i> Post Task</a></li>
+            <li><a href="advertiser-manage-tasks.html" class="menu-item"><i class="fas fa-tasks"></i> Manage Tasks</a></li>
+            <li><a href="advertiser-analytics.html" class="menu-item"><i class="fas fa-chart-line"></i> Analytics</a></li>
+            <li><a href="advertiser-wallet.html" class="menu-item active"><i class="fas fa-wallet"></i> Wallet</a></li>
+            <li><a href="advertiser-withdraw.html" class="menu-item"><i class="fas fa-money-bill-wave"></i> Withdraw</a></li>
+            <li><a href="advertiser-referrals.html" class="menu-item"><i class="fas fa-users"></i> Referrals</a></li>
+            <li><a href="advertiser-transactions.html" class="menu-item"><i class="fas fa-history"></i> Transactions</a></li>
+            <li><a href="advertiser-notifications.html" class="menu-item"><i class="fas fa-bell"></i> Notifications</a></li>
+            <li><a href="advertiser-support.html" class="menu-item"><i class="fas fa-headset"></i> Support</a></li>
+            <li><a href="advertiser-profile.html" class="menu-item"><i class="fas fa-user-cog"></i> Profile</a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-header">
+            <div class="menu-toggle" onclick="openSidebar()">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <h3 style="color: var(--primary); margin-left:15px; font-size:20px;">Earncial</h3>
+
+            <div class="header-right">
+                <div class="notif-btn" title="Notifications" onclick="window.location.href='advertiser-notifications.html'">
+                    <i class="far fa-bell"></i>
+                    <span class="notif-badge">2</span>
+                </div>
+                
+                <button class="eye-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+                     <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="page-header">
+                <div class="page-title">
+                    <i class="fas fa-wallet"></i>
+                    <div>
+                        <h1>Fund Wallet</h1>
+                        <p>Add funds to your advertiser wallet</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DEPOSIT FORM -->
+            <div class="deposit-card">
+                <div class="card-header">
+                    <i class="fas fa-credit-card"></i>
+                    <h2>Make Deposit</h2>
+                </div>
+
+                <form id="depositForm">
+                    <div class="form-group">
+                        <label><i class="fas fa-money-bill-wave"></i> Amount (₦)</label>
+                        <input type="number" id="depositAmount" placeholder="Enter amount" min="100" required>
+                        <div class="quick-amounts">
+                            <button type="button" class="quick-amount-btn" onclick="setAmount(1000)">₦1,000</button>
+                            <button type="button" class="quick-amount-btn" onclick="setAmount(5000)">₦5,000</button>
+                            <button type="button" class="quick-amount-btn" onclick="setAmount(10000)">₦10,000</button>
+                            <button type="button" class="quick-amount-btn" onclick="setAmount(20000)">₦20,000</button>
+                            <button type="button" class="quick-amount-btn" onclick="setAmount(50000)">₦50,000</button>                           
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-university"></i> Payment Method</label>
+                        <select id="paymentMethod" required>
+                            <option value="">-- Select Payment --</option>
+                            <option value="paystack">Paystack (Card, Bank Transfer, USSD)</option>
+                            <!--<option value="flutterwave">Flutterwave (Card, Bank Transfer)</option>
+                            <option value="monnify">Monnify (Bank Transfer)</option>-->
+                            <option value="bank_transfer">Manual Bank Transfer</option>
+                        </select>
+                    </div>
+
+                    <div class="info-box">
+                        <p><i class="fas fa-info-circle"></i> Minimum deposit: <span id="minimumDeposit">₦1000</span></p>
+                        <div id="feeInfo" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 2px solid var(--primary);"></div>
+                        <p><i class="fas fa-shield-alt"></i> All transactions are secure and encrypted</p>
+                        <p><i class="fas fa-clock"></i> Funds reflect instantly for paystack payments</p>
+                        <p><i class="fas fa-clock"></i> Bank transfers may take 5-15 minutes</p>
+                    </div>
+
+                    <button type="submit" class="deposit-btn">
+                        <i class="fas fa-check-circle"></i> Proceed to Payment
+                    </button>
+                </form>
+            </div>
+            
+     <!-- DEPOSIT HISTORY TABLE -->
+            <div class="history-container">
+                <div class="history-header">
+                    <i class="fas fa-history"></i>
+                    <h2>Recent Deposits</h2>
+                </div>
+<div style="padding: 15px 30px; background: var(--bg-body); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: flex-end; gap: 10px;">
+    <label style="font-size: 13px; font-weight: 600; color: var(--text-muted);">Filter Status:</label>
+    <select id="userHistoryFilter" onchange="filterUserHistory()" style="padding: 8px 15px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main); font-size: 13px; cursor: pointer; outline: none;">
+        <option value="all">All Deposits</option>
+        <option value="success">Successful</option>
+        <option value="pending">Pending</option>
+        <option value="failed">Failed</option>
+    </select>
+</div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>Transaction ID</th>
+                                <th>Amount</th>
+                                <th>Payment Method</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="depositsTableBody">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <footer class="clean-footer">
+                <div class="footer-links">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Use</a>
+                    <a href="support.html">Support</a>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://facebook.com/earncial" target="_blank" class="social-icon" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/earncial" target="_blank" class="social-icon" title="Twitter/X">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com/earncial" target="_blank" class="social-icon" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://linkedin.com/company/earncial" target="_blank" class="social-icon" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://t.me/earncial" target="_blank" class="social-icon" title="Telegram">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                    <a href="https://whatsapp.com/channel/earncial" target="_blank" class="social-icon" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+                
+                <p style="margin-top: 10px; font-size: 14px;">&copy; 2025 Earncial. All rights reserved.</p>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 5px;">Secure payments powered by trusted providers</p>
+            </footer>
+        </div>
+    </main>
+
+    <div class="toast-container" id="toastContainer"></div>
+    
+    <script src="deposit.js"></script>
+</body>
+</html>

@@ -1,0 +1,1903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Task | Earncial Advertiser</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        /* ================= VARIABLES & THEME SETUP ================= */
+        :root {
+            /* Light Mode - EXACTLY LIKE DASHBOARD */
+            --primary: #00aaff;
+            --primary-dark: #008ecc;
+            --primary-light: #e0f2fe;
+            --bg-body: #f8faff;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --sidebar-width: 260px;
+            --header-height: 70px;
+            --nav-height: 70px;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+        }
+
+        /* Dark Mode Override - EXACTLY LIKE DASHBOARD */
+        body.dark-mode {
+            --primary: #53d6ff;
+            --primary-dark: #00aaff;
+            --primary-light: #1e3a8a;
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            transition: background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            padding-bottom: var(--nav-height);
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ================= SIDEBAR - EXACT DASHBOARD STYLE ================= */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--bg-card);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+        
+        /* Mobile: Hidden by default */
+        @media (max-width: 768px) {
+            .sidebar { 
+                transform: translateX(-100%); 
+                width: 280px; 
+            }
+            .sidebar.active { 
+                transform: translateX(0); 
+                box-shadow: 0 0 50px rgba(0,0,0,0.5); 
+            }
+        }
+
+        /* Sidebar Overlay */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            backdrop-filter: blur(3px);
+        }
+        
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .brand {
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .brand-logo {
+            width: 45px;
+            height: 45px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .brand-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sidebar-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar-menu::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar-menu::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 3px;
+        }
+
+        .sidebar-menu::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        .menu-item {
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            color: var(--text-muted);
+            font-weight: 500;
+            border-left: 4px solid transparent;
+            margin-bottom: 2px;
+            white-space: nowrap;
+        }
+
+        .menu-item i { 
+            width: 25px; 
+            font-size: 18px; 
+            margin-right: 12px; 
+            text-align: center;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .sidebar-footer { 
+            padding: 20px; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: auto; 
+            flex-shrink: 0;
+        }
+
+        .logout-btn {
+            width: 100%; padding: 12px; background: rgba(239, 68, 68, 0.1); color: #ef4444; border: none;
+            border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center;
+            gap: 10px; transition: 0.2s;
+        }
+        .logout-btn:hover { background: #ef4444; color: white; }
+
+        /* ================= MAIN CONTENT ================= */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            width: calc(100% - var(--sidebar-width));
+            flex-grow: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content { margin-left: 0; width: 100%; }
+        }
+
+        /* Top Header */
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .header-logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-brand-text {
+            font-size: 23px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .top-header {
+            height: var(--header-height);
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .menu-toggle { display: none; font-size: 24px; cursor: pointer; color: var(--text-main); }
+        @media (max-width: 768px) { .menu-toggle { display: block; } }
+
+        .header-right { 
+            display: flex; 
+            align-items: center; 
+            gap: 20px; 
+        }
+        
+        /* Notification Icon - EXACTLY LIKE DASHBOARD */
+        .notif-btn {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notif-btn i {
+            font-size: 22px;
+            color: var(--text-main);
+        }
+
+        .notif-badge {
+            position: absolute; 
+            top: -8px; 
+            right: -8px; 
+            background: #ef4444; 
+            color: white; 
+            border-radius: 50%; 
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px; 
+            font-weight: 600;
+            border: 2px solid var(--bg-card);
+            z-index: 100;
+        }
+
+        /* Dark Mode Toggle - EXACTLY LIKE DASHBOARD */
+        .eye-toggle {
+            background: var(--primary-light); 
+            border: none; 
+            color: var(--text-main);
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            cursor: pointer;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        /* Container */
+        .container {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ================= PAGE HEADER ================= */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .page-title i {
+            font-size: 28px;
+            color: var(--primary);
+            background: var(--primary-light);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-title h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .page-title p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* Wallet Balance */
+        /* ===== WALLET CARD ===== */
+        .wallet-balance {
+            background: linear-gradient(135deg, #0066cc, #00aaff);
+            border-radius: var(--radius);
+            padding: 20px 22px;
+            box-shadow: 0 8px 24px rgba(0, 170, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .wallet-balance {
+            box-shadow: 0 8px 24px rgba(0, 102, 204, 0.4);
+        }
+
+        /* Decorative glow circles */
+        .wallet-balance::before {
+            content: '';
+            position: absolute;
+            top: -20px; right: -20px;
+            width: 100px; height: 100px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .wallet-balance::after {
+            content: '';
+            position: absolute;
+            bottom: -30px; right: 40px;
+            width: 80px; height: 80px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .wallet-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.18);
+            backdrop-filter: blur(6px);
+            color: white;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+            border: 1px solid rgba(255,255,255,0.25);
+        }
+
+        .wallet-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .wallet-info h4 {
+            font-size: 11px;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .wallet-amount {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .fund-wallet-btn {
+            background: rgba(255,255,255,0.18);
+            color: white;
+            border: 1.5px solid rgba(255,255,255,0.35);
+            padding: 9px 16px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            transition: 0.25s;
+            white-space: nowrap;
+            flex-shrink: 0;
+            font-family: 'Poppins', sans-serif;
+            backdrop-filter: blur(4px);
+        }
+
+        .fund-wallet-btn:hover {
+            background: rgba(255,255,255,0.28);
+            border-color: rgba(255,255,255,0.55);
+            transform: translateY(-1px);
+        }
+        /* ===== NOTIFICATION TOGGLE BUTTON (on wallet card) ===== */
+        .wallet-notif-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .notif-toggle-btn {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 13px;
+            border-radius: 20px;
+            border: 1.5px solid rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.12);
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: 0.25s;
+            backdrop-filter: blur(4px);
+        }
+
+        .notif-toggle-btn:hover {
+            background: rgba(255,255,255,0.22);
+        }
+
+        .notif-toggle-btn.enabled {
+            background: rgba(16,185,129,0.25);
+            border-color: rgba(16,185,129,0.6);
+        }
+
+        .notif-toggle-btn.disabled-state {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.2);
+            opacity: 0.75;
+        }
+
+        .notif-toggle-btn i.bell-icon { font-size: 13px; }
+
+        .notif-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #10b981;
+            flex-shrink: 0;
+            box-shadow: 0 0 6px rgba(16,185,129,0.8);
+            animation: blink 1.8s infinite;
+        }
+
+        .notif-dot.off {
+            background: rgba(255,255,255,0.35);
+            box-shadow: none;
+            animation: none;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.3; }
+        }
+
+        /* Info icon tooltip */
+        .notif-info-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .notif-info-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.18);
+            border: 1.5px solid rgba(255,255,255,0.3);
+            color: rgba(255,255,255,0.85);
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .notif-info-btn:hover { background: rgba(255,255,255,0.3); }
+
+        .notif-tooltip {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 230px;
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        .notif-tooltip.show { display: block; }
+
+        /* Arrow */
+        .notif-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: var(--bg-card);
+        }
+
+        .notif-tooltip-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .notif-tooltip-title i { color: var(--primary); }
+
+        .notif-tooltip ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .notif-tooltip ul li {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            line-height: 1.5;
+        }
+
+        .notif-tooltip ul li i {
+            color: var(--success);
+            font-size: 10px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+
+    /* ================= SAMPLE IMAGE UPLOAD STYLING ================= */
+
+/* Optional Badge */
+.optional-badge {
+    background: var(--primary-light);
+    color: var(--primary);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+/* File Input Styling */
+#sampleImage {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: 2px dashed var(--border-color);
+    border-radius: 10px;
+    background: var(--bg-body);
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+#sampleImage:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+}
+
+#sampleImage:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.1);
+}
+
+/* Image Preview Container */
+#imagePreviewContainer {
+    background: var(--bg-body);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.image-preview-wrapper {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+}
+
+#imagePreview {
+    display: block;
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+/* Remove Image Button */
+.btn-remove-image {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: 0.3s;
+    backdrop-filter: blur(5px);
+}
+
+.btn-remove-image:hover {
+    background: #dc2626;
+    transform: scale(1.05);
+}
+
+/* Image Info */
+.image-info {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+    padding: 10px;
+    background: var(--bg-card);
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
+
+.image-info small {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.image-info i {
+    color: var(--primary);
+}
+
+/* ================= IMPORTANT NOTES BOX ================= */
+/* ===== GUIDELINES ACCORDION ===== */
+.important-notes-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    margin-bottom: 25px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.notes-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+    border-bottom: 1px solid transparent;
+}
+
+.notes-header:hover {
+    background: var(--bg-body);
+}
+
+.notes-header.open {
+    border-bottom-color: var(--border-color);
+}
+
+.notes-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.notes-icon {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.notes-header h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-main);
+    margin: 0;
+}
+
+.notes-header h4 span {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 400;
+    display: block;
+    margin-top: 2px;
+}
+
+.notes-chevron {
+    color: var(--text-muted);
+    font-size: 13px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+.notes-header.open .notes-chevron {
+    transform: rotate(180deg);
+}
+
+.notes-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+}
+
+.notes-content.open {
+    max-height: 800px;
+}
+
+.notes-inner {
+    padding: 8px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.note-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 11px 14px;
+    background: var(--bg-body);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    transition: border-color 0.2s;
+}
+
+.note-item:hover {
+    border-color: var(--warning);
+}
+
+.note-item i {
+    color: var(--warning);
+    font-size: 15px;
+    margin-top: 2px;
+    flex-shrink: 0;
+    width: 18px;
+    text-align: center;
+}
+
+.note-item p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 12.5px;
+    line-height: 1.65;
+}
+
+.note-item strong {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.note-highlight {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+/* toggle button no longer needed */
+.notes-toggle { display: none !important; }
+    
+    
+    
+    
+    
+    
+        /* ================= TASK FORM CONTAINER ================= */
+        .task-form-container {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.1);
+        }
+
+        /* READ-ONLY FIELDS */
+        .read-only {
+            background-color: rgba(100, 116, 139, 0.05) !important;
+            color: var(--text-muted) !important;
+            cursor: not-allowed !important;
+        }
+
+        .form-group input.read-only:focus,
+        .form-group textarea.read-only:focus {
+            border-color: var(--border-color);
+            box-shadow: none;
+        }
+
+        /* Custom Description Option */
+        .custom-desc-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 10px;
+            padding: 10px;
+            background: var(--bg-body);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .custom-desc-option input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .custom-desc-option label {
+            font-weight: normal;
+            color: var(--text-muted);
+            cursor: pointer;
+            margin: 0;
+        }
+
+        /* Two Column Layout */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Budget Calculator */
+        .budget-calculator {
+            background: var(--bg-body);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .calc-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .calc-row:last-child {
+            border-bottom: none;
+        }
+
+        .calc-label {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .calc-value {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .calc-total {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .calc-total h4 {
+            font-size: 14px;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .total-amount {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        /* ================= PROFESSIONAL SUBMIT BUTTON ================= */
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 170, 255, 0.3);
+        }
+
+        .submit-btn:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        /* Button Loading Animation */
+        .btn-text {
+            transition: opacity 0.3s;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+            position: absolute;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .submit-btn.loading .btn-text {
+            opacity: 0;
+        }
+
+        .submit-btn.loading .loading-spinner {
+            display: block;
+        }
+     
+  /* ================= SUCCESS MODAL ================= */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(3px);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .success-modal {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            animation: slideUp 0.5s;
+            border-top: 5px solid var(--success);
+            border-bottom: 5px solid var(--success);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--success);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 20px;
+            animation: bounce 0.5s;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .success-modal h3 {
+            color: var(--success);
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .success-modal p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .task-id {
+            background: var(--bg-body);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 15px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        .modal-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ================= POSTED TASKS TABLE ================= */
+        .posted-tasks-container {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table-header h3 {
+            font-size: 20px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        /* ICONS IN TABLE */
+        .task-icon-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .platform-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .task-type-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--warning);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-review {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .status-active {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-completed {
+            background: rgba(100, 116, 139, 0.1);
+            color: var(--text-muted);
+        }
+
+        .empty-table {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
+
+        .empty-table i {
+            font-size: 50px;
+            margin-bottom: 15px;
+            color: var(--border-color);
+        }
+
+        /* ================= TOAST NOTIFICATION ================= */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 15px 20px;
+            min-width: 300px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideInRight 0.3s ease;
+            border-left: 5px solid var(--primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .toast.success { border-left-color: #10b981; }
+        .toast.error { border-left-color: #ef4444; }
+        .toast.info { border-left-color: var(--primary); }
+        .toast.warning { border-left-color: #f59e0b; }
+
+        .toast-icon {
+            font-size: 20px;
+        }
+
+        .toast.success .toast-icon { color: #10b981; }
+        .toast.error .toast-icon { color: #ef4444; }
+        .toast.info .toast-icon { color: var(--primary); }
+        .toast.warning .toast-icon { color: #f59e0b; }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-content strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .toast-content p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .toast-close:hover {
+            background: rgba(0,0,0,0.1);
+            color: var(--text-main);
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* ================= FOOTER ================= */
+        /* ===== BOTTOM NAV ===== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+            padding: 0 20px;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 10px;
+            transition: 0.3s;
+            flex: 1;
+            max-width: 80px;
+            text-decoration: none;
+        }
+
+        .nav-item i { font-size: 20px; }
+        .nav-item span { font-size: 11px; font-weight: 500; }
+
+        .nav-item.active, .nav-item:hover {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .wallet-balance {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .task-form-container {
+                padding: 20px;
+            }
+            
+            .posted-tasks-container {
+                padding: 20px;
+            }
+            
+            /* footer removed */
+        }
+
+        @media (max-width: 480px) {
+            .success-modal {
+                padding: 25px;
+            }
+            
+            .social-links {
+                gap: 10px;
+            }
+            
+            .social-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+            
+            .toast {
+                min-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- OVERLAY for mobile sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-logo">
+                <img src="logo.png" alt="Earncial Logo">
+            </div>
+            <span class="brand-text">Earncial</span>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="advertiser-dashboard.html" class="menu-item"><i class="fas fa-th-large"></i> Dashboard</a></li>
+            <li><a href="advertiser-post-task.html" class="menu-item active"><i class="fas fa-plus-circle"></i> Post Task</a></li>
+            <li><a href="advertiser-tasks.html" class="menu-item"><i class="fas fa-tasks"></i> My Tasks</a></li>
+            <li><a href="advertiser-analytics.html" class="menu-item"><i class="fas fa-chart-line"></i> Analytics</a></li>
+            <li><a href="advertiser-wallet.html" class="menu-item"><i class="fas fa-wallet"></i> Wallet</a></li>
+            <li><a href="advertiser-withdraw.html" class="menu-item"><i class="fas fa-money-bill-wave"></i> Withdraw</a></li>
+            <li><a href="advertiser-referrals.html" class="menu-item"><i class="fas fa-users"></i> Referrals</a></li>
+            <li><a href="advertiser-transactions.html" class="menu-item"><i class="fas fa-history"></i> Transactions</a></li>
+            <li><a href="advertiser-notifications.html" class="menu-item"><i class="fas fa-bell"></i> Notifications</a></li>
+            <li><a href="advertiser-support.html" class="menu-item"><i class="fas fa-headset"></i> Support</a></li>
+            <li><a href="advertiser-profile.html" class="menu-item"><i class="fas fa-user-cog"></i> Profile</a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <button class="logout-btn" onclick="document.getElementById('logoutModal').classList.add('active')">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- HEADER -->
+        <header class="top-header">
+            <div class="menu-toggle" onclick="openSidebar()">
+                <i class="fas fa-bars-staggered"></i>
+            </div>
+            
+            <div class="header-logo">
+                <div class="header-logo-img">
+                    <img src="logo.png" alt="Earncial">
+                </div>
+                <span class="header-brand-text">Earncial</span>
+            </div>
+
+            <div class="header-right">
+                <!-- Notification (EXACTLY LIKE DASHBOARD) -->
+                <div class="notif-btn" title="Notifications" onclick="window.location.href='advertiser-notifications.html'">
+                    <i class="far fa-bell"></i>
+                    <span class="notif-badge">2</span>
+                </div>
+                
+                <!-- Dark Mode Toggle (EXACTLY LIKE DASHBOARD) -->
+                <button class="eye-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+                     <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="container">
+            <!-- PAGE HEADER -->
+            <div class="page-header">
+                <div class="page-title">
+                    <i class="fas fa-plus-circle"></i>
+                    <div>
+                        <h1>Post New Task</h1>
+                        <p>Create campaigns to reach thousands of active users</p>
+                    </div>
+                </div>
+                
+                <!-- WALLET BALANCE -->
+                <div class="wallet-balance">
+                    <div class="wallet-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="wallet-info">
+                        <h4>Advertiser Wallet</h4>
+                        <div class="wallet-amount"><span id="walletAmount">0</span></div>
+                        <!-- Notification toggle row -->
+                        <div class="wallet-notif-row">
+                            <button class="notif-toggle-btn disabled-state" id="notifToggleBtn" onclick="toggleNotifications()">
+                                <i class="fas fa-bell bell-icon"></i>
+                                <span id="notifToggleText">Enable Alerts</span>
+                                <span class="notif-dot off" id="notifDot"></span>
+                            </button>
+                            <div class="notif-info-wrap">
+                                <button class="notif-info-btn" id="notifInfoBtn"
+                                    onmouseenter="showNotifTooltip()"
+                                    onmouseleave="hideNotifTooltip()"
+                                    ontouchstart="showNotifTooltip()"
+                                    aria-label="Notification benefits">
+                                    <i class="fas fa-info"></i>
+                                </button>
+                                                  <div class="notif-tooltip" id="notifTooltip">
+                                    <div class="notif-tooltip-title">
+                                        <i class="fas fa-bell"></i> Why enable alerts?
+                                    </div>
+                                    <ul>
+                                        <li><i class="fas fa-check-circle"></i> Get notified when your task goes live</li>
+                                        <li><i class="fas fa-check-circle"></i> Alert when balance is running low</li>
+                                        <li><i class="fas fa-check-circle"></i> Know when a submission needs review</li>
+                                        <li><i class="fas fa-check-circle"></i> Task completion milestone updates</li>
+                                    </ul>
+                                </div>
+</div>
+                        </div>
+                    </div>
+                    
+
+                    <a href="deposit.html"><button class="fund-wallet-btn">
+                        <i class="fas fa-plus"></i> Fund 
+                    </button></a>
+                </div>
+            </div>
+
+
+
+                    <!-- ================= IMPORTANT NOTES BOX ================= -->
+<div class="important-notes-box">
+    <div class="notes-header" id="notesHeader" onclick="toggleNotes()" aria-expanded="false">
+        <div class="notes-header-left">
+            <div class="notes-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h4>Important Guidelines
+                <span>Click to expand — read before posting</span>
+            </h4>
+        </div>
+        <i class="fas fa-chevron-down notes-chevron" id="notesChevron"></i>
+    </div>
+    <div class="notes-content" id="notesContent">
+        <div class="notes-inner">
+            <div class="note-item">
+                <i class="fas fa-camera"></i>
+                <p><strong>Screenshot Verification:</strong> All completions require a screenshot as proof. Without it, submissions are <span class="note-highlight">automatically rejected</span>.</p>
+            </div>
+            <div class="note-item">
+                <i class="fas fa-lock-open"></i>
+                <p><strong>Account Must Be Public:</strong> Private accounts result in <span class="note-highlight">zero completions</span> as earners cannot access your content.</p>
+            </div>
+            <div class="note-item">
+                <i class="fas fa-chart-line"></i>
+                <p><strong>Completion Rate:</strong> Expect <span class="note-highlight">85–95%</span> completion — some earners may be blocked or reach daily limits.</p>
+            </div>
+            <div class="note-item">
+                <i class="fas fa-clock"></i>
+                <p><strong>Review Process:</strong> Tasks go live within <span class="note-highlight">1 to 2 hours</span> after team review. Illegal or policy-violating tasks are rejected with full refund.</p>
+            </div>
+            <div class="note-item">
+                <i class="fas fa-image"></i>
+                <p><strong>Sample Image:</strong> Adding a screenshot increases completion rate by up to <span class="note-highlight">30%</span>. Show earners exactly what to do.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- TASK FORM -->
+            <div class="task-form-container">
+                <form id="taskForm">
+                    <!-- Platform Selection -->
+                    <div class="form-group">
+                        <label><i class="fas fa-globe"></i> Platform</label>
+                        <select id="platform" required>
+                            <option value="">-- Select Platform --</option>
+                        </select>
+                    </div>
+
+                    <!-- Task Type Selection -->
+                    <div class="form-group">
+                        <label><i class="fas fa-tasks"></i> Task Type</label>
+                        <select id="taskType" required disabled onchange="updateTaskDetails()">
+                            <option value="">-- Select Platform First --</option>
+                        </select>
+                    </div>
+
+                    <!-- Reward (read-only) -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-coins"></i> Reward per Task (₦)</label>
+                            <input type="number" id="reward" class="read-only" readonly placeholder="Auto-filled">
+                        </div>
+                    </div>
+
+                    <!-- Task URL -->
+                    <div class="form-group">
+                        <label><i class="fas fa-link"></i> Task URL</label>
+                        <input type="url" id="taskUrl" placeholder="https://instagram.com/your_profile" required>
+                    </div>
+
+                    <!-- Participants -->
+                    <div class="form-group">
+                        <label><i class="fas fa-users"></i> Number of Participants</label>
+                        <input type="number" id="participants" placeholder="e.g. 50" min="10" required>
+                    </div>
+
+                    <!-- Custom Description -->
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-align-left"></i> Custom Description
+                            <span style="background:var(--primary-light);color:var(--primary);padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;margin-left:4px;">Optional</span>
+                        </label>
+                        <textarea id="customDescription" rows="4" placeholder="Add specific instructions for earners (optional)..."></textarea>
+                        <p style="font-size:11px;color:var(--text-muted);margin-top:5px;display:flex;align-items:center;gap:5px;"><i class="fas fa-lightbulb" style="color:var(--warning);"></i> Clear instructions increase completion rate by up to 30%</p>
+                    </div>
+                    <!-- Hidden compat fields -->
+                    <input type="hidden" id="description" value="">
+                    <input type="hidden" id="customDescToggle" checked>
+                    <div id="customDescGroup" style="display:none;"></div>
+
+                    <!-- Sample Image Upload -->
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-image"></i> Sample Image
+                            <span style="background:var(--primary-light);color:var(--primary);padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;margin-left:4px;">Optional</span>
+                        </label>
+                        <input type="file" id="sampleImage" accept="image/jpeg,image/jpg,image/png,image/gif,image/webp">
+                        <div id="imagePreviewContainer" style="display:none; margin-top:15px;">
+                            <div class="image-preview-wrapper">
+                                <img id="imagePreview" alt="Preview" style="max-width:100%; max-height:300px; border-radius:8px;">
+                                <button type="button" id="removeImageBtn" class="btn-remove-image">
+                                    <i class="fas fa-times"></i> Remove
+                                </button>
+                            </div>
+                            <div class="image-info">
+                                <small><i class="fas fa-file-image"></i> <span id="imageFileName"></span></small>
+                                <small><i class="fas fa-weight"></i> <span id="imageFileSize"></span></small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Budget Calculator -->
+                    <div class="budget-calculator">
+                        <div class="calc-row">
+                            <div class="calc-label">Participants</div>
+                            <div class="calc-value" id="calcParticipants">0</div>
+                        </div>
+                        <div class="calc-row">
+                            <div class="calc-label">Reward per Task</div>
+                            <div class="calc-value">₦<span id="calcReward">0</span></div>
+                        </div>
+                        
+                        <div class="calc-total">
+                            <h4>TOTAL BUDGET REQUIRED</h4>
+                            <div class="total-amount">₦<span id="totalBudget">0</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span class="btn-text"><i class="fas fa-paper-plane"></i> Post Task</span>
+                        <div class="loading-spinner"></div>
+                    </button>
+                </form>
+            </div>
+
+            <!-- POSTED TASKS TABLE -->
+            <div class="posted-tasks-container">
+                <div class="table-header">
+                    <h3><i class="fas fa-list"></i> Recently Posted Tasks</h3>
+                    <button class="fund-wallet-btn" onclick="refreshTasks()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                
+                <div class="table-container">
+                    <table id="tasksTable">
+                        <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>ID</th>
+                                <th>Platform</th>
+                                <th>Task Type</th>
+                                <th>Participants</th>
+                                <th>Budget</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tasksTableBody">
+                            <!-- Tasks will be loaded here -->
+                            <tr>
+                                <td colspan="8" class="empty-table">
+                                    <i class="fas fa-tasks"></i>
+                                    <p>No tasks posted yet</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </main>
+
+    <!-- SUCCESS MODAL -->
+    <div class="modal-overlay" id="successModal">
+        <div class="success-modal">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h3>Task Posted Successfully!</h3>
+            <p>Your task has been submitted and is now under review by our team. It will be available to earners once approved.</p>
+            <div class="task-id" id="modalTaskId"><span id="taskIdNumber"></span></div>
+            <p style="font-size: 14px;">You can track the status and managing your task in <a href="manager-tasks.html" style="color:#00aaff;"><b>"Manage Tasks"</b></a> section.</p>
+            <button class="modal-btn" onclick="closeModal()">Continue</button>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+        <a href="advertiser-dashboard.html" class="nav-item">
+            <i class="fas fa-home"></i><span>Home</span>
+        </a>
+        <a href="new-task.html" class="nav-item active">
+            <i class="fas fa-plus-circle"></i><span>New </span>
+        </a>
+        <a href="manage-tasks.html" class="nav-item">
+            <i class="fas fa-tasks"></i><span>Tasks</span>
+        </a>
+        <a href="deposit.html" class="nav-item">
+            <i class="fas fa-wallet"></i><span>Deposit</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <i class="fas fa-user"></i><span>Profile</span>
+        </a>
+    </nav>
+
+    <!-- LOGOUT MODAL -->
+    <div class="modal-overlay" id="logoutModal">
+        <div style="background:var(--bg-card);border-radius:20px;padding:30px;max-width:400px;width:90%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow);border:1px solid var(--border-color);text-align:center;animation:slideUp .3s;">
+            <div style="font-size:52px;margin-bottom:15px;color:var(--danger);"><i class="fas fa-sign-out-alt"></i></div>
+            <h3 style="color:var(--danger);font-size:20px;font-weight:700;margin-bottom:10px;">Confirm Logout</h3>
+            <p style="color:var(--text-muted);font-size:14px;margin-bottom:25px;line-height:1.6;">Are you sure you want to logout?</p>
+            <div style="display:flex;gap:12px;">
+                <button onclick="document.getElementById('logoutModal').classList.remove('active')" style="flex:1;padding:12px;border-radius:10px;border:none;font-weight:600;font-size:14px;cursor:pointer;font-family:'Poppins',sans-serif;background:var(--border-color);color:var(--text-main);">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button onclick="localStorage.clear();window.location.href='sign-in.html'" style="flex:1;padding:12px;border-radius:10px;border:none;font-weight:600;font-size:14px;cursor:pointer;font-family:'Poppins',sans-serif;background:var(--danger);color:white;">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="new-task.js"></script>
+
+    <script>
+    // ===== NOTIFICATION TOGGLE =====
+    let notifEnabled = localStorage.getItem('earncial_notif') === 'true';
+
+    function applyNotifState() {
+        const btn  = document.getElementById('notifToggleBtn');
+        const text = document.getElementById('notifToggleText');
+        const dot  = document.getElementById('notifDot');
+        if (!btn) return;
+        if (notifEnabled) {
+            btn.classList.add('enabled');
+            btn.classList.remove('disabled-state');
+            btn.querySelector('.bell-icon').className = 'fas fa-bell bell-icon';
+            text.textContent = 'Alerts On';
+            dot.classList.remove('off');
+        } else {
+            btn.classList.remove('enabled');
+            btn.classList.add('disabled-state');
+            btn.querySelector('.bell-icon').className = 'fas fa-bell-slash bell-icon';
+            text.textContent = 'Enable Alerts';
+            dot.classList.add('off');
+        }
+    }
+
+    function toggleNotifications() {
+        if (!notifEnabled) {
+            if ('Notification' in window) {
+                Notification.requestPermission().then(perm => {
+                    notifEnabled = perm === 'granted';
+                    localStorage.setItem('earncial_notif', notifEnabled);
+                    applyNotifState();
+                    if (notifEnabled) {
+                        showToast('Notifications enabled! You will receive task updates.', 'success');
+                    } else {
+                        showToast('Permission denied. Enable notifications in browser settings.', 'warning');
+                    }
+                });
+            } else {
+                showToast('Your browser does not support notifications.', 'warning');
+            }
+        } else {
+            notifEnabled = false;
+            localStorage.setItem('earncial_notif', 'false');
+            applyNotifState();
+            showToast('Notifications disabled.', 'info');
+        }
+    }
+
+    function showNotifTooltip() {
+        document.getElementById('notifTooltip')?.classList.add('show');
+    }
+    function hideNotifTooltip() {
+        document.getElementById('notifTooltip')?.classList.remove('show');
+    }
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.notif-info-wrap')) hideNotifTooltip();
+    });
+    document.addEventListener('DOMContentLoaded', applyNotifState);
+    </script>
+
+</body>
+</html>

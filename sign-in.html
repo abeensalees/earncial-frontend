@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | Earncial — Access Your Earning Dashboard</title>
+    <meta name="description" content="Sign in to your Earncial account to access your dashboard, complete tasks, and withdraw your earnings. Advertisers can also manage campaigns here.">
+    <meta name="keywords" content="Earncial login, sign in Earncial, earn money online Nigeria login, Earncial dashboard">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://earncial.com/sign-in.html">
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Sign In | Earncial — Access Your Earning Dashboard">
+    <meta property="og:description" content="Sign in to your Earncial account and continue earning. Complete tasks, track progress, and withdraw your earnings anytime.">
+    <meta property="og:url" content="https://earncial.com/sign-in.html">
+    <meta property="og:site_name" content="Earncial">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Sign In | Earncial — Access Your Earning Dashboard">
+    <meta name="twitter:description" content="Sign in to your Earncial account and continue earning online.">
+    <meta name="twitter:site" content="@earncial">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {"@type":"ListItem","position":1,"name":"Home","item":"https://earncial.com"},
+            {"@type":"ListItem","position":2,"name":"Sign In","item":"https://earncial.com/sign-in.html"}
+          ]
+        },
+        {
+          "@type": "WebPage",
+          "name": "Sign In — Earncial",
+          "url": "https://earncial.com/sign-in.html",
+          "description": "Sign in to your Earncial account to access tasks, earnings, and your dashboard.",
+          "datePublished": "2025-08-10",
+          "dateModified": "2025-08-10"
+        }
+      ]
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/sign-in.css">
+</head>
+<body id="body">
+    <!-- Header -->
+    <header class="header">
+        <a href="index.html" class="logo">
+           <div class="logo-image" id="logoWrap">
+    <img src="logo.png" alt="Earncial Logo" onerror="this.parentElement.style.background='#00aaff';this.parentElement.innerHTML='<span style=color:white;font-weight:700;font-size:20px>E</span>';">
+</div>
+            <span>Earncial</span>
+        </a>
+        
+        <div class="nav-right">
+            <button class="theme-toggle" id="darkModeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+   <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <div class="logo-image" style="width:36px;height:36px;margin-right:10px;">
+                <img src="logo.png" alt="Earncial" onerror="this.parentElement.style.background='#00aaff';this.parentElement.innerHTML='<span style=color:white;font-weight:700>E</span>';">
+            </div>
+            <span style="font-weight:700;color:var(--primary-blue);font-size:16px;">Earncial</span>
+        </div>
+        <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
+    </div>
+    
+    <div class="sidebar-menu">
+        <div class="sb-group">Get Started</div>
+        <a href="sign-up.html" class="menu-item"><i class="fas fa-user-plus"></i> Create Account</a>
+        <a href="sign-in.html" class="menu-item active"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+        
+        <hr class="sidebar-divider">
+        <div class="sb-group">Platform</div>
+        <a href="index.html" class="menu-item"><i class="fas fa-home"></i> Home</a>
+        <a href="how-it-works.html" class="menu-item"><i class="fas fa-cogs"></i> How It Works</a>
+        <a href="about.html" class="menu-item"><i class="fas fa-info-circle"></i> About Us</a>
+        <a href="faq.html" class="menu-item"><i class="fas fa-question-circle"></i> FAQ</a>
+        <a href="tutorials.html" class="menu-item"><i class="fas fa-play-circle"></i> Tutorials</a>
+        <a href="support.html" class="menu-item"><i class="fas fa-headset"></i> Support</a>
+        
+        <hr class="sidebar-divider">
+        <div class="sb-group">Legal</div>
+        <a href="privacy.html" class="menu-item"><i class="fas fa-lock"></i> Privacy Policy</a>
+        <a href="terms.html" class="menu-item"><i class="fas fa-file-alt"></i> Terms of Service</a>
+        <a href="cookies.html" class="menu-item"><i class="fas fa-cookie-bite"></i> Cookie Policy</a>
+    </div>
+    
+    <div class="sidebar-auth">
+         <a href="sign-up.html" class="sidebar-btn sidebar-btn-primary"><i class="fas fa-user-plus"></i> Create Account</a>
+        <a href="sign-in.html" class="sidebar-btn sidebar-btn-outline"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+    </div>
+</div>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="login-container">
+            <div class="login-card">               
+               <div class="login-header">
+                    <h1 class="login-title">Welcome Back!</h1>
+                    <p class="login-subtitle">Your Dashboard Is Waiting — Sign In to Continue.</p>
+                </div>
+                
+                <!-- Login Note (Red Color) --
+                <div class="login-note">
+                    <i class="fas fa-exclamation-circle login-note-icon"></i>
+                    <div class="login-note-text">
+                        You can sign-in with email and password only, not username.
+                    </div>
+                </div>-->
+                
+                <form id="loginForm">
+                    <!-- Email -->
+                    <div class="form-group">
+                        <i class="fas fa-envelope form-icon"></i>
+                        <input type="text" id="email" class="form-control" placeholder=" " required>
+                        <label class="form-label" for="email">Email or Username</label>
+                        <div class="form-error" id="emailError">Please enter a valid email or username</div>
+                    </div>
+                    
+                    <!-- Password -->
+                    <div class="form-group">
+                        <i class="fas fa-lock form-icon"></i>
+                        <input type="password" id="password" class="form-control" placeholder=" " required>
+                        <label class="form-label" for="password">Password</label>
+                        <button type="button" class="password-toggle" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <div class="form-error" id="passwordError">Password is required</div>
+                    </div>
+                    
+                    <!-- Remember Me & Forgot Password -->
+                    <div class="login-options">
+                        <div class="remember-me">
+                            <input type="checkbox" id="rememberMe">
+                            <label for="rememberMe">Remember me</label>
+                        </div>
+                        
+                        <a href="forgot-password.html" class="forgot-password">
+                            <i class="fas fa-key"></i> Forgot Password?
+                        </a>
+                    </div>
+                    
+                    
+                    <!-- Submit Button -->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Signup Prompt -->
+                <div class="signup-prompt">
+                    Don't have an account? <a href="sign-up.html">Create account here</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+     <footer class="footer">
+      <div class="footer-content">
+          <div class="footer-section">
+              <div class="footer-brand-logo">
+                  <img src="logo.png" alt="Earncial Logo" onerror="this.style.display='none'">
+                  <span>Earncial</span>
+              </div>
+              <p>The world's most rewarding platform for earning money online. Complete simple social media tasks and get paid directly to your account — or grow your brand by reaching thousands of real, active users worldwide.</p>
+              <div class="footer-cac">
+                  <i class="fas fa-certificate"></i>
+                  <div>
+                      <div class="footer-cac-title">✅ CAC Verified Business</div>
+                      <div class="footer-cac-num">Earncial Global · RC No. <strong>9374009</strong><br>Corporate Affairs Commission, Nigeria</div>
+                  </div>
+              </div>
+              <div class="social-links">
+                  <a href="https://facebook.com/earncial" target="_blank" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                  <a href="https://twitter.com/earncial" target="_blank" class="social-link"><i class="fab fa-x-twitter"></i></a>
+                  <a href="https://instagram.com/earncial" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                  <a href="https://t.me/earncial" target="_blank" class="social-link"><i class="fab fa-telegram-plane"></i></a>
+                  <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                  <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                  <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+              </div>
+          </div>
+          <div class="footer-section">
+              <h3><i class="fas fa-link"></i> Quick Links</h3>
+              <ul class="footer-links">
+                  <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                  <li><a href="how-it-works.html"><i class="fas fa-cogs"></i> How It Works</a></li>
+                  <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+                  <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                  <li><a href="tutorials.html"><i class="fas fa-play-circle"></i> Tutorials</a></li>
+                  <li><a href="support.html"><i class="fas fa-headset"></i> Support</a></li>
+              </ul>
+          </div>
+          <div class="footer-section">
+              <h3><i class="fas fa-coins"></i> For Earners</h3>
+              <ul class="footer-links">
+                  <li><a href="sign-up.html"><i class="fas fa-user-plus"></i> Create Account</a></li>
+                  <li><a href="sign-in.html"><i class="fas fa-sign-in-alt"></i> Sign In</a></li>
+                  <li><a href="how-it-works.html"><i class="fas fa-cogs"></i> How It Works</a></li>
+                  <li><a href="faq.html#earner"><i class="fas fa-question-circle"></i> Earner FAQ</a></li>
+                  <li><a href="tutorials.html"><i class="fas fa-play-circle"></i> Tutorials</a></li>
+              </ul>
+          </div>
+          <div class="footer-section">
+              <h3><i class="fas fa-bullhorn"></i> For Advertisers</h3>
+              <ul class="footer-links">
+                  <li><a href="sign-up.html"><i class="fas fa-building"></i> Advertiser Sign Up</a></li>
+                  <li><a href="sign-in.html"><i class="fas fa-sign-in-alt"></i> Sign In</a></li>
+                  <li><a href="how-it-works.html"><i class="fas fa-cogs"></i> How It Works</a></li>
+                  <li><a href="faq.html#advertiser"><i class="fas fa-question-circle"></i> Advertiser FAQ</a></li>
+                  <li><a href="support.html"><i class="fas fa-headset"></i> Get Support</a></li>
+              </ul>
+          </div>
+          <div class="footer-section">
+              <h3><i class="fas fa-envelope"></i> Contact Us</h3>
+              <p>Have questions? We're here to help.</p>
+              <ul class="footer-links">
+                  <li><a href="mailto:support@earncial.com"><i class="fas fa-envelope"></i> support@earncial.com</a></li>
+                  <li><a href="support.html"><i class="fas fa-headset"></i> Support Center</a></li>
+                  <li><a href="privacy.html"><i class="fas fa-lock"></i> Privacy Policy</a></li>
+                  <li><a href="terms.html"><i class="fas fa-file-alt"></i> Terms of Service</a></li>
+                  <li><a href="cookies.html"><i class="fas fa-cookie-bite"></i> Cookie Policy</a></li>
+              </ul>
+          </div>
+      </div>
+      <div class="footer-bottom">
+          <div class="footer-bottom-links">
+              <a href="privacy.html">Privacy Policy</a>
+              <a href="terms.html">Terms of Service</a>
+              <a href="cookies.html">Cookie Policy</a>
+          </div>
+          <div class="footer-cac-tag">
+              <i class="fas fa-check-circle"></i> CAC Registered &middot; RC No. <strong style="margin-left:3px;">9374009</strong>
+          </div>
+          <div>&copy; 2026 Earncial. All rights reserved.</div>
+      </div>
+  </footer>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 class="modal-title">Login Successful!</h2>
+            <p class="modal-message">Welcome back to Earncial! Redirecting you to your dashboard now.</p>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="goToDashboard">Go to Dashboard</button>
+                <button class="btn btn-secondary" id="closeSuccessModal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal" id="errorModal">
+        <div class="modal-content">
+            <div class="modal-icon" style="color: var(--error-red);">
+                <i class="fas fa-times-circle"></i>
+            </div>
+            <h2 class="modal-title" style="color: var(--error-red);">Login Failed!</h2>
+            <p class="modal-message" id="errorMessageContent">Invalid email or password. Please check your credentials and try again.</p>
+            <div class="modal-actions">
+                <button class="btn btn-primary" style="background: var(--error-red);" id="closeErrorModal">Close</button>
+                <button class="btn btn-secondary" id="tryAgain">Try Again</button>
+            </div>
+        </div>
+    </div>
+ <!-- ── AI CHAT WIDGET ── -->
+      <link rel="stylesheet" href="/assets/css/ai-chat.css">
+      <div id="earncial-chat-root"></div>
+      <script src="/assets/js/ai-chat.js"></script>
+      <!-- ── END AI CHAT WIDGET ── -->
+    <script src="sign-in.js"></script>
+</body>
+</html>

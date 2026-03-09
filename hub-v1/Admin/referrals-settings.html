@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Settings | Earncial Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00aaff;
+            --primary-dark: #008ecc;
+            --primary-light: #e0f2fe;
+            --bg-body: #f8faff;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --sidebar-width: 260px;
+            --header-height: 70px;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+            --info: #06b6d4;
+        }
+
+        body.dark-mode {
+            --primary: #53d6ff;
+            --primary-dark: #00aaff;
+            --primary-light: #1e3a8a;
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            background: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ========== SIDEBAR ========== */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            backdrop-filter: blur(3px);
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--bg-card);
+            position: fixed;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .brand {
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--danger), var(--primary));
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+
+        .brand-text {
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--danger), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+            flex: 1;
+            overflow-y: auto;
+            list-style: none;
+        }
+
+        .menu-item {
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            color: var(--text-muted);
+            font-weight: 500;
+            border-left: 4px solid transparent;
+            margin-bottom: 2px;
+            cursor: pointer;
+        }
+
+        .menu-item i {
+            width: 25px;
+            font-size: 18px;
+            margin-right: 12px;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-header {
+            height: var(--header-height);
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 900;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        .header-left h2 {
+            color: var(--text-main);
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-left h2 i {
+            color: var(--primary);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .theme-toggle {
+            background: var(--primary-light);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--text-main);
+        }
+
+        .container {
+            padding: 30px;
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* ========== OVERVIEW CARDS ========== */
+        .overview-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .overview-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .card-content h4 {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .card-content h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .card-label {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ========== SETTINGS CARD ========== */
+        .settings-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-header h3 {
+            font-size: 20px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .card-header h3 i {
+            color: var(--primary);
+        }
+
+        .card-header p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* ========== TOGGLE SWITCH ========== */
+        .toggle-switch {
+            position: relative;
+        }
+
+        .toggle-switch input {
+            display: none;
+        }
+
+        .toggle-switch label {
+            display: block;
+            width: 60px;
+            height: 30px;
+            background: var(--border-color);
+            border-radius: 30px;
+            position: relative;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .toggle-switch label::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            transition: 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .toggle-switch input:checked + label {
+            background: var(--success);
+        }
+
+        .toggle-switch input:checked + label::after {
+            left: 33px;
+        }
+
+        /* ========== FORM GROUPS ========== */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group label i {
+            color: var(--primary);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 170, 255, 0.1);
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 8px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* ========== INFO BOXES ========== */
+        .info-box {
+            padding: 15px 20px;
+            border-radius: 10px;
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            border-left: 4px solid;
+        }
+
+        .info-box i {
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .info-box p {
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .info-box.info {
+            background: rgba(6, 182, 212, 0.1);
+            border-color: var(--info);
+            color: var(--info);
+        }
+
+        .info-box.success {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .info-box.warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: var(--warning);
+            color: var(--warning);
+        }
+
+        /* ========== REWARD PREVIEW ========== */
+        .reward-preview {
+            background: var(--bg-body);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .preview-item:last-child {
+            border-bottom: none;
+        }
+
+        .preview-item span {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .preview-item strong {
+            font-size: 16px;
+            color: var(--text-main);
+        }
+
+        .preview-item.highlight strong {
+            color: var(--success);
+            font-size: 18px;
+        }
+
+        /* ========== EXAMPLE BOX ========== */
+        .example-box {
+            background: var(--bg-body);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .example-box h5 {
+            font-size: 14px;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .example-box h5 i {
+            color: var(--purple);
+        }
+
+        .example-step {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            font-size: 13px;
+        }
+
+        .example-step span {
+            color: var(--text-muted);
+        }
+
+        .example-step strong {
+            color: var(--text-main);
+        }
+
+        .example-step.result strong {
+            color: var(--success);
+            font-size: 15px;
+        }
+
+        /* ========== SAVE BUTTON ========== */
+        .save-section {
+            position: sticky;
+            bottom: 0;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            z-index: 800;
+        }
+
+        .save-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--success);
+            font-weight: 500;
+        }
+
+        .save-status.saving {
+            color: var(--warning);
+        }
+
+        .save-btn {
+            padding: 14px 35px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .save-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .save-btn:disabled {
+            background: var(--border-color);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ========== TOAST ========== */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: var(--bg-card);
+            padding: 15px 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            min-width: 300px;
+            animation: slideIn 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .toast.success { border-left: 5px solid var(--success); }
+        .toast.error { border-left: 5px solid var(--danger); }
+        .toast.info { border-left: 5px solid var(--info); }
+
+        .toast i {
+            font-size: 20px;
+        }
+
+        .toast.success i { color: var(--success); }
+        .toast.error i { color: var(--danger); }
+        .toast.info i { color: var(--info); }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .overview-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .save-section {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .save-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SIDEBAR OVERLAY -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-logo">E</div>
+            <span class="brand-text">Earncial Admin</span>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li class="menu-item" onclick="navigate('dashboard.html')">
+                <i class="fas fa-home"></i> Dashboard
+            </li>
+            <li class="menu-item" onclick="navigate('tasks.html')">
+                <i class="fas fa-tasks"></i> Tasks Manager
+            </li>
+            <li class="menu-item" onclick="navigate('users.html')">
+                <i class="fas fa-users"></i> Users
+            </li>
+            <li class="menu-item" onclick="navigate('submissions.html')">
+                <i class="fas fa-clipboard-check"></i> Submissions
+            </li>
+            <li class="menu-item active">
+                <i class="fas fa-cog"></i> Platform Settings
+            </li>
+            <li class="menu-item" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </li>
+        </ul>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- HEADER -->
+        <header class="top-header">
+            <div class="header-left">
+                <div class="menu-toggle" onclick="openSidebar()">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <h2><i class="fas fa-cog"></i> Platform Settings</h2>
+            </div>
+            <div class="header-right">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="container">
+            
+            <!-- OVERVIEW CARDS -->
+            <div class="overview-cards">
+                <div class="overview-card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4>Activation Status</h4>
+                        <h2 id="activationStatus">Loading...</h2>
+                        <span class="card-label">Registration Requirement</span>
+                    </div>
+                </div>
+
+                <div class="overview-card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4>Activation Fee</h4>
+                        <h2 id="activationFeeDisplay">₦0</h2>
+                        <span class="card-label">Per New User</span>
+                    </div>
+                </div>
+
+                <div class="overview-card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4>Referral Program</h4>
+                        <h2 id="referralStatus">Loading...</h2>
+                        <span class="card-label">Current Status</span>
+                    </div>
+                </div>
+
+                <div class="overview-card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4>User Referral Reward</h4>
+                        <h2 id="referralRewardDisplay">₦0</h2>
+                        <span class="card-label">Per Activation</span>
+                    </div>
+                </div>
+
+                <div class="overview-card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                        <i class="fas fa-percent"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4>Advertiser Referral</h4>
+                        <h2 id="advertiserRewardDisplay">0%</h2>
+                        <span class="card-label">Of First Deposit</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1. ACTIVATION SETTINGS -->
+            <div class="settings-card">
+                <div class="card-header">
+                    <div>
+                        <h3><i class="fas fa-user-check"></i> Activation Settings</h3>
+                        <p>Configure user account activation requirements</p>
+                    </div>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="activationRequired" onchange="updatePreview()">
+                        <label for="activationRequired"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-money-bill"></i> Activation Fee (₦)
+                    </label>
+                    <input type="number" id="activationFee" min="0" step="100" placeholder="Enter activation fee" oninput="updatePreview()">
+                    <small>Amount users must pay to activate their account</small>
+                </div>
+
+                <div class="info-box info">
+                    <i class="fas fa-info-circle"></i>
+                    <div>
+                        <strong>About Activation</strong>
+                        <p>When enabled, new users must pay the activation fee before they can earn from tasks.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. REFERRAL PROGRAM (USERS) -->
+            <div class="settings-card">
+                <div class="card-header">
+                    <div>
+                        <h3><i class="fas fa-users"></i> User Referral Program</h3>
+                        <p>Manage referral rewards for user-to-user referrals</p>
+                    </div>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="referralEnabled" onchange="updatePreview()">
+                        <label for="referralEnabled"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-gift"></i> User Referral Activation Reward (₦)
+                    </label>
+                    <input type="number" id="referralReward" min="0" step="50" placeholder="Enter referral reward" oninput="updatePreview()">
+                    <small>Amount paid to referrer when their referee activates account</small>
+                </div>
+
+                <div class="reward-preview">
+                    <div class="preview-item">
+                        <span>Activation Fee:</span>
+                        <strong id="previewActivationFee">₦0</strong>
+                    </div>
+                    <div class="preview-item">
+                        <span>Referral Reward:</span>
+                        <strong id="previewReferralReward">₦0</strong>
+                    </div>
+                    <div class="preview-item highlight">
+                        <span>Platform Profit:</span>
+                        <strong id="previewProfit">₦0</strong>
+                    </div>
+                </div>
+
+                <div class="info-box success">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        <strong>Recommended Setup</strong>
+                        <p>Set referral reward at 40-60% of activation fee to balance user incentives and platform profit.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. ADVERTISER REFERRAL PROGRAM (NEW!) -->
+            <div class="settings-card">
+                <div class="card-header">
+                    <div>
+                        <h3><i class="fas fa-bullhorn"></i> Advertiser Referral Program</h3>
+                        <p>Reward users who refer advertisers (% of first deposit)</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-percent"></i> Advertiser Referral Percentage (%)
+                    </label>
+                    <input type="number" id="advertiserReferralPercent" min="0" max="20" step="1" placeholder="Enter percentage" oninput="updateAdvertiserPreview()">
+                    <small>Percentage of advertiser's first deposit paid to referrer (e.g., 5% of ₦10,000 = ₦500)</small>
+                </div>
+
+                <div class="example-box">
+                    <h5><i class="fas fa-calculator"></i> Example Calculation:</h5>
+                    <div class="example-step">
+                        <span>Advertiser First Deposit:</span>
+                        <strong id="exampleDeposit">₦10,000</strong>
+                    </div>
+                    <div class="example-step">
+                        <span>Referral Percentage:</span>
+                        <strong id="examplePercent">5%</strong>
+                    </div>
+                    <div class="example-step result">
+                        <span>Referrer Receives:</span>
+                        <strong id="exampleReward">₦500</strong>
+                    </div>
+                </div>
+
+                <div class="info-box warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <strong>Important Note</strong>
+                        <p>This reward is only paid ONCE when the advertiser makes their first deposit. Recommended: 3-10%</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SAVE SECTION -->
+        <div class="save-section">
+            <div class="save-status" id="saveStatus">
+                <i class="fas fa-check-circle"></i>
+                <span>All changes saved</span>
+            </div>
+            <button class="save-btn" id="saveBtn" onclick="saveSettings()">
+                <i class="fas fa-save"></i> Save All Settings
+            </button>
+        </div>
+    </main>
+
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="referrals-settings.js"></script>
+</body>
+</html>

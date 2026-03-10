@@ -3,7 +3,7 @@
 // COMPLETE - REAL API CALLS - NO PLACEHOLDERS
 // ================================================
 
-const API_URL = 'http://localhost:5000';
+const API_URL = 'https://earncial-backend-copy.onrender.com';
 
 // ============ EARNER-ONLY PAGE GUARD ============
 // Runs immediately - redirect if not an Earner account

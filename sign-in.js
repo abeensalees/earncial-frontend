@@ -4,7 +4,7 @@
 
 // ============ CONSTANTS ============
 //const API_URL = 'https://earncial-backend-copy.onrender.com';
-const API_URL = 'http://localhost:5000';
+const API_URL = 'https://earncial-backend-copy.onrender.com';
 
 // ============ DOM ELEMENTS ============
 const body = document.getElementById('body');

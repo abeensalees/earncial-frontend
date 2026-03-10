@@ -4,7 +4,7 @@
 // FINAL PRODUCTION VERSION - ALL FIXES APPLIED
 // ================================================
 
-const API_URL = 'http://localhost:5000';
+const API_URL = 'https://earncial-backend-copy.onrender.com';
 let token = localStorage.getItem('earncial_token');
 let currentUser = null;
 let currentTask = null;

@@ -4,7 +4,7 @@
 // FIXED VERSION WITH URL ENCODING
 // ================================================
 
-const API_URL = 'http://localhost:5000';
+const API_URL = 'https://earncial-backend-copy.onrender.com';
 let token = localStorage.getItem('earncial_token');
 let currentUser = null;
 
